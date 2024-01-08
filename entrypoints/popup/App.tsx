@@ -30,7 +30,7 @@ function App() {
       </div>
       <h1>WXT + React</h1>
       <div className="card">
-        <button id='myButton' onClick={onClick}>Click </button>
+        <button id='myButton' onClick={onClick}>Generar APA </button>
       </div>
     </>
   );
