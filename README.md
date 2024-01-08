@@ -1,3 +1,7 @@
-# WXT + React
+# Buleria Helper
 
-This template should help get you started developing with React in WXT.
+Extensión de navegador que ayude con ciertas tareas
+
+## TODO
+
+- [] Botón para generar bibliografia APA 7th a partir de los campos de texto
