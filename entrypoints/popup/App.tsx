@@ -10,17 +10,11 @@ function App() {
 
   async function onClick() {
     console.log("Clicking button");
-    // popup.js
-
     var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
-    if (tab == undefined) {
-      console.log("No tab found");
-      return;
-    }
-    console.log(tab);
     try {
-
-      await browser.tabs.executeScript(tab.id, { file: "content-scripts/test.js" });
+      if (tab) {
+        await browser.tabs.sendMessage(tab.id || 0, { command: "apa" });
+      }
     } catch (error) {
       console.log(error);
     }
