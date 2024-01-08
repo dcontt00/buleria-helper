@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import reactLogo from '@/assets/react.svg';
 import wxtLogo from '/wxt.svg';
 import { browser } from "wxt/browser"
-import ReactDom from "react-dom/client"
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
 
   async function onClick() {
     console.log("Clicking button");
