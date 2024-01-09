@@ -5,6 +5,7 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import NotesIcon from '@mui/icons-material/Notes';
 import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import HideAlert from "./HideAlert";
 export default function ApaGenerator() {
@@ -78,7 +79,7 @@ export default function ApaGenerator() {
     return (
         <div hidden={!showModule}>
             <Stack direction={"column"} spacing={2}>
-                <button onClick={generateAPA}>Generar APA</button>
+                <Button variant="contained" startIcon={<NotesIcon />} onClick={generateAPA}>Generar APA</Button>
 
                 {showAPAOptions &&
                     <>
@@ -96,7 +97,6 @@ export default function ApaGenerator() {
                         <Stack direction={"row"} spacing={2}>
                             <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
                             <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
-                            <HideAlert severity="success" showAlert={showAlertSuccess} setShowAlert={setShowAlertSuccess} message="Cita generada correctamente" />
                         </Stack>
                     </>
                 }
