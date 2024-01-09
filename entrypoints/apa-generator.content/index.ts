@@ -1,22 +1,38 @@
 import { defineContentScript } from "wxt/sandbox";
+type CitationInfo = {
+  title: string | undefined;
+  authors: string | undefined;
+  date: string | undefined;
+  journal: string | undefined;
+  volume: string | undefined;
+  doi: string | undefined;
+};
+
 export default defineContentScript({
   // Set manifest options
   matches: ["https://buleria.unileon.es/*"],
   runAt: undefined,
 
   main: () => {
-    console.log("main");
     browser.runtime.onMessage.addListener((message) => {
-      console.log("message", message);
+      switch (message.command) {
+        case "apa":
+          break;
+
+        case "generateCitation":
+          break;
+        default:
+          break;
+      }
       if (message.command === "apa") {
-        generateCitation();
+        var citationInfo = getCitationInfo();
+        generateCitation(citationInfo);
       }
     });
   },
 });
 
-function generateCitation() {
-  var citation: string;
+function getCitationInfo(): CitationInfo {
   var title: string;
   var authors: string;
   var date: string;
@@ -64,17 +80,29 @@ function generateCitation() {
     }
   });
 
-  let bibliographyElement: HTMLInputElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_identifier_citation"
-  ) as HTMLInputElement;
-
   title = titleElement?.value;
   authors = formatAuthors(authorsArray);
   date = dateElement?.value;
   journal = journalElement?.value;
   volume = volumeElement?.value;
+  return {
+    title: title,
+    authors: authors,
+    date: date,
+    journal: journal,
+    volume: volume,
+    doi: doi,
+  };
+}
 
-  citation = `${authors} (${date}). ${title}. ${journal}, ${volume}, ${doi}`;
+/**
+ * Generates an APA citation based on the information provided by the user.
+ */
+function generateCitation(citationInfo: CitationInfo) {
+  let bibliographyElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_identifier_citation"
+  ) as HTMLInputElement;
+  var citation = `${citationInfo.authors} (${citationInfo.date}). ${citationInfo.title}. ${citationInfo.journal}, ${citationInfo.volume}, ${citationInfo.doi}`;
   bibliographyElement.value = citation;
 }
 
