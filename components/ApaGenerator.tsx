@@ -3,7 +3,8 @@ import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import { sendMessage } from "@/messaging";
 import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
-import { Alert, Stack } from "@mui/material";
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Alert, InputAdornment, Stack, TextField } from "@mui/material";
 export default function ApaGenerator() {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -68,6 +69,19 @@ export default function ApaGenerator() {
 
                 {showAlertSuccess &&
                     <>
+                        <TextField
+                            label="TextField"
+                            value={citation}
+                            multiline
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            variant="standard"
+                        />
                         <Alert severity="success" >Se ha generado la cita correctamente</Alert>
                         <button onClick={pasteAPA}>Pegar APA</button>
                     </>
