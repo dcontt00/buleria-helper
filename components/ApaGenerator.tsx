@@ -1,12 +1,26 @@
 import { browser } from "wxt/browser"
+import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import { sendMessage } from "@/messaging";
 import CitationInfo from "@/interfaces/CitationInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Alert, Stack } from "@mui/material";
 export default function ApaGenerator() {
+    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
+    const [showAlertSuccess, setShowAlertSuccess] = useState<boolean>(false);
+    useEffect(() => {
+        const getTab = async () => {
+            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
+            if (tab) {
+                setTab(tab);
+            }
+        }
+        getTab();
+    }, []);
+
+
     async function generateAPA() {
-        var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
         try {
             if (tab) {
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
@@ -19,6 +33,7 @@ export default function ApaGenerator() {
                     console.log('Error: Not all attributes are defined');
                 }
                 console.log(response);
+                setShowAlertSuccess(true);
             }
         } catch (error) {
             console.log(error);
@@ -26,7 +41,6 @@ export default function ApaGenerator() {
     }
 
     async function pasteAPA() {
-        var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
         if (tab == undefined) {
             console.log('Error: No tab selected');
             return;
@@ -38,10 +52,14 @@ export default function ApaGenerator() {
         }
     }
     return (
-        <div className="card">
+        <div>
             <button id='myButton' onClick={generateAPA}>Generar APA</button>
-            <p>{citation}</p>
-            <button onClick={pasteAPA}> Pegar APA</button>
+            {showAlertSuccess &&
+                <>
+                    <button onClick={pasteAPA}>Pegar APA</button>
+                    <Alert severity="success" >Se ha generado la cita correctamente</Alert>
+                </>
+            }
         </div>
     )
 }
