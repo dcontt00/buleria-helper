@@ -16,12 +16,12 @@ export default defineContentScript({
 
   main: () => {
     onMessage("getCitationInfo", (message) => {
-      if (location.href.includes("submit")) {
+      if (location.href.includes("/submit/")) {
         // Submit submission page
         return getCitationInfoSubmit();
-      } else if (location.href.includes("edit")) {
+      } else if (location.href.includes("submit_metadata")) {
         // Edit submission page
-        alert("No es submit");
+        return getCitationInfoEdit();
       }
     });
 
@@ -33,6 +33,10 @@ export default defineContentScript({
   },
 });
 
+/**
+ * Paste the given citation into the bibliography element.
+ * @param citation - The citation to be pasted.
+ */
 function pasteCitation(citation: string) {
   let bibliographyElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_identifier_citation"
@@ -97,6 +101,69 @@ function getCitationInfoSubmit(): CitationInfo {
   date = dateElement?.value;
   journal = journalElement?.value;
   volume = volumeElement?.value;
+  return {
+    title: title,
+    authors: authors,
+    date: date,
+    journal: journal,
+    volume: volume,
+    doi: doi,
+  };
+}
+
+function getCitationInfoEdit(): CitationInfo {
+  var title = "";
+  var authors = "";
+  var date = "";
+  var journal = "";
+  var volume = "";
+  var doi = "";
+
+  var authorsArray: string[] = [];
+
+  let tds = document.querySelectorAll("td");
+
+  tds.forEach((td) => {
+    switch (td.innerText) {
+      case "dc. title":
+        if (td.nextElementSibling) {
+          title =
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
+      case "dc. contributor. author":
+        if (td.nextElementSibling) {
+          authorsArray.push(
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value
+          );
+        }
+        break;
+      case "dc. date":
+        if (td.nextElementSibling) {
+          date =
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
+      case "dc. journal. title":
+        if (td.nextElementSibling) {
+          journal =
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
+      case "dc. volume. number":
+        if (td.nextElementSibling) {
+          volume =
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
+      case "dc. identifier. doi":
+        if (td.nextElementSibling) {
+          doi = td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
+    }
+    authors = formatAuthors(authorsArray);
+  });
   return {
     title: title,
     authors: authors,
