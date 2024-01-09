@@ -5,15 +5,26 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import { Alert, Stack } from "@mui/material";
 export default function ApaGenerator() {
+    const urlPatters = [
+        /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
+        /^https:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/
+    ]
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlertSuccess, setShowAlertSuccess] = useState<boolean>(false);
+    const [showModule, setShowModule] = useState<boolean>(false);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
-            if (tab) {
+            if (tab != undefined) {
                 setTab(tab);
+                if (urlPatters.some(pattern => pattern.test(tab.url))) {
+                    console.log(tab.url)
+                    setShowModule(true);
+                } else {
+                    console.log("bad");
+                }
             }
         }
         getTab();
@@ -46,11 +57,12 @@ export default function ApaGenerator() {
             return;
         }
         if (citation) {
+
             await sendMessage("pasteCitation", citation, tab.id);
         }
     }
     return (
-        <div>
+        <div hidden={!showModule}>
             <Stack direction={"column"} spacing={2}>
                 <button onClick={generateAPA}>Generar APA</button>
 

@@ -16,9 +16,13 @@ export default defineContentScript({
 
   main: () => {
     onMessage("getCitationInfo", (message) => {
-      var citationInfo = getCitationInfo();
-      console.log(citationInfo);
-      return citationInfo;
+      if (location.href.includes("submit")) {
+        // Submit submission page
+        return getCitationInfoSubmit();
+      } else if (location.href.includes("edit")) {
+        // Edit submission page
+        alert("No es submit");
+      }
     });
 
     onMessage("pasteCitation", (message) => {
@@ -36,7 +40,11 @@ function pasteCitation(citation: string) {
   bibliographyElement.value = citation;
 }
 
-function getCitationInfo(): CitationInfo {
+/**
+ * Retrieves the citation information from the HTML form and returns it as a CitationInfo object.
+ * @returns The citation information.
+ */
+function getCitationInfoSubmit(): CitationInfo {
   var title: string;
   var authors: string;
   var date: string;
