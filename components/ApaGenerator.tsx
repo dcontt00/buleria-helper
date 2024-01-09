@@ -15,7 +15,7 @@ export default function ApaGenerator() {
     }
     return (
         <div className="card">
-            <button id='myButton' onClick={onClick}>Generar APA </button>
+            <button id='myButton' onClick={onClick}>Generar APA</button>
         </div>
     )
 }
