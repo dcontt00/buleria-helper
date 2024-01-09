@@ -1,14 +1,24 @@
 import { browser } from "wxt/browser"
 import { sendMessage } from "@/messaging";
-
+import CitationInfo from "@/interfaces/CitationInfo";
+import { useState } from "react";
 export default function ApaGenerator() {
+    const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     async function onClick() {
-        console.log("Clicking button");
         var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
         try {
             if (tab) {
-                const length = await sendMessage('getStringLength', 'hello world', tab.id);
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
+                const { title, authors, date, journal, volume, doi } = response;
+                // Check every atributte is defined
+                if (title && authors && date && journal && volume && doi) {
+                    setCitationInfo(response);
+                    const apa = `APA: ${authors}. (${date}). ${title}. ${journal}, ${volume}, ${doi}`;
+                    console.log(apa);
+                    await sendMessage('showNotification', apa, tab.id);
+                } else {
+                    await sendMessage('showNotification', 'No se ha podido generar la cita', tab.id);
+                }
                 console.log(response);
             }
         } catch (error) {
@@ -22,3 +32,4 @@ export default function ApaGenerator() {
         </div>
     )
 }
+

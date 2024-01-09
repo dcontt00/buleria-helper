@@ -15,9 +15,6 @@ export default defineContentScript({
   runAt: undefined,
 
   main: () => {
-    onMessage("getStringLength", (message) => {
-      return message.data.length;
-    });
     onMessage("getCitationInfo", (message) => {
       var citationInfo = getCitationInfo();
       return citationInfo;
