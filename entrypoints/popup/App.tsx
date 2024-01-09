@@ -11,7 +11,7 @@ function App() {
       <div>
         <img src={wxtLogo} className="logo" alt="WXT logo" />
       </div>
-      <h1>WXT + React</h1>
+      <h1>Buleria Helper</h1>
       <ApaGenerator />
     </>
   );

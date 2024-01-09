@@ -22,6 +22,7 @@ export default defineContentScript({
     });
 
     onMessage("pasteCitation", (message) => {
+      console.log(message.data);
       pasteCitation(message.data);
       return true;
     });
@@ -96,17 +97,6 @@ function getCitationInfo(): CitationInfo {
     volume: volume,
     doi: doi,
   };
-}
-
-/**
- * Generates an APA citation based on the information provided by the user.
- */
-function generateCitation(citationInfo: CitationInfo) {
-  let bibliographyElement: HTMLInputElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_identifier_citation"
-  ) as HTMLInputElement;
-  var citation = `${citationInfo.authors} (${citationInfo.date}). ${citationInfo.title}. ${citationInfo.journal}, ${citationInfo.volume}, ${citationInfo.doi}`;
-  bibliographyElement.value = citation;
 }
 
 /**
