@@ -1,4 +1,5 @@
 import { defineContentScript } from "wxt/sandbox";
+import { onMessage } from "@/messaging";
 type CitationInfo = {
   title: string | undefined;
   authors: string | undefined;
@@ -14,20 +15,12 @@ export default defineContentScript({
   runAt: undefined,
 
   main: () => {
-    browser.runtime.onMessage.addListener((message) => {
-      switch (message.command) {
-        case "apa":
-          break;
-
-        case "generateCitation":
-          break;
-        default:
-          break;
-      }
-      if (message.command === "apa") {
-        var citationInfo = getCitationInfo();
-        generateCitation(citationInfo);
-      }
+    onMessage("getStringLength", (message) => {
+      return message.data.length;
+    });
+    onMessage("getCitationInfo", (message) => {
+      var citationInfo = getCitationInfo();
+      return citationInfo;
     });
   },
 });

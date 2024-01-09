@@ -1,4 +1,5 @@
 import { browser } from "wxt/browser"
+import { sendMessage } from "@/messaging";
 
 export default function ApaGenerator() {
     async function onClick() {
@@ -6,7 +7,9 @@ export default function ApaGenerator() {
         var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
         try {
             if (tab) {
-                await browser.tabs.sendMessage(tab.id || 0, { command: "apa" });
+                const length = await sendMessage('getStringLength', 'hello world', tab.id);
+                const response = await sendMessage('getCitationInfo', undefined, tab.id);
+                console.log(response);
             }
         } catch (error) {
             console.log(error);
