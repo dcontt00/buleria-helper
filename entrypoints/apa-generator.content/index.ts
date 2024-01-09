@@ -105,24 +105,33 @@ function getCitationInfo(): CitationInfo {
  * @param authors - The array of authors to be formatted.
  * @returns The formatted authors as a string.
  */
-function formatAuthors(authors: string[]) {
+function formatAuthors(authors: string[]): string {
   var formattedAuthors: string[] = [];
   authors.forEach((author) => {
     var authorParts = author.split(", ");
     var surnames = authorParts[0].split(" ");
+    var names = authorParts[1].split(" ");
 
     // Capitalize first letter of surnames
     var formattedSurnames = "";
     surnames.forEach((surname) => {
-      formattedSurnames += `${surname[0].toUpperCase()}${surname.slice(1)} `;
+      formattedSurnames += `${surname[0].toUpperCase()}${surname.slice(1)}`;
+      // Add space between surnames
+      if (surnames.indexOf(surname) != surnames.length - 1) {
+        formattedSurnames += " ";
+      }
     });
 
-    var names = authorParts[1].split(" ");
+    // Capitalize first letter of names
     var formattedName = "";
     names.forEach((name) => {
-      formattedName += `${name[0]}. `;
+      formattedName += `${name[0].toUpperCase()}.`;
+      // Add space between names
+      if (names.indexOf(name) != names.length - 1) {
+        formattedName += " ";
+      }
     });
-    var formattedAuthor = `${surnames}, ${formattedName}`;
+    var formattedAuthor = `${formattedSurnames}, ${formattedName}`;
     formattedAuthors.push(formattedAuthor);
   });
   return formattedAuthors.join("; ");
