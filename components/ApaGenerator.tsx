@@ -27,6 +27,7 @@ export default function ApaGenerator() {
                 const { title, authors, date, journal, volume, doi } = response;
                 // Check every atributte is defined
                 if (title && authors && date && journal && volume && doi) {
+                    console.log(response);
                     setCitationInfo(response);
                     setCitation(generateCitation(response));
                 } else {
@@ -42,24 +43,24 @@ export default function ApaGenerator() {
 
     async function pasteAPA() {
         if (tab == undefined) {
-            console.log('Error: No tab selected');
             return;
         }
         if (citation) {
-
-            const response = await sendMessage("pasteCitation", citation, tab.id);
-            console.log(response);
+            await sendMessage("pasteCitation", citation, tab.id);
         }
     }
     return (
         <div>
-            <button id='myButton' onClick={generateAPA}>Generar APA</button>
-            {showAlertSuccess &&
-                <>
-                    <button onClick={pasteAPA}>Pegar APA</button>
-                    <Alert severity="success" >Se ha generado la cita correctamente</Alert>
-                </>
-            }
+            <Stack direction={"column"} spacing={2}>
+                <button onClick={generateAPA}>Generar APA</button>
+
+                {showAlertSuccess &&
+                    <>
+                        <Alert severity="success" >Se ha generado la cita correctamente</Alert>
+                        <button onClick={pasteAPA}>Pegar APA</button>
+                    </>
+                }
+            </Stack>
         </div>
     )
 }
