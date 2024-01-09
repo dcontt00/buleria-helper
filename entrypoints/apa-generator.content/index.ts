@@ -61,7 +61,7 @@ function pasteCitation(citation: string) {
 }
 
 /**
- * Retrieves the citation information from the HTML form and returns it as a CitationInfo object.
+ * Retrieves the citation information from Submission Submit Page and returns it as a CitationInfo object.
  * @returns The citation information.
  */
 function getCitationInfoSubmit(): CitationInfo {
@@ -127,6 +127,10 @@ function getCitationInfoSubmit(): CitationInfo {
   };
 }
 
+/**
+ * Retrieves the citation information from the Submission Edit page and returns it as a CitationInfo object.
+ * @returns The citation information.
+ */
 function getCitationInfoEdit(): CitationInfo {
   var title = "";
   var authors = "";
