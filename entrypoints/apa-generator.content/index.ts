@@ -17,10 +17,23 @@ export default defineContentScript({
   main: () => {
     onMessage("getCitationInfo", (message) => {
       var citationInfo = getCitationInfo();
+      console.log(citationInfo);
       return citationInfo;
+    });
+
+    onMessage("pasteCitation", (message) => {
+      pasteCitation(message.data);
+      return true;
     });
   },
 });
+
+function pasteCitation(citation: string) {
+  let bibliographyElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_identifier_citation"
+  ) as HTMLInputElement;
+  bibliographyElement.value = citation;
+}
 
 function getCitationInfo(): CitationInfo {
   var title: string;

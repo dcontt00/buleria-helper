@@ -4,6 +4,7 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useState } from "react";
 export default function ApaGenerator() {
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
+    const [citation, setCitation] = useState<string | undefined>(undefined);
     async function onClick() {
         var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
         try {
@@ -15,9 +16,8 @@ export default function ApaGenerator() {
                     setCitationInfo(response);
                     const apa = `APA: ${authors}. (${date}). ${title}. ${journal}, ${volume}, ${doi}`;
                     console.log(apa);
-                    await sendMessage('showNotification', apa, tab.id);
                 } else {
-                    await sendMessage('showNotification', 'No se ha podido generar la cita', tab.id);
+                    console.log('Error: Not all attributes are defined');
                 }
                 console.log(response);
             }
@@ -29,6 +29,7 @@ export default function ApaGenerator() {
     return (
         <div className="card">
             <button id='myButton' onClick={onClick}>Generar APA</button>
+            {/* TODO: Añadir boton para pegar cita */}
         </div>
     )
 }

@@ -3,6 +3,7 @@ import CitationInfo from "@/interfaces/CitationInfo";
 interface ProtocolMap {
   getStringLength(data: string): number;
   getCitationInfo(): CitationInfo;
+  pasteCitation(citation: string): boolean;
 }
 
 export const { sendMessage, onMessage } =
