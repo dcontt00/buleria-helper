@@ -109,8 +109,15 @@ function formatAuthors(authors: string[]) {
   var formattedAuthors: string[] = [];
   authors.forEach((author) => {
     var authorParts = author.split(", ");
-    var surnames = authorParts[0].toUpperCase();
-    var names = authorParts[1].toUpperCase().split(" ");
+    var surnames = authorParts[0].split(" ");
+    // Capitalize first letter of surnames
+    var formattedSurnames = "";
+    surnames.forEach((surname) => {
+      formattedSurnames += `${surname[0].toUpperCase()}${surname.slice(1)} `;
+      alert(formattedSurnames);
+    });
+
+    var names = authorParts[1].split(" ");
     var formattedName = "";
     names.forEach((name) => {
       formattedName += `${name[0]}. `;
