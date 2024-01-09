@@ -3,7 +3,9 @@ import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import { sendMessage } from "@/messaging";
 import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
-import { Alert, Stack, TextField } from "@mui/material";
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Alert, Button, Stack, TextField } from "@mui/material";
 export default function ApaGenerator() {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -88,9 +90,10 @@ export default function ApaGenerator() {
                             }}
                             variant="outlined"
                         />
-                        <Alert severity="success">Se ha generado la cita correctamente</Alert>
-                        <button onClick={copyToClipboard}>Copiar APA al portapapeles</button>
-                        <button onClick={pasteAPA}>Pegar APA</button>
+                        <Stack direction={"row"} spacing={2}>
+                            <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
+                            <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
+                        </Stack>
                     </>
                 }
             </Stack>
