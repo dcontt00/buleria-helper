@@ -60,7 +60,6 @@ export default function ApaGenerator() {
                 }
                 console.log(response);
                 setShowAPAOptions(true);
-                setShowAlertSuccess(true);
             }
         } catch (error) {
             console.log(error);
@@ -72,8 +71,8 @@ export default function ApaGenerator() {
             return;
         }
         if (citation) {
-
             await sendMessage("pasteCitation", citation, tab.id);
+            setShowAlertSuccess(true);
         }
     }
     return (
@@ -97,6 +96,7 @@ export default function ApaGenerator() {
                         <Stack direction={"row"} spacing={2}>
                             <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
                             <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
+                            <HideAlert show={showAlertSuccess} setShow={setShowAlertSuccess} message="Pegado" severity="success" />
                         </Stack>
                     </>
                 }
