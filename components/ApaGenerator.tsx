@@ -99,7 +99,7 @@ export default function ApaGenerator() {
                             variant="outlined"
                         />
                         <Stack direction={"row"} spacing={2}>
-                            <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
+                            <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar al portapapeles</Button>
                             <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
                             <HideAlert show={showAlert} setShow={setShowAlert} message={alertMessage} severity="success" />
                         </Stack>
