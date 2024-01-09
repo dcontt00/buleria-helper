@@ -26,7 +26,6 @@ export default defineContentScript({
     });
 
     onMessage("pasteCitation", (message) => {
-      console.log(message.data);
       pasteCitation(message.data);
       return true;
     });
@@ -38,10 +37,27 @@ export default defineContentScript({
  * @param citation - The citation to be pasted.
  */
 function pasteCitation(citation: string) {
-  let bibliographyElement: HTMLInputElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_identifier_citation"
-  ) as HTMLInputElement;
-  bibliographyElement.value = citation;
+  if (location.href.includes("/submit/")) {
+    // Submit submission page
+    let bibliographyElement: HTMLInputElement = document.getElementById(
+      "aspect_submission_StepTransformer_field_dc_identifier_citation"
+    ) as HTMLInputElement;
+    bibliographyElement.value = citation;
+    return true;
+  } else if (location.href.includes("submit_metadata")) {
+    // Edit submission page
+    let inputElement;
+    let tds = document.querySelectorAll("td");
+
+    let td = Array.from(tds).find(
+      (td) => td.innerText == "dc. identifier. citation"
+    );
+    let textarea = td?.nextElementSibling?.getElementsByTagName("textarea")[0];
+    if (textarea) {
+      textarea.value = citation;
+    }
+    return true;
+  }
 }
 
 /**
