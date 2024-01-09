@@ -16,7 +16,8 @@ export default function ApaGenerator() {
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
-    const [showAlertSuccess, setShowAlertSuccess] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
     const [showModule, setShowModule] = useState<boolean>(false);
     const [showAPAOptions, setShowAPAOptions] = useState<boolean>(false);
     useEffect(() => {
@@ -34,16 +35,7 @@ export default function ApaGenerator() {
         }
         getTab();
     }, []);
-    async function copyToClipboard() {
-        if (citation) {
-            try {
-                await navigator.clipboard.writeText(citation);
-                console.log('Texto copiado al portapapeles');
-            } catch (err) {
-                console.log('Error al copiar texto al portapapeles: ', err);
-            }
-        }
-    }
+
 
     async function generateAPA() {
         try {
@@ -66,13 +58,26 @@ export default function ApaGenerator() {
         }
     }
 
+    async function copyToClipboard() {
+        if (citation) {
+            try {
+                await navigator.clipboard.writeText(citation);
+                setAlertMessage("Cita copiada");
+                setShowAlert(true);
+            } catch (err) {
+                console.log('Error al copiar texto al portapapeles: ', err);
+            }
+        }
+    }
+
     async function pasteAPA() {
         if (tab == undefined) {
             return;
         }
         if (citation) {
             await sendMessage("pasteCitation", citation, tab.id);
-            setShowAlertSuccess(true);
+            setAlertMessage("Cita pegada");
+            setShowAlert(true);
         }
     }
     return (
@@ -96,7 +101,7 @@ export default function ApaGenerator() {
                         <Stack direction={"row"} spacing={2}>
                             <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
                             <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
-                            <HideAlert show={showAlertSuccess} setShow={setShowAlertSuccess} message="Pegado" severity="success" />
+                            <HideAlert show={showAlert} setShow={setShowAlert} message={alertMessage} severity="success" />
                         </Stack>
                     </>
                 }
