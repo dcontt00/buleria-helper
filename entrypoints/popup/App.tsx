@@ -3,17 +3,19 @@ import wxtLogo from '/wxt.svg';
 import { browser } from "wxt/browser"
 import './App.css';
 import ApaGenerator from '@/components/ApaGenerator';
+import { Stack, ThemeProvider, Typography } from '@mui/material';
+import theme from '@/theme';
 
 function App() {
 
   return (
-    <>
-      <div>
+    <ThemeProvider theme={theme}>
+      <Stack direction={"row"} spacing={2} justifyContent={"center"}>
         <img src={wxtLogo} className="logo" alt="WXT logo" />
-      </div>
-      <h1>Buleria Helper</h1>
+        <Typography variant="h1">Buleria Helper</Typography>
+      </Stack>
       <ApaGenerator />
-    </>
+    </ThemeProvider>
   );
 }
 
