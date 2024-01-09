@@ -5,7 +5,8 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Alert, Button, Stack, TextField } from "@mui/material";
+import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
+import HideAlert from "./HideAlert";
 export default function ApaGenerator() {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -16,6 +17,7 @@ export default function ApaGenerator() {
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlertSuccess, setShowAlertSuccess] = useState<boolean>(false);
     const [showModule, setShowModule] = useState<boolean>(false);
+    const [showAPAOptions, setShowAPAOptions] = useState<boolean>(false);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
@@ -56,6 +58,7 @@ export default function ApaGenerator() {
                     console.log('Error: Not all attributes are defined');
                 }
                 console.log(response);
+                setShowAPAOptions(true);
                 setShowAlertSuccess(true);
             }
         } catch (error) {
@@ -77,7 +80,7 @@ export default function ApaGenerator() {
             <Stack direction={"column"} spacing={2}>
                 <button onClick={generateAPA}>Generar APA</button>
 
-                {showAlertSuccess &&
+                {showAPAOptions &&
                     <>
                         <TextField
                             value={citation}
@@ -93,6 +96,7 @@ export default function ApaGenerator() {
                         <Stack direction={"row"} spacing={2}>
                             <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar APA al portapapeles</Button>
                             <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
+                            <HideAlert severity="success" showAlert={showAlertSuccess} setShowAlert={setShowAlertSuccess} message="Cita generada correctamente" />
                         </Stack>
                     </>
                 }
