@@ -8,8 +8,6 @@ export default function Keywords() {
         /^https:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/
     ]
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
-    const [showModule, setShowModule] = useState<boolean>(false);
-    const [showTextFields, setShowTextFields] = useState<boolean>(false);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
@@ -17,7 +15,6 @@ export default function Keywords() {
                 setTab(tab);
                 if (urlPatters.some(pattern => pattern.test(tab.url))) {
                     console.log(tab.url)
-                    setShowModule(true);
                 } else {
                     console.log("bad");
                 }
@@ -25,12 +22,6 @@ export default function Keywords() {
         }
         getTab();
     }, []);
-
-    function onClick() {
-        setShowTextFields(true);
-    }
-
-
 
     return (
 
