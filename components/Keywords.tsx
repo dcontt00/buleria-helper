@@ -33,16 +33,7 @@ export default function Keywords() {
 
 
     return (
-        <div hidden={!showModule}>
-            <Stack direction={"column"} spacing={2} >
-                <Button variant="contained" onClick={onClick}>Keywords</Button>
-                {
-                    showTextFields ? (
-                        <TextField id="outlined-basic" label="Palabras clave" variant="outlined" />
-                    ) : null
-                }
-            </Stack>
 
-        </div>
+        <TextField id="outlined-basic" label="Palabras clave" variant="outlined" />
     )
 }

@@ -81,32 +81,25 @@ export default function ApaGenerator() {
         }
     }
     return (
-        <div hidden={!showModule}>
-            <Stack direction={"column"} spacing={2}>
-                <Button variant="contained" startIcon={<NotesIcon />} onClick={generateAPA}>Generar APA</Button>
+        <Stack direction={"column"} spacing={2}>
 
-                {showAPAOptions &&
-                    <>
-                        <TextField
-                            value={citation}
-                            multiline
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            inputProps={{
-                                style: { textAlign: "justify" },
-                            }}
-                            variant="outlined"
-                        />
-                        <Stack direction={"row"} spacing={2}>
-                            <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar al portapapeles</Button>
-                            <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
-                            <HideAlert show={showAlert} setShow={setShowAlert} message={alertMessage} severity="success" />
-                        </Stack>
-                    </>
-                }
+            <TextField
+                value={citation}
+                multiline
+                InputProps={{
+                    readOnly: true,
+                }}
+                inputProps={{
+                    style: { textAlign: "justify" },
+                }}
+                variant="outlined"
+            />
+            <Stack direction={"row"} spacing={2}>
+                <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar al portapapeles</Button>
+                <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
+                <HideAlert show={showAlert} setShow={setShowAlert} message={alertMessage} severity="success" />
             </Stack>
-        </div>
+        </Stack>
     )
 }
 /**
