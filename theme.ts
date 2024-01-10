@@ -1,8 +1,12 @@
 import { createTheme } from "@mui/material";
+// Comprueba si el navegador está en modo oscuro
+const isDarkMode =
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 var theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: isDarkMode ? "dark" : "light",
     primary: {
       main: "#00bcd4",
     },
