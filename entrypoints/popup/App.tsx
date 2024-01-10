@@ -1,8 +1,7 @@
-import reactLogo from '@/assets/react.svg';
 import wxtLogo from '/wxt.svg';
-import { browser } from "wxt/browser"
 import './App.css';
 import ApaGenerator from '@/components/ApaGenerator';
+import Keywords from '@/components/Keywords';
 import { Stack, ThemeProvider, Typography } from '@mui/material';
 import theme from '@/theme';
 
@@ -12,8 +11,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Stack direction={"row"} spacing={2} justifyContent={"center"}>
         <img src={wxtLogo} className="logo" alt="WXT logo" />
-        <Typography variant="h1">Buleria Helper</Typography>
+        <Typography variant="h4">Buleria Helper</Typography>
       </Stack>
+      <Keywords />
       <ApaGenerator />
     </ThemeProvider>
   );
