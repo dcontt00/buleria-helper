@@ -18,8 +18,6 @@ export default function ApaGenerator() {
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
-    const [showModule, setShowModule] = useState<boolean>(false);
-    const [showAPAOptions, setShowAPAOptions] = useState<boolean>(false);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
@@ -27,7 +25,7 @@ export default function ApaGenerator() {
                 setTab(tab);
                 if (urlPatters.some(pattern => pattern.test(tab.url))) {
                     console.log(tab.url)
-                    setShowModule(true);
+                    await generateAPA(tab);
                 } else {
                     console.log("bad");
                 }
@@ -37,7 +35,8 @@ export default function ApaGenerator() {
     }, []);
 
 
-    async function generateAPA() {
+    async function generateAPA(tab?: Tabs.Tab) {
+        console.log("Generating APA");
         try {
             if (tab) {
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
@@ -51,7 +50,8 @@ export default function ApaGenerator() {
                     console.log('Error: Not all attributes are defined');
                 }
                 console.log(response);
-                setShowAPAOptions(true);
+            } else {
+                console.log("Tab is undefined");
             }
         } catch (error) {
             console.log(error);
