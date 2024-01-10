@@ -4,7 +4,6 @@ interface ProtocolMap {
   getStringLength(data: string): number;
   getCitationInfo(): CitationInfo;
   pasteCitation(citation: string): boolean;
-  pasteKeywords(keywords: string[]): boolean;
   pasteKeyword(keyword: string): boolean;
 }
 
