@@ -18,8 +18,6 @@ function App() {
     if (showKeywords) {
       return <Keywords />
     }
-
-
   }
 
   function backButtonClick() {
