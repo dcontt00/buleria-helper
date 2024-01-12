@@ -7,6 +7,9 @@ export default defineConfig({
     plugins: [react()],
   }),
   manifest: {
+    name: "Bulería Helper",
+    description:
+      "Extensión para ayudar a la administracion del repositorio buleria.unileon.es",
     permissions: ["https://buleria.unileon.es/*", "activeTab"],
     browser_specific_settings: {
       gecko: {
