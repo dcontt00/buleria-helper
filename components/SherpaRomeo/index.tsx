@@ -1,7 +1,7 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { sendMessage } from "@/messaging";
 import axios from "axios";
 import { PublisherPolicy } from "@/types";
@@ -16,6 +16,7 @@ export default function SherpaRomeo() {
     const [issn, setIssn] = useState<string>("");
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+    const [notFound, setNotFound] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -111,6 +112,7 @@ export default function SherpaRomeo() {
 
         ).catch((error) => {
             console.log(error);
+            setNotFound(true);
             return [];
         });
         return result;
@@ -139,9 +141,13 @@ export default function SherpaRomeo() {
     return (
         <Stack direction={"column"} spacing={2}>
             <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
+
             <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
             <Button variant="contained" onClick={onClick} disabled={buttonDisabled}>Buscar</Button>
             <PublisherPolicyData PublisherPolicies={publisherPolicies} />
+            {
+                notFound && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
+            }
         </Stack>
     )
 }
