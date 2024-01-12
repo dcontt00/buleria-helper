@@ -60,13 +60,13 @@ export default function Keywords() {
     }
 
     return (
-        <>
-            <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
+        <Stack direction="column" spacing={1}>
+            <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
             <TextField id="outlined-basic" label="Palabras clave" variant="outlined" value={keywordsString} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setKeywordsString(event.target.value)
             }} />
             <Button variant="contained" color="primary" onClick={onClick}>Aceptar</Button>
-        </>
+        </Stack>
     )
 }
 async function sleep(ms: number) {
