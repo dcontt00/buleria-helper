@@ -11,11 +11,7 @@ type CitationInfo = {
 
 export default defineContentScript({
   // Set manifest options
-  matches: [
-    "https://buleria.unileon.es/*",
-    "http://buleria.unileon.es/*",
-    "buleria.unileon.es/*",
-  ],
+  matches: ["https://buleria.unileon.es/*", "http://buleria.unileon.es/*"],
   runAt: "document_end",
 
   main: () => {
