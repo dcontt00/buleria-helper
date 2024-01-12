@@ -8,5 +8,11 @@ export default defineConfig({
   }),
   manifest: {
     permissions: ["https://buleria.unileon.es/*", "activeTab"],
+    browser_specific_settings: {
+      gecko: {
+        id: "buleria-helper@dcontt00",
+        strict_min_version: "60.0",
+      },
+    },
   },
 });
