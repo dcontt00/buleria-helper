@@ -1,10 +1,11 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { sendMessage } from "@/messaging";
 import axios from "axios";
 import { PublisherPolicy } from "@/types";
+import PublisherPolicyData from "./PublisherPolicyData";
 
 export default function SherpaRomeo() {
     const urlPatters = [
@@ -53,10 +54,12 @@ export default function SherpaRomeo() {
             var publisherPolicies: PublisherPolicy[] = [];
             for (const PublisherPolicy of response.data.items[0].publisher_policy) {
                 for (const PermittedOA of PublisherPolicy.permitted_oa) {
+                    console.log(PermittedOA);
                     var license = undefined;
                     var embargo = undefined;
 
                     var id = PermittedOA.id;
+                    var articleVersion = PermittedOA.article_version_phrases[0].phrase;
                     var conditions = PermittedOA.conditions;
                     if (PermittedOA.license) {
                         license = PermittedOA.license[0].license_phrases[0].phrase;
@@ -87,6 +90,7 @@ export default function SherpaRomeo() {
 
                     var publisherPolicy: PublisherPolicy = {
                         id: id,
+                        articleVersion: articleVersion,
                         conditions: conditions,
                         license: license,
                         embargo: embargo,
@@ -131,24 +135,12 @@ export default function SherpaRomeo() {
     }
 
     return (
-        <>
+        <Stack direction={"column"} spacing={2}>
             <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
             <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
             <Button variant="contained" onClick={onClick} disabled={buttonDisabled}>Buscar</Button>
-            {publisherPolicies.map((publisherPolicy) => {
-                return (
-                    <>
-                        <Typography variant="body1">ID: {publisherPolicy.id}</Typography>
-                        <Typography variant="body1">Condiciones: {publisherPolicy.conditions}</Typography>
-                        <Typography variant="body1">Licencia: {publisherPolicy.license}</Typography>
-                        <Typography variant="body1">Embargo: {publisherPolicy.embargo}</Typography>
-                        <Typography variant="body1">Localizaciones: {publisherPolicy.locations}</Typography>
-                        <Typography variant="body1">Propietario: {publisherPolicy.conditions}</Typography>
-                    </>
-                )
-            }
-            )}
-        </>
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} />
+        </Stack>
     )
 }
 async function sleep(ms: number) {

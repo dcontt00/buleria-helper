@@ -1,5 +1,6 @@
 type PublisherPolicy = {
   id: number;
+  articleVersion: string;
   conditions: string[];
   license: string;
   embargo: string | undefined;
