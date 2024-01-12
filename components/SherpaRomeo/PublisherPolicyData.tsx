@@ -1,5 +1,5 @@
 import { PublisherPolicy } from "@/types"
-import { Grid, Paper, Stack, Typography } from "@mui/material"
+import { Grid, Link, Paper, Stack, Typography } from "@mui/material"
 
 export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: PublisherPolicy[] }) {
 
@@ -74,6 +74,36 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
             )
         }
     }
+    function CopyrightOwner(PublisherPolicy: PublisherPolicy) {
+        if (PublisherPolicy.copyrightOwner != undefined) {
+            return (
+                <>
+                    <Grid item xs={4}>
+                        <Typography variant="body1">Copyright Owner</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography variant="body1" align="left">{PublisherPolicy.copyrightOwner} </Typography>
+                    </Grid>
+                </>
+            )
+        }
+    }
+    function PublisherDeposit(PublisherPolicy: PublisherPolicy) {
+        if (PublisherPolicy.publisherDeposit != undefined) {
+            return (
+                <>
+                    <Grid item xs={4}>
+                        <Typography variant="body1">Publisher Deposit</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Link href={PublisherPolicy.publisherDeposit.url} target="_blank" rel="noopener noreferrer">
+                            <Typography variant="body1" align="left">{PublisherPolicy.publisherDeposit.name} </Typography>
+                        </Link>
+                    </Grid>
+                </>
+            )
+        }
+    }
 
     return (
         <Stack direction="column" spacing={2}>
@@ -87,8 +117,9 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                                 </Grid>
                                 {Embargo(PublisherPolicy)}
                                 {Licencia(PublisherPolicy)}
+                                {CopyrightOwner(PublisherPolicy)}
+                                {PublisherDeposit(PublisherPolicy)}
                                 {Locations(PublisherPolicy)}
-
                                 {Conditions(PublisherPolicy)}
                             </Grid>
                         </Paper>

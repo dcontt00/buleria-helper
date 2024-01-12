@@ -82,10 +82,12 @@ export default function SherpaRomeo() {
                         copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
                     }
 
+                    var publiserDeposit = undefined
                     var publisherDepositURL, publisherDepositName;
                     if (PermittedOA.publisher_deposit) {
                         publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
                         publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
+                        publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
                     }
 
                     var publisherPolicy: PublisherPolicy = {
@@ -96,7 +98,7 @@ export default function SherpaRomeo() {
                         embargo: embargo,
                         locations: locations,
                         copyrightOwner: copyrightOwner,
-                        publisherDeposit: { url: publisherDepositURL, name: publisherDepositName },
+                        publisherDeposit: publiserDeposit,
                     }
 
                     publisherPolicies.push(publisherPolicy);
