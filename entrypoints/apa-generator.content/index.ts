@@ -11,16 +11,24 @@ type CitationInfo = {
 
 export default defineContentScript({
   // Set manifest options
-  matches: ["https://buleria.unileon.es/*"],
-  runAt: undefined,
+  matches: [
+    "https://buleria.unileon.es/*",
+    "http://buleria.unileon.es/*",
+    "buleria.unileon.es/*",
+  ],
+  runAt: "document_end",
 
   main: () => {
+    console.log("APA Generator content script loaded");
     onMessage("getCitationInfo", (message) => {
       if (location.href.includes("/submit/")) {
         // Submit submission page
         return getCitationInfoSubmit();
       } else if (location.href.includes("submit_metadata")) {
         // Edit submission page
+        return getCitationInfoEdit();
+      } else if (location.href.includes("workflow_edit_metdata")) {
+        // Handl page
         return getCitationInfoEdit();
       }
     });
