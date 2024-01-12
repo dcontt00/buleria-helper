@@ -5,9 +5,7 @@ import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
 import { Stack, ThemeProvider, Typography, Button } from '@mui/material';
 import theme from '@/theme';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { PublisherPolicy } from '@/types';
+import { useState } from 'react';
 
 
 function App() {
