@@ -2,6 +2,7 @@
 
 ### Añadido
 
+- Búsqueda en SherpaRomeo
 - Herramienta para pegar palabras clave
 
 ### Modificado
