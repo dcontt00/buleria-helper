@@ -49,6 +49,8 @@ export default function Keywords() {
         var separator = ',';
         if (keywordsString.includes(';')) {
             separator = ';';
+        } else if (keywordsString.includes('.')) {
+            separator = '.';
         }
         var keywords: string[] = keywordsString.split(separator);
 
