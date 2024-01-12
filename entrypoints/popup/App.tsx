@@ -52,9 +52,9 @@ function App() {
             <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => { setShowSherpaRomeo(true); setShowBackButton(true) }}>Sherpa Romeo</Button>
           </>
         }
-      </Stack>
 
-      {modules()}
+        {modules()}
+      </Stack>
 
 
     </ThemeProvider>
