@@ -2,6 +2,7 @@
 
 ### Añadido
 
+- Mejoras en la interfaz
 - Búsqueda en SherpaRomeo
 - Herramienta para pegar palabras clave
 
