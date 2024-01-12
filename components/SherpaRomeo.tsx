@@ -14,6 +14,7 @@ export default function SherpaRomeo() {
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [issn, setIssn] = useState<string>("");
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
 
     useEffect(() => {
@@ -122,13 +123,18 @@ export default function SherpaRomeo() {
     function onTextFieldChange(event: React.ChangeEvent<HTMLInputElement>) {
 
         setIssn(event.target.value.replaceAll(" ", ""));
+        if (event.target.value.length > 0) {
+            setButtonDisabled(false);
+        } else {
+            setButtonDisabled(true);
+        }
     }
 
     return (
         <>
             <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
             <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
-            <Button variant="contained" onClick={onClick}>Buscar</Button>
+            <Button variant="contained" onClick={onClick} disabled={buttonDisabled}>Buscar</Button>
             {publisherPolicies.map((publisherPolicy) => {
                 return (
                     <>
