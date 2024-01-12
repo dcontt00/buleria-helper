@@ -2,14 +2,19 @@ import wxtLogo from '/wxt.svg';
 import './App.css';
 import ApaGenerator from '@/components/ApaGenerator';
 import Keywords from '@/components/Keywords';
+import SherpaRomeo from '@/components/SherpaRomeo';
 import { Stack, ThemeProvider, Typography, Button } from '@mui/material';
 import theme from '@/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { PublisherPolicy } from '@/types';
+
 
 function App() {
   const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
   const [showKeywords, setShowKeywords] = useState<boolean>(false);
   const [showBackButton, setShowBackButton] = useState<boolean>(false);
+  const [showSherpaRomeo, setShowSherpaRomeo] = useState<boolean>(false);
 
   function modules() {
     if (showAPAGenerator) {
@@ -18,12 +23,17 @@ function App() {
     if (showKeywords) {
       return <Keywords />
     }
+    if (showSherpaRomeo) {
+      return <SherpaRomeo />
+    }
   }
+
 
   function backButtonClick() {
     setShowAPAGenerator(false);
     setShowKeywords(false);
     setShowBackButton(false);
+    setShowSherpaRomeo(false);
   }
   return (
     <ThemeProvider theme={theme}>
@@ -38,6 +48,7 @@ function App() {
         ) : <>
           <Button onClick={() => { setShowAPAGenerator(true); setShowBackButton(true) }}>APA Generator</Button>
           <Button onClick={() => { setShowKeywords(true); setShowBackButton(true) }}>Keywords</Button>
+          <Button onClick={() => { setShowSherpaRomeo(true); setShowBackButton(true) }}>Sherpa Romeo</Button>
         </>
       }
 

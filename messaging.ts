@@ -5,6 +5,7 @@ interface ProtocolMap {
   getCitationInfo(): CitationInfo;
   pasteCitation(citation: string): boolean;
   pasteKeyword(keyword: string): boolean;
+  getSherpaRomeoInfo(issn: string): Array<any>;
 }
 
 export const { sendMessage, onMessage } =
