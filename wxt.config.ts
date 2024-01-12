@@ -14,7 +14,7 @@ export default defineConfig({
     permissions: ["https://buleria.unileon.es/*", "activeTab"],
     browser_specific_settings: {
       gecko: {
-        id: "buleria-helper@dcontt00",
+        id: "buleriahelper@dcontt00",
         strict_min_version: "60.0",
       },
     },
