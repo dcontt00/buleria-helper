@@ -1,6 +1,7 @@
 name: "Publish Firefox Extension"
 on:
-  release
+  release:
+    types: [published]
 
 jobs:
   sign:
