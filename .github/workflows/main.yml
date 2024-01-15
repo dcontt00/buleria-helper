@@ -16,6 +16,8 @@ jobs:
 
       - name: "WXT Build"
         run: yarn build:firefox
+        env:
+          VITE_SHERPA_ROMEO_API_KEY: ${{ secrets.VITE_SHERPA_ROMEO_API_KEY }}
 
       - name: "web-ext build"
         id: web-ext-build
