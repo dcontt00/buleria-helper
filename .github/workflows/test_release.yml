@@ -1,0 +1,33 @@
+name: "Test Release"
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  sign:
+    name: "Release"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: Get last tag
+        id: lasttag
+        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+      - name: Read Changelog
+        id: changelog
+        run: echo "::set-output name=body::$(git diff ${{ steps.lasttag.outputs.tag }}..HEAD -- Changelog.md)"
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./*.md"
+          token: ${{ secrets.REPO_TOKEN }}
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: ${{ steps.changelog.outputs.body }}
+          draft: false
+          prerelease: false
