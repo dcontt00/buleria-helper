@@ -26,6 +26,8 @@ export default function Keywords() {
     ]
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [keywordsString, setKeywordsString] = useState<string>("");
+    const [separator, setSeparator] = useState<string>("");
+    const [separatorDetected, setSeparatorDetected] = useState<boolean>(false);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
@@ -46,12 +48,6 @@ export default function Keywords() {
             return;
         }
 
-        var separator = ',';
-        if (keywordsString.includes(';')) {
-            separator = ';';
-        } else if (keywordsString.includes('.')) {
-            separator = '.';
-        }
         var keywords: string[] = keywordsString.split(separator);
 
         for (const keyword of keywords) {
@@ -61,14 +57,38 @@ export default function Keywords() {
 
     }
 
+    function onTextFieldKeywordChange(event: React.ChangeEvent<HTMLInputElement>) {
+        var separators = [',', ';', '.'];
+        var separator = separators.find(separator => event.target.value.includes(separator));
+        if (separator != undefined) {
+            setSeparatorDetected(true);
+            setSeparator(separator);
+        } else {
+            setSeparatorDetected(false);
+            setSeparator("");
+        }
+        setKeywordsString(event.target.value);
+    }
+
+    function onTextFieldSeparatorChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setSeparator(event.target.value);
+    }
     return (
-        <Stack direction="column" spacing={1}>
-            <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
-            <TextField id="outlined-basic" label="Palabras clave" variant="outlined" value={keywordsString} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setKeywordsString(event.target.value)
-            }} />
-            <Button variant="contained" color="primary" onClick={onClick}>Aceptar</Button>
-        </Stack>
+        <>
+            <Stack direction="column" spacing={1}>
+                <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
+            </Stack>
+            <Grid container spacing={1}>
+                <Grid item xs={10}>
+                    <TextField label="Palabras clave" variant="outlined" fullWidth value={keywordsString} onChange={onTextFieldKeywordChange} />
+
+                </Grid>
+                <Grid item xs={2}>
+                    <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
+                </Grid>
+            </Grid>
+            <Button variant="contained" color="primary" disabled={separator == ""} onClick={onClick}>Aceptar</Button>
+        </>
     )
 }
 async function sleep(ms: number) {

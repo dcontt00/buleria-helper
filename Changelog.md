@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Establecer separador de las keywords en caso de que no se detecte
+
 ### Fixed
 
 - Error que no mostraba post de sherpa romeo
