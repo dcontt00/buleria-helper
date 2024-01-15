@@ -58,57 +58,60 @@ export default function SherpaRomeo() {
             setUrl(response.data.items[0].system_metadata.uri)
             for (const PublisherPolicy of response.data.items[0].publisher_policy) {
                 for (const PermittedOA of PublisherPolicy.permitted_oa) {
-                    var license = undefined;
-                    var embargo = undefined;
+                    try {
+                        var license = undefined;
+                        var embargo = undefined;
 
-                    var id = PermittedOA.id;
-                    if (PermittedOA.article_version_phrases == undefined) {
-                        continue;
+                        var id = PermittedOA.id;
+                        if (PermittedOA.article_version_phrases == undefined) {
+                            continue;
+                        }
+                        var articleVersion = PermittedOA.article_version_phrases[0].phrase;
+                        var conditions = PermittedOA.conditions;
+                        if (PermittedOA.license) {
+                            license = PermittedOA.license[0].license_phrases[0].phrase;
+                        }
+
+                        if (PermittedOA.embargo) {
+                            embargo = PermittedOA.embargo.amount + " " + PermittedOA.embargo.units;
+                        } else {
+                            embargo = "No embargo";
+                        }
+
+                        var locations: string[] = [];
+                        for (const Location of PermittedOA.location.location_phrases) {
+                            var phrase: string = Location.phrase;
+                            locations.push(phrase);
+                        }
+
+                        var copyrightOwner;
+                        if (PermittedOA.copyright_owner_phrases) {
+                            copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
+                        }
+
+                        var publiserDeposit = undefined
+                        var publisherDepositURL, publisherDepositName;
+                        if (PermittedOA.publisher_deposit) {
+                            publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
+                            publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
+                            publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
+                        }
+
+                        var publisherPolicy: PublisherPolicy = {
+                            id: id,
+                            articleVersion: articleVersion,
+                            conditions: conditions,
+                            license: license,
+                            embargo: embargo,
+                            locations: locations,
+                            copyrightOwner: copyrightOwner,
+                            publisherDeposit: publiserDeposit,
+                        }
+
+                        publisherPolicies.push(publisherPolicy);
+                    } catch (error) {
+                        console.log(error);
                     }
-                    var articleVersion = PermittedOA.article_version_phrases[0].phrase;
-                    var conditions = PermittedOA.conditions;
-                    if (PermittedOA.license) {
-                        license = PermittedOA.license[0].license_phrases[0].phrase;
-                    }
-
-                    if (PermittedOA.embargo) {
-                        embargo = PermittedOA.embargo.amount + " " + PermittedOA.embargo.units;
-                    } else {
-                        embargo = "No embargo";
-                    }
-
-                    var locations: string[] = [];
-                    for (const Location of PermittedOA.location.location_phrases) {
-                        var phrase: string = Location.phrase;
-                        locations.push(phrase);
-                    }
-
-                    var copyrightOwner;
-                    if (PermittedOA.copyright_owner_phrases) {
-                        copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
-                    }
-
-                    var publiserDeposit = undefined
-                    var publisherDepositURL, publisherDepositName;
-                    if (PermittedOA.publisher_deposit) {
-                        publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
-                        publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
-                        publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
-                    }
-
-                    var publisherPolicy: PublisherPolicy = {
-                        id: id,
-                        articleVersion: articleVersion,
-                        conditions: conditions,
-                        license: license,
-                        embargo: embargo,
-                        locations: locations,
-                        copyrightOwner: copyrightOwner,
-                        publisherDeposit: publiserDeposit,
-                    }
-
-                    publisherPolicies.push(publisherPolicy);
-
                 }
             }
             return publisherPolicies;
