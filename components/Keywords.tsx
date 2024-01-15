@@ -1,7 +1,7 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
 import { sendMessage } from "@/messaging";
 async function waitForTabComplete(tabId: number) {
     return new Promise(resolve => {
@@ -28,6 +28,8 @@ export default function Keywords() {
     const [keywordsString, setKeywordsString] = useState<string>("");
     const [separator, setSeparator] = useState<string>("");
     const [separatorDetected, setSeparatorDetected] = useState<boolean>(false);
+    const [showProgress, setShowProgress] = useState<boolean>(false);
+    const [progress, setProgress] = useState<number>(0);
     useEffect(() => {
         const getTab = async () => {
             var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
@@ -43,17 +45,37 @@ export default function Keywords() {
         getTab();
     }, []);
 
+    function ProgressComponent() {
+        if (showProgress) {
+
+            return (
+                <Paper sx={{ p: 2 }} >
+                    <Typography>Pegando palabras clave</Typography>
+                    <Stack direction="row" spacing={3} alignItems="center">
+                        <LinearProgress sx={{ width: "100%" }} variant="determinate" value={progress} />
+                        <Typography variant="body2" color="text.secondary">{`${Math.round(
+                            progress,
+                        )}%`}</Typography>
+                    </Stack>
+                </Paper>
+            )
+        }
+    }
+
     async function onClick() {
         if (keywordsString == undefined) {
             return;
         }
-
         var keywords: string[] = keywordsString.split(separator);
 
+        var increment = 100 / keywords.length;
+        setShowProgress(true);
         for (const keyword of keywords) {
             await sendMessage('pasteKeyword', keyword, tab.id);
             await waitForTabComplete(tab?.id);
+            setProgress(oldProgress => oldProgress + increment);
         }
+        setShowProgress(false);
 
     }
 
@@ -88,6 +110,14 @@ export default function Keywords() {
                 </Grid>
             </Grid>
             <Button variant="contained" color="primary" disabled={separator == ""} onClick={onClick}>Aceptar</Button>
+
+            <ProgressComponent />
+            {
+                progress == 100 &&
+                <Alert severity="success">
+                    <Typography variant="body1">Añadidas palabras clave</Typography>
+                </Alert>
+            }
         </>
     )
 }

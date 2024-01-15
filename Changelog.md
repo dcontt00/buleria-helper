@@ -3,6 +3,7 @@
 ### Added
 
 - Establecer separador de las keywords en caso de que no se detecte
+- Añadida barra de carga en keywords
 
 ### Fixed
 
