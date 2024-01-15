@@ -1,7 +1,8 @@
 name: "Publish Firefox Extension"
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "*"
 
 jobs:
   sign:
@@ -9,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: "Install Dependencies"
         run: yarn
@@ -31,9 +32,23 @@ jobs:
         uses: kewisch/action-web-ext@v1
         with:
           cmd: sign
-          source: ${{ steps.web-ext-build.outputs.target }}
-          channel: unlisted
-          apiKey: ${{ secrets.FIREFOX_API_KEY }}
-          apiSecret: ${{ secrets.FIREFOX_API_SECRET }}
-          timeout: 900000
 
+      - name: Get last tag
+        id: lasttag
+        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+      - name: Read Changelog
+        id: changelog
+        run: echo "::set-output name=body::$(git diff ${{ steps.lasttag.outputs.tag }} HEAD -- Changelog.md)"
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./*.xpi,./*.zip"
+          token: ${{ secrets.REPO_TOKEN }}
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: ${{ steps.changelog.outputs.body }}
+          draft: false
+          prerelease: false
