@@ -1,11 +1,12 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, Grid, Stack, TextField, Typography } from "@mui/material";
-import { sendMessage } from "@/messaging";
+import { Alert, Button, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { PublisherPolicy } from "@/types";
 import PublisherPolicyData from "./PublisherPolicyData";
+import LaunchIcon from '@mui/icons-material/Launch';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function SherpaRomeo() {
     const urlPatters = [
@@ -17,6 +18,7 @@ export default function SherpaRomeo() {
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
     const [notFound, setNotFound] = useState<boolean>(false);
+    const [url, setUrl] = useState<string>("");
 
 
     useEffect(() => {
@@ -53,63 +55,68 @@ export default function SherpaRomeo() {
             }
         ).then((response) => {
             var publisherPolicies: PublisherPolicy[] = [];
+            setUrl(response.data.items[0].system_metadata.uri)
             for (const PublisherPolicy of response.data.items[0].publisher_policy) {
                 for (const PermittedOA of PublisherPolicy.permitted_oa) {
-                    console.log(PermittedOA);
-                    var license = undefined;
-                    var embargo = undefined;
+                    try {
+                        var license = undefined;
+                        var embargo = undefined;
 
-                    var id = PermittedOA.id;
-                    var articleVersion = PermittedOA.article_version_phrases[0].phrase;
-                    var conditions = PermittedOA.conditions;
-                    if (PermittedOA.license) {
-                        license = PermittedOA.license[0].license_phrases[0].phrase;
+                        var id = PermittedOA.id;
+                        if (PermittedOA.article_version_phrases == undefined) {
+                            continue;
+                        }
+                        var articleVersion = PermittedOA.article_version_phrases[0].phrase;
+                        var conditions = PermittedOA.conditions;
+                        if (PermittedOA.license) {
+                            license = PermittedOA.license[0].license_phrases[0].phrase;
+                        }
+
+                        if (PermittedOA.embargo) {
+                            embargo = PermittedOA.embargo.amount + " " + PermittedOA.embargo.units;
+                        } else {
+                            embargo = "No embargo";
+                        }
+
+                        var locations: string[] = [];
+                        for (const Location of PermittedOA.location.location_phrases) {
+                            var phrase: string = Location.phrase;
+                            locations.push(phrase);
+                        }
+
+                        var copyrightOwner;
+                        if (PermittedOA.copyright_owner_phrases) {
+                            copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
+                        }
+
+                        var publiserDeposit = undefined
+                        var publisherDepositURL, publisherDepositName;
+                        if (PermittedOA.publisher_deposit) {
+                            publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
+                            publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
+                            publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
+                        }
+
+                        var publisherPolicy: PublisherPolicy = {
+                            id: id,
+                            articleVersion: articleVersion,
+                            conditions: conditions,
+                            license: license,
+                            embargo: embargo,
+                            locations: locations,
+                            copyrightOwner: copyrightOwner,
+                            publisherDeposit: publiserDeposit,
+                        }
+
+                        publisherPolicies.push(publisherPolicy);
+                    } catch (error) {
+                        console.log(error);
                     }
-
-                    if (PermittedOA.embargo) {
-                        embargo = PermittedOA.embargo.amount + " " + PermittedOA.embargo.units;
-                    } else {
-                        embargo = "No embargo";
-                    }
-
-                    var locations: string[] = [];
-                    for (const Location of PermittedOA.location.location_phrases) {
-                        var phrase: string = Location.phrase;
-                        locations.push(phrase);
-                    }
-
-                    var copyrightOwner;
-                    if (PermittedOA.copyright_owner_phrases) {
-                        copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
-                    }
-
-                    var publiserDeposit = undefined
-                    var publisherDepositURL, publisherDepositName;
-                    if (PermittedOA.publisher_deposit) {
-                        publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
-                        publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
-                        publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
-                    }
-
-                    var publisherPolicy: PublisherPolicy = {
-                        id: id,
-                        articleVersion: articleVersion,
-                        conditions: conditions,
-                        license: license,
-                        embargo: embargo,
-                        locations: locations,
-                        copyrightOwner: copyrightOwner,
-                        publisherDeposit: publiserDeposit,
-                    }
-
-                    publisherPolicies.push(publisherPolicy);
-
                 }
             }
             return publisherPolicies;
 
         }
-
         ).catch((error) => {
             console.log(error);
             setNotFound(true);
@@ -119,13 +126,16 @@ export default function SherpaRomeo() {
 
     }
 
-    async function onClick() {
+    async function searchOnSherpaRomeo() {
 
         //var response = await sendMessage('getSherpaRomeoInfo', "0340-7004", tab.id);
         var response = await getAPI();
         setPublisherPolicies(response);
-        console.log(response);
 
+    }
+
+    async function navigateToSherpaRomeo() {
+        await browser.tabs.create({ url: url });
     }
 
     function onTextFieldChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -143,7 +153,13 @@ export default function SherpaRomeo() {
             <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
 
             <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
-            <Button variant="contained" onClick={onClick} disabled={buttonDisabled}>Buscar</Button>
+            <Button variant="contained" startIcon={<SearchIcon />} onClick={searchOnSherpaRomeo}
+                disabled={buttonDisabled}>Buscar</Button>
+            {
+                url != "" &&
+                <Button variant="contained" startIcon={<LaunchIcon />} onClick={navigateToSherpaRomeo}>Ver en
+                    SherpaRomeo</Button>
+            }
             <PublisherPolicyData PublisherPolicies={publisherPolicies} />
             {
                 notFound && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
@@ -151,6 +167,7 @@ export default function SherpaRomeo() {
         </Stack>
     )
 }
+
 async function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }

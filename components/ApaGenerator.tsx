@@ -42,16 +42,10 @@ export default function ApaGenerator() {
         try {
             if (tab) {
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
-                const { title, authors, date, journal, volume, doi } = response;
                 // Check every atributte is defined
-                if (title && authors && date && journal && volume && doi) {
-                    console.log(response);
-                    setCitationInfo(response);
-                    setCitation(generateCitation(response));
-                } else {
-                    console.log('Error: Not all attributes are defined');
-                }
                 console.log(response);
+                setCitationInfo(response);
+                setCitation(generateCitation(response));
             } else {
                 console.log("Tab is undefined");
             }
@@ -108,6 +102,12 @@ export default function ApaGenerator() {
  * Generates an APA citation based on the information provided by the user.
  */
 function generateCitation(citationInfo: CitationInfo): string {
-    var citation = `${citationInfo.authors} (${citationInfo.date}). ${citationInfo.title}. ${citationInfo.journal}, ${citationInfo.volume}, ${citationInfo.doi}`;
+    var citation = `${citationInfo.authors} (${citationInfo.date}). ${citationInfo.title}. ${citationInfo.journal}`;
+    if (citationInfo.volume) {
+        citation += `, ${citationInfo.volume}`;
+    }
+    if (citationInfo.doi) {
+        citation += `, ${citationInfo.doi}`;
+    }
     return citation
 }
