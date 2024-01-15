@@ -4,6 +4,7 @@
 
 - Establecer separador de las keywords en caso de que no se detecte
 - Añadida barra de carga en keywords
+- Nueva herramienta Nombre Archivo. Esta herramienta permite obtener el nombre de archivo a partir del titulo
 
 ### Fixed
 
