@@ -2,7 +2,11 @@ import { Button, Chip, Icon, Paper, Stack, TextField, Typography } from "@mui/ma
 import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { Author } from "@/types";
-export default function Authors() {
+import { sendMessage } from "@/messaging";
+interface Props {
+    tab: Tabs.Tab | undefined;
+}
+export default function Authors({ tab }: Props) {
     const [authors, setAuthors] = useState<Author[]>([]);
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
@@ -22,6 +26,12 @@ export default function Authors() {
     function onDelete(index: number) {
         setAuthors(authors.filter((_, i) => i !== index));
     }
+
+    async function onAddAuthorsClick() {
+        console.log(authors);
+        var response = await sendMessage("pasteAuthors", authors, tab.id);
+        console.log(response);
+    }
     return (
         <div>
             <Stack direction="row" spacing={2}>
@@ -37,7 +47,7 @@ export default function Authors() {
                 }
                 )}
             </Stack>
-            <Button variant="contained" >Añadir autores</Button>
+            <Button variant="contained" onClick={onAddAuthorsClick}>Añadir autores</Button>
         </div>
     )
 

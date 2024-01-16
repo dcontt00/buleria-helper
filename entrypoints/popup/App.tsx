@@ -4,7 +4,7 @@ import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
 import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
 import theme from '@/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AbcIcon from '@mui/icons-material/Abc';
 import NotesIcon from '@mui/icons-material/Notes';
@@ -19,6 +19,18 @@ function App() {
     const [showSherpaRomeo, setShowSherpaRomeo] = useState<boolean>(false);
     const [showFileRename, setShowFileRename] = useState<boolean>(false);
     const [showAuthors, setShowAuthors] = useState<boolean>(false);
+    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
+
+    useEffect(() => {
+        console.log("useEffect");
+        const getTab = async () => {
+            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
+            if (tab != undefined) {
+                setTab(tab);
+            }
+        }
+        getTab();
+    }, []);
 
     function Modules() {
         if (showAPAGenerator) {
@@ -34,7 +46,7 @@ function App() {
             return <FileRename />
         }
         if (showAuthors) {
-            return <Authors />
+            return <Authors tab={tab} />
         }
     }
 
