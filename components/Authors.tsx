@@ -3,10 +3,9 @@ import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { Author } from "@/types";
 import { sendMessage } from "@/messaging";
-interface Props {
-    tab: Tabs.Tab | undefined;
-}
-export default function Authors({ tab }: Props) {
+import ComponentProps from "@/interfaces/ComponentProps";
+
+export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
