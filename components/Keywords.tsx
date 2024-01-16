@@ -30,6 +30,7 @@ export default function Keywords({ tab }: ComponentProps) {
     const [separatorDetected, setSeparatorDetected] = useState<boolean>(false);
     const [showProgress, setShowProgress] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
     function ProgressComponent() {
         if (showProgress) {
@@ -53,7 +54,7 @@ export default function Keywords({ tab }: ComponentProps) {
             return;
         }
         var keywords: string[] = keywordsString.split(separator);
-
+        setButtonDisabled(true);
         var increment = 100 / keywords.length;
         setShowProgress(true);
         for (const keyword of keywords) {
@@ -62,6 +63,7 @@ export default function Keywords({ tab }: ComponentProps) {
             setProgress(oldProgress => oldProgress + increment);
         }
         setShowProgress(false);
+        setButtonDisabled(false);
 
     }
 
@@ -71,9 +73,11 @@ export default function Keywords({ tab }: ComponentProps) {
         if (separator != undefined) {
             setSeparatorDetected(true);
             setSeparator(separator);
+            setButtonDisabled(false);
         } else {
             setSeparatorDetected(false);
             setSeparator("");
+            setButtonDisabled(true);
         }
         setKeywordsString(event.target.value);
     }
@@ -95,7 +99,7 @@ export default function Keywords({ tab }: ComponentProps) {
                     <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
                 </Grid>
             </Grid>
-            <Button variant="contained" color="primary" disabled={separator == ""} onClick={onClick}>Aceptar</Button>
+            <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onClick}>Aceptar</Button>
 
             <ProgressComponent />
             {
