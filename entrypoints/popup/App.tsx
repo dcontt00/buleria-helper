@@ -11,12 +11,14 @@ import NotesIcon from '@mui/icons-material/Notes';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import FileRename from '@/components/FileRename';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import Authors from '@/components/Authors';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
     const [showKeywords, setShowKeywords] = useState<boolean>(false);
     const [showBackButton, setShowBackButton] = useState<boolean>(false);
     const [showSherpaRomeo, setShowSherpaRomeo] = useState<boolean>(false);
     const [showFileRename, setShowFileRename] = useState<boolean>(false);
+    const [showAuthors, setShowAuthors] = useState<boolean>(false);
 
     function Modules() {
         if (showAPAGenerator) {
@@ -31,7 +33,9 @@ function App() {
         if (showFileRename) {
             return <FileRename />
         }
-
+        if (showAuthors) {
+            return <Authors />
+        }
     }
 
 
@@ -57,6 +61,10 @@ function App() {
                     setShowFileRename(true);
                     setShowBackButton(true)
                 }}>Nombre Archivo</Button>
+                <Button variant="contained" startIcon={<DriveFileRenameOutlineIcon />} onClick={() => {
+                    setShowAuthors(true);
+                    setShowBackButton(true)
+                }}>Autores</Button>
             </>
         }
 
@@ -69,6 +77,7 @@ function App() {
         setShowBackButton(false);
         setShowSherpaRomeo(false);
         setShowFileRename(false);
+        setShowAuthors(false);
     }
 
     return (

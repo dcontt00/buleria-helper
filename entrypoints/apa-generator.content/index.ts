@@ -23,7 +23,7 @@ export default defineContentScript({
         // Edit submission page
         return getCitationInfoEdit();
       } else if (location.href.includes("workflow_edit_metadata")) {
-        // Handl page
+        // Review submission to aproove page
         return getCitationInfoSubmit();
       } else {
         return undefined;
