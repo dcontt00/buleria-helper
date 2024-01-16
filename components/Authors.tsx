@@ -1,8 +1,9 @@
 import { Button, Chip, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
+import { Author } from "@/types";
 export default function Authors() {
-    const [authors, setAuthors] = useState<{ name: string, surname: string }[]>([]);
+    const [authors, setAuthors] = useState<Author[]>([]);
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
 
@@ -36,6 +37,7 @@ export default function Authors() {
                 }
                 )}
             </Stack>
+            <Button variant="contained" >Añadir autores</Button>
         </div>
     )
 
