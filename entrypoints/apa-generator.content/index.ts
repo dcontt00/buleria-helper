@@ -15,7 +15,6 @@ export default defineContentScript({
   runAt: "document_end",
 
   main: () => {
-    console.log("APA Generator content script loaded");
     onMessage("getCitationInfo", (message) => {
       if (location.href.includes("/submit/")) {
         // Submit submission page
@@ -23,9 +22,11 @@ export default defineContentScript({
       } else if (location.href.includes("submit_metadata")) {
         // Edit submission page
         return getCitationInfoEdit();
-      } else if (location.href.includes("workflow_edit_metdata")) {
+      } else if (location.href.includes("workflow_edit_metadata")) {
         // Handl page
-        return getCitationInfoEdit();
+        return getCitationInfoSubmit();
+      } else {
+        return undefined;
       }
     });
 

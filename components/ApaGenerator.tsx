@@ -5,7 +5,6 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import NotesIcon from '@mui/icons-material/Notes';
 import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import HideAlert from "./HideAlert";
 export default function ApaGenerator() {
@@ -44,8 +43,14 @@ export default function ApaGenerator() {
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
                 // Check every atributte is defined
                 console.log(response);
-                setCitationInfo(response);
-                setCitation(generateCitation(response));
+                if (response != undefined) {
+
+                    setCitationInfo(response);
+                    setCitation(generateCitation(response));
+                } else {
+                    setCitation("No se ha podido generar la cita");
+                    console.log("Response is undefined");
+                }
             } else {
                 console.log("Tab is undefined");
             }
