@@ -6,3 +6,4 @@ type Release = {
   url: string;
   download_url: string;
 };
+export default Release;

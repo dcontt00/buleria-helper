@@ -1,3 +1,4 @@
+import { Release } from "@/types";
 import { Alert, Button, Stack } from "@mui/material";
 import axios from "axios"
 import { useEffect, useState } from "react";
