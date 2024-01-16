@@ -28,8 +28,11 @@ export default function Authors({ tab }: ComponentProps) {
 
     async function onAddAuthorsClick() {
         console.log(authors);
-        var response = await sendMessage("pasteAuthors", authors, tab.id);
-        console.log(response);
+        if (tab) {
+
+            var response = await sendMessage("pasteAuthors", authors, tab.id);
+            console.log(response);
+        }
     }
     return (
         <div>

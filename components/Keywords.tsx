@@ -3,6 +3,7 @@ import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
 import { sendMessage } from "@/messaging";
+import ComponentProps from "@/interfaces/ComponentProps";
 async function waitForTabComplete(tabId: number) {
     return new Promise(resolve => {
         const checkTabStatus = async () => {
@@ -19,31 +20,16 @@ async function waitForTabComplete(tabId: number) {
     });
 }
 
-export default function Keywords() {
+export default function Keywords({ tab }: ComponentProps) {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
         /^https:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/
     ]
-    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [keywordsString, setKeywordsString] = useState<string>("");
     const [separator, setSeparator] = useState<string>("");
     const [separatorDetected, setSeparatorDetected] = useState<boolean>(false);
     const [showProgress, setShowProgress] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
-    useEffect(() => {
-        const getTab = async () => {
-            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
-            if (tab != undefined) {
-                setTab(tab);
-                if (urlPatters.some(pattern => pattern.test(tab.url))) {
-                    console.log(tab.url)
-                } else {
-                    console.log("bad");
-                }
-            }
-        }
-        getTab();
-    }, []);
 
     function ProgressComponent() {
         if (showProgress) {

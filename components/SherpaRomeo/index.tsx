@@ -7,13 +7,13 @@ import { PublisherPolicy } from "@/types";
 import PublisherPolicyData from "./PublisherPolicyData";
 import LaunchIcon from '@mui/icons-material/Launch';
 import SearchIcon from '@mui/icons-material/Search';
+import ComponentProps from "@/interfaces/ComponentProps";
 
-export default function SherpaRomeo() {
+export default function SherpaRomeo({ tab }: ComponentProps) {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
         /^https:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/
     ]
-    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [issn, setIssn] = useState<string>("");
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
@@ -23,9 +23,7 @@ export default function SherpaRomeo() {
 
     useEffect(() => {
         const getTab = async () => {
-            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
             if (tab != undefined) {
-                setTab(tab);
                 if (urlPatters.some(pattern => pattern.test(tab.url))) {
                     console.log(tab.url)
                 } else {

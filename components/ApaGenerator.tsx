@@ -7,24 +7,22 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import HideAlert from "./HideAlert";
-export default function ApaGenerator() {
+import ComponentProps from "@/interfaces/ComponentProps";
+export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [
         /^https?:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
         /^https?:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/,
         /^https?:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/workflow_edit_metadata\?workflowID=WW\d+$/
     ]
 
-    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
     useEffect(() => {
         console.log("useEffect");
-        const getTab = async () => {
-            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
+        const apa = async () => {
             if (tab != undefined) {
-                setTab(tab);
                 if (urlPatters.some(pattern => pattern.test(tab.url))) {
                     await generateAPA(tab);
                 } else {
@@ -32,7 +30,7 @@ export default function ApaGenerator() {
                 }
             }
         }
-        getTab();
+        apa();
     }, []);
 
 

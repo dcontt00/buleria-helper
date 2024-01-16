@@ -34,13 +34,13 @@ function App() {
 
     function Modules() {
         if (showAPAGenerator) {
-            return <ApaGenerator />
+            return <ApaGenerator tab={tab} />
         }
         if (showKeywords) {
-            return <Keywords />
+            return <Keywords tab={tab} />
         }
         if (showSherpaRomeo) {
-            return <SherpaRomeo />
+            return <SherpaRomeo tab={tab} />
         }
         if (showFileRename) {
             return <FileRename />
