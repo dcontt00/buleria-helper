@@ -16,6 +16,15 @@ export default function Updater() {
     }, []);
 
     async function getLatestVersion() {
+        var latestCheckUpdate = await storage.getItem<Date>("local:lastCheckUpdate");
+        console.log("latestCheckUpdate", latestCheckUpdate);
+        if (latestCheckUpdate != undefined && new Date().getTime() - latestCheckUpdate.getTime() < 1000 * 60 * 60 * 24) {
+            console.log("No se comprueba la actualización");
+            return;
+        }
+        await storage.setItem<Date>("local:lastCheckUpdate", new Date());
+
+
         var extensionVersion = browser.runtime.getManifest().version;
         var release: Release | undefined = await axios.get('https://api.github.com/repos/dcontt00/buleria-helper/releases/latest').then(response => {
             // Buscar en los assets el archivo .xpi
