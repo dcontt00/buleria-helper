@@ -2,72 +2,33 @@ import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
-import { sendMessage } from "@/messaging";
-async function waitForTabComplete(tabId: number) {
-    return new Promise(resolve => {
-        const checkTabStatus = async () => {
-            const tab = await browser.tabs.get(tabId);
-            if (tab.status === 'complete') {
-                resolve(true);
-                console.log("done");
-            } else {
-                console.log("waiting");
-                setTimeout(checkTabStatus, 100); // Check every 100ms
-            }
-        };
-        checkTabStatus();
-    });
-}
+import { sendMessage } from "@/utils/messaging";
+import ComponentProps from "@/interfaces/ComponentProps";
+import waitForTabComplete from "@/utils/tabUtils";
+import ProgressComponent from "./Progress";
 
-export default function Keywords() {
+
+export default function Keywords({ tab }: ComponentProps) {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
         /^https:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/
     ]
-    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [keywordsString, setKeywordsString] = useState<string>("");
     const [separator, setSeparator] = useState<string>("");
     const [separatorDetected, setSeparatorDetected] = useState<boolean>(false);
     const [showProgress, setShowProgress] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
-    useEffect(() => {
-        const getTab = async () => {
-            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
-            if (tab != undefined) {
-                setTab(tab);
-                if (urlPatters.some(pattern => pattern.test(tab.url))) {
-                    console.log(tab.url)
-                } else {
-                    console.log("bad");
-                }
-            }
-        }
-        getTab();
-    }, []);
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
-    function ProgressComponent() {
-        if (showProgress) {
 
-            return (
-                <Paper sx={{ p: 2 }} >
-                    <Typography>Pegando palabras clave</Typography>
-                    <Stack direction="row" spacing={3} alignItems="center">
-                        <LinearProgress sx={{ width: "100%" }} variant="determinate" value={progress} />
-                        <Typography variant="body2" color="text.secondary">{`${Math.round(
-                            progress,
-                        )}%`}</Typography>
-                    </Stack>
-                </Paper>
-            )
-        }
-    }
 
     async function onClick() {
         if (keywordsString == undefined) {
             return;
         }
+        setProgress(0);
         var keywords: string[] = keywordsString.split(separator);
-
+        setButtonDisabled(true);
         var increment = 100 / keywords.length;
         setShowProgress(true);
         for (const keyword of keywords) {
@@ -76,6 +37,7 @@ export default function Keywords() {
             setProgress(oldProgress => oldProgress + increment);
         }
         setShowProgress(false);
+        setButtonDisabled(false);
 
     }
 
@@ -85,9 +47,11 @@ export default function Keywords() {
         if (separator != undefined) {
             setSeparatorDetected(true);
             setSeparator(separator);
+            setButtonDisabled(false);
         } else {
             setSeparatorDetected(false);
             setSeparator("");
+            setButtonDisabled(true);
         }
         setKeywordsString(event.target.value);
     }
@@ -109,18 +73,9 @@ export default function Keywords() {
                     <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
                 </Grid>
             </Grid>
-            <Button variant="contained" color="primary" disabled={separator == ""} onClick={onClick}>Aceptar</Button>
+            <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onClick}>Aceptar</Button>
 
-            <ProgressComponent />
-            {
-                progress == 100 &&
-                <Alert severity="success">
-                    <Typography variant="body1">Añadidas palabras clave</Typography>
-                </Alert>
-            }
+            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
         </>
     )
-}
-async function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
 }

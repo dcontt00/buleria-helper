@@ -1,5 +1,5 @@
 import { defineContentScript } from "wxt/sandbox";
-import { onMessage } from "@/messaging";
+import { onMessage } from "@/utils/messaging";
 type CitationInfo = {
   title: string | undefined;
   authors: string | undefined;
@@ -15,7 +15,6 @@ export default defineContentScript({
   runAt: "document_end",
 
   main: () => {
-    console.log("APA Generator content script loaded");
     onMessage("getCitationInfo", (message) => {
       if (location.href.includes("/submit/")) {
         // Submit submission page
@@ -23,9 +22,11 @@ export default defineContentScript({
       } else if (location.href.includes("submit_metadata")) {
         // Edit submission page
         return getCitationInfoEdit();
-      } else if (location.href.includes("workflow_edit_metdata")) {
-        // Handl page
-        return getCitationInfoEdit();
+      } else if (location.href.includes("workflow_edit_metadata")) {
+        // Review submission to aproove page
+        return getCitationInfoSubmit();
+      } else {
+        return undefined;
       }
     });
 

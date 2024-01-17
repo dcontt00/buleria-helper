@@ -1,31 +1,28 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
-import { sendMessage } from "@/messaging";
+import { sendMessage } from "@/utils/messaging";
 import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import NotesIcon from '@mui/icons-material/Notes';
 import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import HideAlert from "./HideAlert";
-export default function ApaGenerator() {
+import ComponentProps from "@/interfaces/ComponentProps";
+export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [
         /^https?:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
         /^https?:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/submit\/[\da-f]+\.continue$/,
         /^https?:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/workflow_edit_metadata\?workflowID=WW\d+$/
     ]
 
-    const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
     const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
     useEffect(() => {
         console.log("useEffect");
-        const getTab = async () => {
-            var tab = (await browser.tabs.query({ active: true, currentWindow: true })).pop();
+        const apa = async () => {
             if (tab != undefined) {
-                setTab(tab);
                 if (urlPatters.some(pattern => pattern.test(tab.url))) {
                     await generateAPA(tab);
                 } else {
@@ -33,7 +30,7 @@ export default function ApaGenerator() {
                 }
             }
         }
-        getTab();
+        apa();
     }, []);
 
 
@@ -44,8 +41,14 @@ export default function ApaGenerator() {
                 const response = await sendMessage('getCitationInfo', undefined, tab.id);
                 // Check every atributte is defined
                 console.log(response);
-                setCitationInfo(response);
-                setCitation(generateCitation(response));
+                if (response != undefined) {
+
+                    setCitationInfo(response);
+                    setCitation(generateCitation(response));
+                } else {
+                    setCitation("No se ha podido generar la cita");
+                    console.log("Response is undefined");
+                }
             } else {
                 console.log("Tab is undefined");
             }

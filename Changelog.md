@@ -1,3 +1,14 @@
+## [1.0.0] - 2024-01-17
+
+### Added
+
+- Updater: Cuando haya una versión nueva en github, mostrará un aviso junto con un botón para actualizar.
+- Authors: Permite añadir autores con autoria de manera automática
+
+### Fixed
+
+- Error en APAGenerator que hacia que se colgara
+
 ## [0.9.0] - 2024-01-15
 
 ### Added
