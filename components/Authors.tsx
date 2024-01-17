@@ -31,6 +31,9 @@ export default function Authors({ tab }: ComponentProps) {
     }
     function onDelete(index: number) {
         setAuthors(authors.filter((_, i) => i !== index));
+        if (authors.length == 1) {
+            setButtonDisabled(true);
+        }
     }
 
     async function onAddAuthorsClick() {
@@ -48,6 +51,7 @@ export default function Authors({ tab }: ComponentProps) {
         setShowProgress(false);
         setButtonDisabled(false);
     }
+
     return (
         <div>
             <Stack direction="row" spacing={2}>
