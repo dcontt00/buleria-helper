@@ -2,7 +2,7 @@ import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
-import { sendMessage } from "@/messaging";
+import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
 async function waitForTabComplete(tabId: number) {
     return new Promise(resolve => {

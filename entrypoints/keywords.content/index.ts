@@ -1,5 +1,5 @@
 import { defineContentScript } from "wxt/sandbox";
-import { onMessage } from "@/messaging";
+import { onMessage } from "@/utils/messaging";
 async function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -3,7 +3,7 @@ import ApaGenerator from '@/components/ApaGenerator';
 import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
 import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
-import theme from '@/theme';
+import theme from '@/utils/theme';
 import { useEffect, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AbcIcon from '@mui/icons-material/Abc';

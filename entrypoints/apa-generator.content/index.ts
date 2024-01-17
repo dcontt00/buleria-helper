@@ -1,5 +1,5 @@
 import { defineContentScript } from "wxt/sandbox";
-import { onMessage } from "@/messaging";
+import { onMessage } from "@/utils/messaging";
 type CitationInfo = {
   title: string | undefined;
   authors: string | undefined;

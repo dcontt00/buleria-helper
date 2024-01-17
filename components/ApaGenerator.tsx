@@ -1,6 +1,6 @@
 import { browser } from "wxt/browser"
 import { Tabs } from "webextension-polyfill/namespaces/tabs";
-import { sendMessage } from "@/messaging";
+import { sendMessage } from "@/utils/messaging";
 import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
