@@ -1,4 +1,4 @@
-import { Button, Chip, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Button, Chip, Grid, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { Author } from "@/types";
@@ -6,6 +6,7 @@ import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
 import waitForTabComplete from "@/utils/tabUtils";
 import ProgressComponent from "./Progress";
+import capitalizeWords from "@/utils/stringUtils";
 
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
@@ -23,7 +24,7 @@ export default function Authors({ tab }: ComponentProps) {
         setSurname(event.target.value);
     }
     function onClickAdd() {
-        setAuthors([...authors, { name: name, surname: surname }]);
+        setAuthors([...authors, { name: capitalizeWords(name), surname: capitalizeWords(surname) }]);
         setName("");
         setSurname("");
         setButtonDisabled(false);
@@ -54,14 +55,16 @@ export default function Authors({ tab }: ComponentProps) {
                 <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                 <Button variant="contained" onClick={onClickAdd}>Añadir</Button>
             </Stack>
-            <Stack direction="row" spacing={2}>
+            <Grid container spacing={1}>
                 {authors.map((author, index) => {
                     return (
-                        <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                        <Grid item key={index}>
+                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                        </Grid>
                     )
                 }
                 )}
-            </Stack>
+            </Grid>
             <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
         </div>
