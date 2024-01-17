@@ -6,7 +6,7 @@ interface ProtocolMap {
   getCitationInfo(): CitationInfo | undefined;
   pasteCitation(citation: string): boolean;
   pasteKeyword(keyword: string): boolean;
-  pasteAuthors(authors: Author[]): boolean;
+  pasteAuthor(author: Author): boolean;
 }
 
 export const { sendMessage, onMessage } =
