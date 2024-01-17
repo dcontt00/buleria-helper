@@ -7,7 +7,7 @@
 
 ### Fixed
 
-- Error en APAGenerator que hacia que se colgara
+- APAGenerator: Error que hacia que se colgara
 
 ## [0.9.0] - 2024-01-15
 
