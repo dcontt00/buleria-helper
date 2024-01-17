@@ -79,6 +79,3 @@ export default function Keywords({ tab }: ComponentProps) {
         </>
     )
 }
-async function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
