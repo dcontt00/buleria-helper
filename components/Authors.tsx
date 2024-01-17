@@ -55,18 +55,20 @@ export default function Authors({ tab }: ComponentProps) {
                 <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                 <Button variant="contained" onClick={onClickAdd}>Añadir</Button>
             </Stack>
-            <Grid container spacing={1}>
-                {authors.map((author, index) => {
-                    return (
-                        <Grid item key={index}>
-                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
-                        </Grid>
-                    )
-                }
-                )}
-            </Grid>
-            <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
-            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
+            <Stack direction="column" spacing={2}>
+                <Grid container spacing={1}>
+                    {authors.map((author, index) => {
+                        return (
+                            <Grid item key={index}>
+                                <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                            </Grid>
+                        )
+                    }
+                    )}
+                </Grid>
+                <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
+                <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
+            </Stack>
         </div>
     )
 
