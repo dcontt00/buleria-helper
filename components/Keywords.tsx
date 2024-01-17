@@ -5,6 +5,7 @@ import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, Te
 import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
 import waitForTabComplete from "@/utils/tabUtils";
+import ProgressComponent from "./Progress";
 
 
 export default function Keywords({ tab }: ComponentProps) {
@@ -19,22 +20,7 @@ export default function Keywords({ tab }: ComponentProps) {
     const [progress, setProgress] = useState<number>(0);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
-    function ProgressComponent() {
-        if (showProgress) {
 
-            return (
-                <Paper sx={{ p: 2 }} >
-                    <Typography>Pegando palabras clave</Typography>
-                    <Stack direction="row" spacing={3} alignItems="center">
-                        <LinearProgress sx={{ width: "100%" }} variant="determinate" value={progress} />
-                        <Typography variant="body2" color="text.secondary">{`${Math.round(
-                            progress,
-                        )}%`}</Typography>
-                    </Stack>
-                </Paper>
-            )
-        }
-    }
 
     async function onClick() {
         if (keywordsString == undefined) {
@@ -88,7 +74,7 @@ export default function Keywords({ tab }: ComponentProps) {
             </Grid>
             <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onClick}>Aceptar</Button>
 
-            <ProgressComponent />
+            <ProgressComponent progress={progress} showProgress={showProgress} text="Pegando palabras clave" />
             {
                 progress == 100 &&
                 <Alert severity="success">
