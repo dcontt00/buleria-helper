@@ -26,6 +26,7 @@ export default function Keywords({ tab }: ComponentProps) {
         if (keywordsString == undefined) {
             return;
         }
+        setProgress(0);
         var keywords: string[] = keywordsString.split(separator);
         setButtonDisabled(true);
         var increment = 100 / keywords.length;
@@ -37,7 +38,6 @@ export default function Keywords({ tab }: ComponentProps) {
         }
         setShowProgress(false);
         setButtonDisabled(false);
-        setProgress(0);
 
     }
 

@@ -21,11 +21,12 @@ export default function ProgressComponent({ progress, showProgress, progressText
             </Paper>
         )
     } else {
-
-        return (
-            <Alert severity="success">
-                <Typography variant="body1">{completeText}</Typography>
-            </Alert>
-        )
+        if (progress == 100) {
+            return (
+                <Alert severity="success">
+                    <Typography variant="body1">{completeText}</Typography>
+                </Alert>
+            )
+        }
     }
 };
