@@ -2,8 +2,9 @@ import { Button, Chip, Icon, Paper, Stack, TextField, Typography } from "@mui/ma
 import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { Author } from "@/types";
-import { sendMessage } from "@/messaging";
+import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
+import waitForTabComplete from "@/utils/tabUtils";
 
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
@@ -29,9 +30,13 @@ export default function Authors({ tab }: ComponentProps) {
     async function onAddAuthorsClick() {
         console.log(authors);
         if (tab) {
+            for (let author of authors) {
+                var response = await sendMessage("pasteAuthor", author, tab.id);
+                console.log(response);
+                // Esperar a que la pagina termine de cargar
+                await waitForTabComplete(tab?.id);
+            }
 
-            var response = await sendMessage("pasteAuthors", authors, tab.id);
-            console.log(response);
         }
     }
     return (

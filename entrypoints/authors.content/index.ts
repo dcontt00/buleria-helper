@@ -1,14 +1,31 @@
 import { defineContentScript } from "wxt/sandbox";
-import { onMessage } from "@/messaging";
+import { onMessage } from "@/utils/messaging";
 
+async function waitForTrElements(): Promise<NodeListOf<Element>> {
+  return new Promise((resolve, reject) => {
+    const observer = new MutationObserver((mutations, observer) => {
+      const elements = document.querySelectorAll("tr.odd.clickable");
+      if (
+        elements[0] &&
+        elements[0].querySelector("td")?.innerText != "...., ....."
+      ) {
+        observer.disconnect();
+        resolve(elements);
+        return;
+      }
+    });
+
+    observer.observe(document, { childList: true, subtree: true });
+  });
+}
 export default defineContentScript({
   // Set manifest options
   matches: ["https://buleria.unileon.es/*", "http://buleria.unileon.es/*"],
   runAt: "document_start",
 
   main: () => {
-    onMessage("pasteAuthors", (message) => {
-      var authors = message.data;
+    onMessage("pasteAuthor", async (message) => {
+      var author = message.data;
       let nameInput = document.getElementById(
         "aspect_submission_StepTransformer_field_dc_contributor_author_first"
       ) as HTMLInputElement;
@@ -24,35 +41,24 @@ export default defineContentScript({
         "button[name=lookup_dc_contributor_author]"
       ) as HTMLInputElement;
 
-      for (const author of authors) {
-        nameInput.value = author.name;
-        surnameInput.value = author.surname;
-        searchButton.click();
+      nameInput.value = author.name;
+      surnameInput.value = author.surname;
+      searchButton.click();
 
-        // Esperar a que cargue la tabla de resultados
-        let observer = new MutationObserver((mutations, observer) => {
-          // Buscar la tabla en el DOM
-          let rows = document.querySelectorAll(
-            "tr.odd.clickable"
-          ) as NodeListOf<HTMLTableRowElement>;
-          // Si la tabla existe, detener la observación y hacer algo con la tabla
-          if (rows.length > 0) {
-            observer.disconnect();
+      let rows: NodeListOf<HTMLTableRowElement> =
+        (await waitForTrElements()) as NodeListOf<HTMLTableRowElement>; // Change the type of rows to NodeListOf<HTMLTableRowElement>
 
-            // Seleccionar el primero
-            rows[0].click();
-
-            // Click en el botón de añadir que tiene de clase ds-button-field btn btn-default
-            let addPersonButton = document.querySelector(
-              "input.ds-button-field.btn.btn-default"
-            ) as HTMLInputElement;
-            //addPersonButton.click();
-          }
-        });
-
-        // Iniciar la observación
-        observer.observe(document, { childList: true, subtree: true });
+      // TODO: Seleccionar el primero que tenga como clase inAutoridad. Si no elegir el primero. Y si no salir
+      if (rows.length > 0) {
+        rows[0].click();
       }
+      let addPersonButton = document.querySelector(
+        "input.ds-button-field.btn.btn-default"
+      ) as HTMLInputElement;
+      alert(addPersonButton.outerHTML);
+      addPersonButton.click();
+      addButton.click();
+
       return true;
     });
   },
