@@ -37,6 +37,7 @@ export default function Keywords({ tab }: ComponentProps) {
         }
         setShowProgress(false);
         setButtonDisabled(false);
+        setProgress(0);
 
     }
 
@@ -74,13 +75,7 @@ export default function Keywords({ tab }: ComponentProps) {
             </Grid>
             <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onClick}>Aceptar</Button>
 
-            <ProgressComponent progress={progress} showProgress={showProgress} text="Pegando palabras clave" />
-            {
-                progress == 100 &&
-                <Alert severity="success">
-                    <Typography variant="body1">Añadidas palabras clave</Typography>
-                </Alert>
-            }
+            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
         </>
     )
 }
