@@ -32,6 +32,10 @@ jobs:
         uses: kewisch/action-web-ext@v1
         with:
           cmd: sign
+          source: ${{ steps.web-ext-build.outputs.target }}
+          apiKey: ${{ secrets.FIREFOX_API_KEY }}
+          apiSecret: ${{ secrets.FIREFOX_API_SECRET }}
+          timeout: 900000
 
       - name: Get last tag
         id: lasttag
