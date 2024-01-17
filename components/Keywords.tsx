@@ -4,21 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
 import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
-async function waitForTabComplete(tabId: number) {
-    return new Promise(resolve => {
-        const checkTabStatus = async () => {
-            const tab = await browser.tabs.get(tabId);
-            if (tab.status === 'complete') {
-                resolve(true);
-                console.log("done");
-            } else {
-                console.log("waiting");
-                setTimeout(checkTabStatus, 100); // Check every 100ms
-            }
-        };
-        checkTabStatus();
-    });
-}
+import waitForTabComplete from "@/utils/tabUtils";
+
 
 export default function Keywords({ tab }: ComponentProps) {
     const urlPatters = [
