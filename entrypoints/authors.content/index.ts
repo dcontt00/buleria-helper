@@ -4,7 +4,7 @@ import { onMessage } from "@/utils/messaging";
 async function waitForTrElements(): Promise<NodeListOf<Element>> {
   return new Promise((resolve, reject) => {
     const observer = new MutationObserver((mutations, observer) => {
-      const elements = document.querySelectorAll("tr.odd.clickable");
+      const elements = document.querySelectorAll("tr.odd");
       if (
         elements[0] &&
         elements[0].querySelector("td")?.innerText != "...., ....."
@@ -46,19 +46,35 @@ export default defineContentScript({
       searchButton.click();
 
       let rows: NodeListOf<HTMLTableRowElement> =
-        (await waitForTrElements()) as NodeListOf<HTMLTableRowElement>; // Change the type of rows to NodeListOf<HTMLTableRowElement>
+        (await waitForTrElements()) as NodeListOf<HTMLTableRowElement>;
 
-      // TODO: Seleccionar el primero que tenga como clase inAutoridad. Si no elegir el primero. Y si no salir
-      if (rows.length > 0) {
-        rows[0].click();
+      // Si no se encuentra autor, introducir manualmente
+      if (rows[0].innerText == "No people found") {
+        // Hacer click en x y salir del modal
+        let closeButton: HTMLSpanElement | null = document.querySelector(
+          'button.close[data-dismiss="modal"]'
+        );
+        closeButton?.click();
+      } else {
+        // Si hay mas de un autor, seleccionar el primero
+        var rowWithAuthority: HTMLElement | undefined = undefined;
+        rows.forEach((row) => {
+          if (row.classList.contains("inAutoridad")) {
+            rowWithAuthority = row;
+          }
+        });
+        if (rowWithAuthority != undefined) {
+          (rowWithAuthority as HTMLElement).click();
+        } else {
+          rows[0].click();
+        }
+        let addPersonButton = document.querySelector(
+          "input.ds-button-field.btn.btn-default"
+        ) as HTMLInputElement;
+        addPersonButton.click();
       }
-      let addPersonButton = document.querySelector(
-        "input.ds-button-field.btn.btn-default"
-      ) as HTMLInputElement;
-      alert(addPersonButton.outerHTML);
-      addPersonButton.click();
-      addButton.click();
 
+      addButton.click();
       return true;
     });
   },
