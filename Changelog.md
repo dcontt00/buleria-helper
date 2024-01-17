@@ -3,6 +3,7 @@
 ### Added
 
 - Updater: Cuando haya una versión nueva en github, mostrará un aviso junto con un botón para actualizar.
+- Authors: Permite añadir autores con autoria de manera automática
 
 ### Fixed
 
