@@ -5,6 +5,7 @@ interface ProtocolMap {
   getStringLength(data: string): number;
   getCitationInfo(): CitationInfo | undefined;
   pasteCitation(citation: string): boolean;
+  getKeywords(): string | null | undefined;
   pasteKeyword(keyword: string): boolean;
   pasteAuthor(author: Author): boolean;
 }

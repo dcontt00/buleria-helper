@@ -1,8 +1,6 @@
 import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
-async function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import manage from "@/utils/test";
 
 export default defineContentScript({
   matches: ["https://buleria.unileon.es/*"],
@@ -33,6 +31,20 @@ export default defineContentScript({
         }
       }
       return true;
+    });
+    onMessage("getKeywords", (message) => {
+      const inputElements: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll('input[name="dc_subject_other_selected"]');
+
+      var keywords = inputElements[0].parentElement?.textContent;
+      const removeButton: HTMLButtonElement | null = document.querySelector(
+        "button[name='submit_dc_subject_other_delete']"
+      );
+      inputElements[0].click();
+      removeButton?.click();
+
+      // Return as string
+      return keywords;
     });
   },
 });
