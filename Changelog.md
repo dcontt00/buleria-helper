@@ -8,6 +8,10 @@
 
 - SherpaRomeo: Cambiado texto
 
+### Changed
+
+- Authors: Modificado icono del boton del menu principal
+
 ## [1.0.0] - 2024-01-17
 
 ### Added

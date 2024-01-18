@@ -9,6 +9,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AbcIcon from '@mui/icons-material/Abc';
 import NotesIcon from '@mui/icons-material/Notes';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
+import PersonIcon from '@mui/icons-material/Person';
 import FileRename from '@/components/FileRename';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Authors from '@/components/Authors';
@@ -74,7 +75,7 @@ function App() {
                     setShowFileRename(true);
                     setShowBackButton(true)
                 }}>Nombre Archivo</Button>
-                <Button variant="contained" startIcon={<DriveFileRenameOutlineIcon />} onClick={() => {
+                <Button variant="contained" startIcon={<PersonIcon />} onClick={() => {
                     setShowAuthors(true);
                     setShowBackButton(true)
                 }}>Autores</Button>
