@@ -1,0 +1,24 @@
+{
+  "addons": {
+    "buleriahelper@dcontt00": {
+      "updates": [
+        {
+          "version": "1.0.1",
+          "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/0.9.0/buleria_helper-1.0.0.xpi"
+        },
+        {
+          "version": "1.0.0",
+          "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/0.9.0/buleria_helper-1.0.0.xpi"
+        },
+        {
+          "version": "0.9.0",
+          "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/0.9.0/buleria_helper-0.9.0.xpi"
+        },
+        {
+          "version": "0.8.0",
+          "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/0.8.0/buleria_helper-0.8.0.xpi"
+        }
+      ]
+    }
+  }
+}
