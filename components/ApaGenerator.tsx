@@ -5,7 +5,7 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
+import { Alert, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import HideAlert from "./HideAlert";
 import ComponentProps from "@/interfaces/ComponentProps";
 export default function ApaGenerator({ tab }: ComponentProps) {
@@ -81,6 +81,7 @@ export default function ApaGenerator({ tab }: ComponentProps) {
     }
     return (
         <Stack direction={"column"} spacing={2}>
+            <Typography variant="body1">Cita en formato APA</Typography>
 
             <TextField
                 value={citation}

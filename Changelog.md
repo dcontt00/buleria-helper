@@ -1,3 +1,17 @@
+## [1.0.1] - 2024-01-18
+
+### Added
+
+- Añadido texto a modulos que no lo tenian (APAGenerator, FileRename, Authors)
+
+### Fixed
+
+- SherpaRomeo: Cambiado texto
+
+### Changed
+
+- Authors: Modificado icono del boton del menu principal
+
 ## [1.0.0] - 2024-01-17
 
 ### Added

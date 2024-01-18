@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import HideAlert from "./HideAlert";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -48,6 +48,7 @@ export default function FileRename() {
 
     return (
         <Stack direction="column" spacing={2}>
+            <Typography variant="body1">Obtén el nombre del archivo a partir del titulo del envio</Typography>
             <TextField label="Titulo del envio" variant="outlined" onChange={onChangeTitle} value={title} />
             <TextField label="Nombre del archivo" variant="outlined" InputProps={{ readOnly: true }} value={filename} />
             <Button variant="contained" startIcon={<ContentCopyIcon />} disabled={filename == ""} onClick={onClickCopy}>Copiar</Button>
