@@ -1,3 +1,13 @@
+## [Unreleased]
+
+### Added
+
+- Añadido texto a modulos que no lo tenian (APAGenerator, FileRename, Authors)
+
+### Fixed
+
+- SherpaRomeo: Cambiado texto
+
 ## [1.0.0] - 2024-01-17
 
 ### Added
