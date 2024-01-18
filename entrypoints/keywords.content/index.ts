@@ -1,6 +1,5 @@
 import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
-import manage from "@/utils/test";
 
 export default defineContentScript({
   matches: ["https://buleria.unileon.es/*"],
@@ -46,5 +45,40 @@ export default defineContentScript({
       // Return as string
       return keywords;
     });
+    onMessage("test", async (author) => {
+      console.log("Reload");
+      let titleElement = await waitForInputElements();
+      console.log("titleElement", titleElement);
+
+      // Crea un nuevo botón
+      let button = document.createElement("button");
+      button.textContent = "Click me";
+
+      // Añade un escuchador de eventos al botón
+      button.addEventListener("click", () => {
+        console.log("Button clicked!");
+      });
+
+      console.log("titleElement", titleElement);
+      titleElement.parentElement?.appendChild(button);
+      return true;
+    });
   },
 });
+async function waitForInputElements(): Promise<HTMLInputElement> {
+  return new Promise((resolve, reject) => {
+    const observer = new MutationObserver((mutations, observer) => {
+      let titleElement = document.getElementById(
+        "aspect_submission_StepTransformer_field_dc_title"
+      ) as HTMLInputElement;
+      alert("titleElement");
+      if (titleElement) {
+        observer.disconnect();
+        resolve(titleElement);
+        return;
+      }
+    });
+
+    observer.observe(document, { childList: true, subtree: true });
+  });
+}
