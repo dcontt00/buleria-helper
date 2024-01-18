@@ -43,7 +43,12 @@ jobs:
 
       - name: Read Changelog
         id: changelog
-        run: echo "::set-output name=body::$(git diff ${{ steps.lasttag.outputs.tag }} HEAD -- Changelog.md)"
+        run: |
+          changelog=$(git diff --unified=0 ${{ steps.lasttag.outputs.tag }} HEAD -- Changelog.md | grep '^+' | grep -v '+++' | sed 's/^[-+]//' | tail -n +2)
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo "::set-output name=body::${changelog}"
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -52,5 +57,3 @@ jobs:
           body: ${{ steps.changelog.outputs.body }}
           token: ${{ secrets.REPO_TOKEN }}
           files: ${{ steps.web-ext-sign.outputs.target }}
-        env:
-          GITHUB_REPOSITORY: my_gh_org/my_gh_repo
