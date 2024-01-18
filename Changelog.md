@@ -1,8 +1,12 @@
-## [Unreleased]
+## [1.0.2] - 2024-01-18
 
 ### Added
 
 - Keywords: Añadido boton para corregir las palabras clave que están puestas en una sola linea automaticamente
+
+### Changed
+
+- Añadida actualización automática
 
 ## [1.0.1] - 2024-01-18
 
