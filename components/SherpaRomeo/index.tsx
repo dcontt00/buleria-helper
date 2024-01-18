@@ -148,7 +148,7 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
 
     return (
         <Stack direction={"column"} spacing={2}>
-            <Typography variant="body1">Introduce la cadena de keywords para separarlas</Typography>
+            <Typography variant="body1">Introduce el ISSN</Typography>
 
             <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
             <Button variant="contained" startIcon={<SearchIcon />} onClick={searchOnSherpaRomeo}
