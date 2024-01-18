@@ -55,6 +55,7 @@ export default function Authors({ tab }: ComponentProps) {
     return (
         <div>
             <Stack direction="row" spacing={2}>
+                <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
                 <TextField label="Nombre" onChange={onChangeName} value={name} />
                 <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                 <Button variant="contained" onClick={onClickAdd}>Añadir</Button>
