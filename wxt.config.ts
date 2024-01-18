@@ -16,6 +16,8 @@ export default defineConfig({
       gecko: {
         id: "buleriahelper@dcontt00",
         strict_min_version: "60.0",
+        update_url:
+          "https://raw.githubusercontent.com/dcontt00/buleria-helper/main/updates.json",
       },
     },
   },

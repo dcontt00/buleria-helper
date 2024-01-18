@@ -22,28 +22,62 @@ export default function Keywords({ tab }: ComponentProps) {
 
 
 
-    async function onClick() {
-        if (keywordsString == undefined) {
-            return;
-        }
+    async function onAcceptClick() {
+        var keywords = keywordsString.split(separator);
+        await pasteKeywords(keywords);
+
+    }
+
+    /**
+     * Paste the given keywords into the keywords field.
+     * 
+     * @param keywords - An array of keywords to be pasted.
+     * @returns {Promise<void>} - A promise that resolves when the keywords are pasted.
+     */
+    async function pasteKeywords(keywords: string[]) {
         setProgress(0);
-        var keywords: string[] = keywordsString.split(separator);
         setButtonDisabled(true);
-        var increment = 100 / keywords.length;
         setShowProgress(true);
+
+        var increment = 100 / keywords.length;
         for (const keyword of keywords) {
+            console.log(keyword);
             await sendMessage('pasteKeyword', keyword, tab.id);
             await waitForTabComplete(tab?.id);
             setProgress(oldProgress => oldProgress + increment);
         }
         setShowProgress(false);
         setButtonDisabled(false);
-
     }
 
-    function onTextFieldKeywordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function detectSeparator(keywords: string) {
         var separators = [',', ';', '.'];
-        var separator = separators.find(separator => event.target.value.includes(separator));
+        var separator = separators.find(separator => keywords.includes(separator));
+        if (separator != undefined) {
+            return separator;
+        }
+    }
+
+    function separateKeywords(keywords: string, separator: string) {
+        return keywords.split(separator);
+    }
+
+    async function onCorrectClick() {
+        // Obtiene keywords que están en una sola linea de la página y las pega en el campo de keywords
+        var keywordsString = await sendMessage('getKeywords', undefined, tab.id);
+        await waitForTabComplete(tab?.id);
+        if (keywordsString != undefined && keywordsString != null) {
+            var separator = detectSeparator(keywordsString);
+            if (separator != undefined) {
+                var keywords = separateKeywords(keywordsString, separator);
+                console.log(keywords);
+                await pasteKeywords(keywords);
+            }
+        }
+    }
+
+    function manageKeywordsString(keywords: string) {
+        var separator = detectSeparator(keywords);
         if (separator != undefined) {
             setSeparatorDetected(true);
             setSeparator(separator);
@@ -53,7 +87,11 @@ export default function Keywords({ tab }: ComponentProps) {
             setSeparator("");
             setButtonDisabled(true);
         }
-        setKeywordsString(event.target.value);
+        setKeywordsString(keywords);
+    }
+
+    function onTextFieldKeywordChange(event: React.ChangeEvent<HTMLInputElement>) {
+        manageKeywordsString(event.target.value);
     }
 
     function onTextFieldSeparatorChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -62,6 +100,8 @@ export default function Keywords({ tab }: ComponentProps) {
     return (
         <>
             <Stack direction="column" spacing={1}>
+                <Typography variant="body1">Si las palabras clave están en 1 sola linea, corregirlo automaticamente</Typography>
+                <Button variant="contained" onClick={onCorrectClick}>Corregir Palabras Clave</Button>
                 <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
             </Stack>
             <Grid container spacing={1}>
@@ -73,7 +113,7 @@ export default function Keywords({ tab }: ComponentProps) {
                     <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
                 </Grid>
             </Grid>
-            <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onClick}>Aceptar</Button>
+            <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
 
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
         </>
