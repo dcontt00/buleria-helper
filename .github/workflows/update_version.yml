@@ -1,0 +1,24 @@
+name: "Update Extensions Version"
+on:
+  release:
+    types: [published]
+
+
+jobs:
+    resources:
+        name: Update resources
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+
+            - uses: actions/setup-node@v1
+
+            - name: Fetch resources
+              run: ./update_updates.sh
+
+            - name: Update resources
+              uses: test-room-7/action-update-file@v1
+              with:
+                  file-path: ./updates.json
+                  commit-msg: Update versions
+                  github-token: ${{ secrets.REPO_TOKEN }}
