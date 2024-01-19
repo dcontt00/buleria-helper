@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### Added
+
+- Authors: Añadir autores pulsando Enter
+- Authors: Al añadir un autor el foco se mueve al textfield de nombre
+
 ### Fixed
 
 - APAGenerator: Texto de boton en página
