@@ -1,3 +1,11 @@
+import waitForTabComplete from "@/utils/tabUtils";
+
 export default defineBackground(() => {
-  console.log('Hello background!', { id: browser.runtime.id });
+  browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    if (changeInfo.status === "complete" && tab.active) {
+      await waitForTabComplete(tabId);
+      await sendMessage("addCitationButtonToPage", undefined, tabId);
+      await sendMessage("addTitleButtonToPage", undefined, tabId);
+    }
+  });
 });

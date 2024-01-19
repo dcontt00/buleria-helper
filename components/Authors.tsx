@@ -6,7 +6,7 @@ import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
 import waitForTabComplete from "@/utils/tabUtils";
 import ProgressComponent from "./Progress";
-import capitalizeWords from "@/utils/stringUtils";
+import { capitalizeWords } from "@/utils/stringUtils";
 
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);

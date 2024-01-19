@@ -1,69 +1,4 @@
-import { defineContentScript } from "wxt/sandbox";
-import { onMessage } from "@/utils/messaging";
-type CitationInfo = {
-  title: string | undefined;
-  authors: string | undefined;
-  date: string | undefined;
-  journal: string | undefined;
-  volume: string | undefined;
-  doi: string | undefined;
-};
-
-export default defineContentScript({
-  // Set manifest options
-  matches: ["https://buleria.unileon.es/*", "http://buleria.unileon.es/*"],
-  runAt: "document_end",
-
-  main: () => {
-    onMessage("getCitationInfo", (message) => {
-      if (location.href.includes("/submit/")) {
-        // Submit submission page
-        return getCitationInfoSubmit();
-      } else if (location.href.includes("submit_metadata")) {
-        // Edit submission page
-        return getCitationInfoEdit();
-      } else if (location.href.includes("workflow_edit_metadata")) {
-        // Review submission to aproove page
-        return getCitationInfoSubmit();
-      } else {
-        return undefined;
-      }
-    });
-
-    onMessage("pasteCitation", (message) => {
-      pasteCitation(message.data);
-      return true;
-    });
-  },
-});
-
-/**
- * Paste the given citation into the bibliography element.
- * @param citation - The citation to be pasted.
- */
-function pasteCitation(citation: string) {
-  if (location.href.includes("/submit/")) {
-    // Submit submission page
-    let bibliographyElement: HTMLInputElement = document.getElementById(
-      "aspect_submission_StepTransformer_field_dc_identifier_citation"
-    ) as HTMLInputElement;
-    bibliographyElement.value = citation;
-    return true;
-  } else if (location.href.includes("submit_metadata")) {
-    // Edit submission page
-    let inputElement;
-    let tds = document.querySelectorAll("td");
-
-    let td = Array.from(tds).find(
-      (td) => td.innerText == "dc. identifier. citation"
-    );
-    let textarea = td?.nextElementSibling?.getElementsByTagName("textarea")[0];
-    if (textarea) {
-      textarea.value = citation;
-    }
-    return true;
-  }
-}
+import CitationInfo from "@/interfaces/CitationInfo";
 
 /**
  * Retrieves the citation information from Submission Submit Page and returns it as a CitationInfo object.
@@ -76,6 +11,8 @@ function getCitationInfoSubmit(): CitationInfo {
   var journal: string;
   var volume: string;
   var doi: string = "";
+  var startPage: string = "";
+  var endPage: string = "";
 
   let titleElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_title"
@@ -107,6 +44,14 @@ function getCitationInfoSubmit(): CitationInfo {
   let doiCheckboxes = document.querySelectorAll(
     "[name='dc_identifier_selected']"
   );
+
+  let startPageElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_page_initial"
+  ) as HTMLInputElement;
+
+  let endPageElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_page_final"
+  ) as HTMLInputElement;
   doiCheckboxes.forEach((checkbox) => {
     var parent = checkbox.parentElement;
     var doiElement: HTMLCollectionOf<HTMLSpanElement> | undefined =
@@ -122,6 +67,8 @@ function getCitationInfoSubmit(): CitationInfo {
   date = dateElement?.value;
   journal = journalElement?.value;
   volume = volumeElement?.value;
+  startPage = startPageElement?.value;
+  endPage = endPageElement?.value;
   return {
     title: title,
     authors: authors,
@@ -129,6 +76,8 @@ function getCitationInfoSubmit(): CitationInfo {
     journal: journal,
     volume: volume,
     doi: doi,
+    startPage: startPage,
+    endPage: endPage,
   };
 }
 
@@ -196,6 +145,8 @@ function getCitationInfoEdit(): CitationInfo {
     journal: journal,
     volume: volume,
     doi: doi,
+    startPage: "",
+    endPage: "",
   };
 }
 
@@ -236,3 +187,33 @@ function formatAuthors(authors: string[]): string {
   });
   return formattedAuthors.join("; ");
 }
+
+/**
+ * Paste the given citation into the bibliography element.
+ * @param citation - The citation to be pasted.
+ */
+function pasteCitation(citation: string) {
+  if (location.href.includes("/submit/")) {
+    // Submit submission page
+    let bibliographyElement: HTMLInputElement = document.getElementById(
+      "aspect_submission_StepTransformer_field_dc_identifier_citation"
+    ) as HTMLInputElement;
+    bibliographyElement.value = citation;
+    return true;
+  } else if (location.href.includes("submit_metadata")) {
+    // Edit submission page
+    let inputElement;
+    let tds = document.querySelectorAll("td");
+
+    let td = Array.from(tds).find(
+      (td) => td.innerText == "dc. identifier. citation"
+    );
+    let textarea = td?.nextElementSibling?.getElementsByTagName("textarea")[0];
+    if (textarea) {
+      textarea.value = citation;
+    }
+    return true;
+  }
+}
+
+export { getCitationInfoSubmit, getCitationInfoEdit, pasteCitation };

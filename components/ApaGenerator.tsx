@@ -8,6 +8,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Alert, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import HideAlert from "./HideAlert";
 import ComponentProps from "@/interfaces/ComponentProps";
+import generateCitation from "@/utils/generateCitation";
 export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [
         /^https?:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -101,17 +102,4 @@ export default function ApaGenerator({ tab }: ComponentProps) {
             </Stack>
         </Stack>
     )
-}
-/**
- * Generates an APA citation based on the information provided by the user.
- */
-function generateCitation(citationInfo: CitationInfo): string {
-    var citation = `${citationInfo.authors} (${citationInfo.date}). ${citationInfo.title}. ${citationInfo.journal}`;
-    if (citationInfo.volume) {
-        citation += `, ${citationInfo.volume}`;
-    }
-    if (citationInfo.doi) {
-        citation += `, ${citationInfo.doi}`;
-    }
-    return citation
 }
