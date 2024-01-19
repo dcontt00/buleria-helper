@@ -45,24 +45,6 @@ export default defineContentScript({
       // Return as string
       return keywords;
     });
-    onMessage("test", async (author) => {
-      console.log("Reload");
-      let titleElement = await waitForInputElements();
-      console.log("titleElement", titleElement);
-
-      // Crea un nuevo botón
-      let button = document.createElement("button");
-      button.textContent = "Click me";
-
-      // Añade un escuchador de eventos al botón
-      button.addEventListener("click", () => {
-        console.log("Button clicked!");
-      });
-
-      console.log("titleElement", titleElement);
-      titleElement.parentElement?.appendChild(button);
-      return true;
-    });
   },
 });
 async function waitForInputElements(): Promise<HTMLInputElement> {
