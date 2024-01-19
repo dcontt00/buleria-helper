@@ -36,8 +36,6 @@ export default defineContentScript({
       let citationElement = document.getElementById(
         "aspect_submission_StepTransformer_field_dc_identifier_citation"
       ) as HTMLInputElement;
-      var citationInfo = getCitationInfoSubmit();
-      var citation = generateCitation(citationInfo);
       const ui = createIntegratedUi(ctx, {
         position: "inline",
         anchor: citationElement.parentElement,
