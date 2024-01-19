@@ -13,7 +13,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import FileRename from '@/components/FileRename';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Authors from '@/components/Authors';
-import Updater from '@/components/Updater';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
     const [showKeywords, setShowKeywords] = useState<boolean>(false);
@@ -98,7 +97,6 @@ function App() {
         <ThemeProvider theme={theme}>
             <Stack direction="column" spacing={2} justifyContent={"center"}>
                 <Typography variant="h4">Buleria Helper</Typography>
-                <Updater />
                 <Buttons />
                 <Modules />
             </Stack>

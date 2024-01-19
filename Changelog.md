@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Removed
+
+- Updater: Las actualizaciones se llevan a cabo automáticamente por Mozilla
+
 ## [1.1.0] - 2024-01-19
 
 ### Added
