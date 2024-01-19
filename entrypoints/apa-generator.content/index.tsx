@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { Button, ThemeProvider } from "@mui/material";
 import CitationInfo from "@/interfaces/CitationInfo";
 import { pasteCitation, getCitationInfoEdit, getCitationInfoSubmit } from "./common";
+import APAGeneratorButton from "./APAGeneratorButton";
 
 export default defineContentScript({
   // Set manifest options
@@ -44,9 +45,7 @@ export default defineContentScript({
           // Create a root on the UI container and render a component
           const root = ReactDOM.createRoot(container);
           root.render(
-            <ThemeProvider theme={theme}>
-              <Button variant="contained" onClick={() => pasteCitation(citation)}>Pegar APA</Button>
-            </ThemeProvider>
+            <APAGeneratorButton />
           );
           return root;
         },
