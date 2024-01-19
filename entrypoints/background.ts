@@ -6,6 +6,7 @@ export default defineBackground(() => {
       console.log("Tab updated", tabId, changeInfo, tab);
       await waitForTabComplete(tabId);
       var res = await sendMessage("addCitationButtonToPage", undefined, tabId);
+      await sendMessage("addTitleButtonToPage", undefined, tabId);
       console.log("addCitationButtonToPage result", res);
     }
   });
