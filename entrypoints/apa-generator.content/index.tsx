@@ -1,5 +1,7 @@
 import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
+import ReactDOM from "react-dom/client";
+import { Button, ThemeProvider } from "@mui/material";
 type CitationInfo = {
   title: string | undefined;
   authors: string | undefined;
@@ -14,7 +16,7 @@ export default defineContentScript({
   matches: ["https://buleria.unileon.es/*", "http://buleria.unileon.es/*"],
   runAt: "document_end",
 
-  main: () => {
+  main: (ctx) => {
     onMessage("getCitationInfo", (message) => {
       if (location.href.includes("/submit/")) {
         // Submit submission page
@@ -32,6 +34,37 @@ export default defineContentScript({
 
     onMessage("pasteCitation", (message) => {
       pasteCitation(message.data);
+      return true;
+    });
+
+    onMessage("addCitationButtonToPage", async (message) => {
+      let citationElement = document.getElementById(
+        "aspect_submission_StepTransformer_field_dc_identifier_citation"
+      ) as HTMLInputElement;
+      var citationInfo = getCitationInfoSubmit();
+      var citation = generateCitation(citationInfo);
+      const ui = createIntegratedUi(ctx, {
+        position: "inline",
+        anchor: citationElement.parentElement,
+        onMount: (container) => {
+          // Create a root on the UI container and render a component
+          const root = ReactDOM.createRoot(container);
+          root.render(
+            <ThemeProvider theme={theme}>
+              <Button variant="contained" onClick={() => pasteCitation(citation)}>Pegar APA</Button>
+            </ThemeProvider>
+          );
+          return root;
+        },
+        onRemove: (root) => {
+          // Unmount the root when the UI is removed
+          root.unmount();
+        },
+      });
+
+      // Call mount to add the UI to the DOM
+      ui.mount();
+
       return true;
     });
   },

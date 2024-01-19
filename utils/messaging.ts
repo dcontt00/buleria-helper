@@ -8,7 +8,7 @@ interface ProtocolMap {
   getKeywords(): string | null | undefined;
   pasteKeyword(keyword: string): boolean;
   pasteAuthor(author: Author): boolean;
-  test(): boolean;
+  addCitationButtonToPage(): boolean;
 }
 
 export const { sendMessage, onMessage } =
