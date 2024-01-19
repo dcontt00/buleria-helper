@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { pasteCitation, getCitationInfoSubmit } from "./common";
 import { ThemeProvider } from "@mui/material";
-import theme from "@/utils/theme";
+import themeAuto from "@/utils/theme";
 export default function APAGeneratorButton() {
 
     function onClick() {
@@ -10,9 +10,9 @@ export default function APAGeneratorButton() {
         pasteCitation(citation);
     }
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeAuto}>
 
-            <Button variant="contained" onClick={onClick}>Pegar APA2</Button>
+            <Button variant="contained" onClick={onClick}>Pegar APA</Button>
         </ThemeProvider>
     );
 }

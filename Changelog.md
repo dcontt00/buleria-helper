@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Fixed
+
+- APAGenerator: Texto de boton en página
+
 ### Removed
 
 - Updater: Las actualizaciones se llevan a cabo automáticamente por Mozilla
