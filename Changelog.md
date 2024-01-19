@@ -4,6 +4,7 @@
 
 - Authors: Añadir autores pulsando Enter
 - Authors: Al añadir un autor el foco se mueve al textfield de nombre
+- Authors: Boton de añadir autor bloqueado hasta que se introduzca un nombre y apellido
 
 ### Fixed
 

@@ -54,6 +54,7 @@ export default function Authors({ tab }: ComponentProps) {
     }
     function handleFormSubmit(event: React.FormEvent) {
         event.preventDefault(); // Previene la recarga de la página
+        if (name == "" || surname == "") { return; }
         onClickAdd();
         if (nameRef.current) {
             nameRef.current.focus();
@@ -74,7 +75,7 @@ export default function Authors({ tab }: ComponentProps) {
                         <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                     </Grid>
                     <Grid item xs={2}>
-                        <Button variant="contained" type="submit" sx={{ height: "100%" }}>Añadir</Button>
+                        <Button variant="contained" type="submit" sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
                     </Grid>
                 </Grid>
             </Box>
