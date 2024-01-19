@@ -5,4 +5,6 @@ export default interface CitationInfo {
   journal: string | undefined;
   volume: string | undefined;
   doi: string | undefined;
+  startPage: string | undefined;
+  endPage: string | undefined;
 }

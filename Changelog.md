@@ -3,6 +3,7 @@
 ### Added
 
 - Boton en la pagina para generar la Cita APA
+- APAGenerator: Añadidas a la cita paginas inicial y final si existen
 
 ## [1.0.2] - 2024-01-18
 

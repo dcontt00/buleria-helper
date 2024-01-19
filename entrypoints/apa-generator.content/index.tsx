@@ -2,14 +2,7 @@ import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
 import ReactDOM from "react-dom/client";
 import { Button, ThemeProvider } from "@mui/material";
-type CitationInfo = {
-  title: string | undefined;
-  authors: string | undefined;
-  date: string | undefined;
-  journal: string | undefined;
-  volume: string | undefined;
-  doi: string | undefined;
-};
+import CitationInfo from "@/interfaces/CitationInfo";
 
 export default defineContentScript({
   // Set manifest options
@@ -109,6 +102,8 @@ function getCitationInfoSubmit(): CitationInfo {
   var journal: string;
   var volume: string;
   var doi: string = "";
+  var startPage: string = "";
+  var endPage: string = "";
 
   let titleElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_title"
@@ -140,6 +135,14 @@ function getCitationInfoSubmit(): CitationInfo {
   let doiCheckboxes = document.querySelectorAll(
     "[name='dc_identifier_selected']"
   );
+
+  let startPageElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_page_initial"
+  ) as HTMLInputElement;
+
+  let endPageElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_page_final"
+  ) as HTMLInputElement;
   doiCheckboxes.forEach((checkbox) => {
     var parent = checkbox.parentElement;
     var doiElement: HTMLCollectionOf<HTMLSpanElement> | undefined =
@@ -155,6 +158,8 @@ function getCitationInfoSubmit(): CitationInfo {
   date = dateElement?.value;
   journal = journalElement?.value;
   volume = volumeElement?.value;
+  startPage = startPageElement?.value;
+  endPage = endPageElement?.value;
   return {
     title: title,
     authors: authors,
@@ -162,6 +167,8 @@ function getCitationInfoSubmit(): CitationInfo {
     journal: journal,
     volume: volume,
     doi: doi,
+    startPage: startPage,
+    endPage: endPage,
   };
 }
 
@@ -229,6 +236,8 @@ function getCitationInfoEdit(): CitationInfo {
     journal: journal,
     volume: volume,
     doi: doi,
+    startPage: "",
+    endPage: "",
   };
 }
 
