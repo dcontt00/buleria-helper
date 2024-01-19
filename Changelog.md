@@ -1,10 +1,10 @@
-## [Unreleased]
+## [1.1.0] - 2024-01-19
 
 ### Added
 
-- Boton en la pagina para generar la Cita APA
-- APAGenerator: Añadidas a la cita paginas inicial y final si existen
-- FileRenamer: Añadido campo de texto que genera el nombre de archivo directamente en la pagina
+- APAGenerator: Boton en la pagina para generar la Cita APA
+- APAGenerator: Paginas inicial y final si existen
+- FileRenamer: Campo de texto que genera el nombre de archivo directamente en la pagina
 
 ## [1.0.2] - 2024-01-18
 
