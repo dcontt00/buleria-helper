@@ -3,6 +3,7 @@
 ### Fixed
 
 - APAGenerator: Texto de boton en página
+- Authors: Layout de los textfields
 
 ### Removed
 

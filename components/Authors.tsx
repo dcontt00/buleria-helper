@@ -54,26 +54,35 @@ export default function Authors({ tab }: ComponentProps) {
 
     return (
         <div>
-            <Stack direction="row" spacing={2}>
-                <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
-                <TextField label="Nombre" onChange={onChangeName} value={name} />
-                <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
-                <Button variant="contained" onClick={onClickAdd}>Añadir</Button>
-            </Stack>
-            <Stack direction="column" spacing={2}>
-                <Grid container spacing={1}>
-                    {authors.map((author, index) => {
-                        return (
-                            <Grid item key={index}>
-                                <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
-                            </Grid>
-                        )
-                    }
-                    )}
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                    <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
                 </Grid>
-                <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
-                <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
-            </Stack>
+                <Grid item xs={5}>
+                    <TextField label="Nombre" onChange={onChangeName} value={name} />
+                </Grid>
+                <Grid item xs={5}>
+                    <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
+                </Grid>
+                <Grid item xs={2}>
+                    <Button variant="contained" onClick={onClickAdd} sx={{ height: "100%" }}>Añadir</Button>
+                </Grid>
+            </Grid>
+            <br />
+            <Grid container spacing={1}>
+                {authors.map((author, index) => {
+                    return (
+                        <Grid item key={index}>
+                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                        </Grid>
+                    )
+                }
+                )}
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
+                </Grid>
+            </Grid>
+            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
         </div>
     )
 
