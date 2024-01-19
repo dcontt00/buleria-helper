@@ -1,3 +1,20 @@
+## [1.1.1] - 2024-01-19
+
+### Added
+
+- Authors: Añadir autores pulsando Enter
+- Authors: Al añadir un autor el foco se mueve al textfield de nombre
+- Authors: Boton de añadir autor bloqueado hasta que se introduzca un nombre y apellido
+
+### Fixed
+
+- APAGenerator: Texto de boton en página
+- Authors: Layout de los textfields
+
+### Removed
+
+- Updater: Las actualizaciones se llevan a cabo automáticamente por Mozilla
+
 ## [1.1.0] - 2024-01-19
 
 ### Added

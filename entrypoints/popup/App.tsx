@@ -3,7 +3,7 @@ import ApaGenerator from '@/components/ApaGenerator';
 import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
 import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
-import theme from '@/utils/theme';
+import { themeAuto } from '@/utils/theme';
 import { useEffect, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AbcIcon from '@mui/icons-material/Abc';
@@ -13,7 +13,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import FileRename from '@/components/FileRename';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Authors from '@/components/Authors';
-import Updater from '@/components/Updater';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
     const [showKeywords, setShowKeywords] = useState<boolean>(false);
@@ -95,10 +94,9 @@ function App() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeAuto}>
             <Stack direction="column" spacing={2} justifyContent={"center"}>
                 <Typography variant="h4">Buleria Helper</Typography>
-                <Updater />
                 <Buttons />
                 <Modules />
             </Stack>

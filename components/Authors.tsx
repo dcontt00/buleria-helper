@@ -1,5 +1,5 @@
-import { Button, Chip, Grid, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Chip, Grid, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
+import { useState, useRef } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { Author } from "@/types";
 import { sendMessage } from "@/utils/messaging";
@@ -15,6 +15,7 @@ export default function Authors({ tab }: ComponentProps) {
     const [progress, setProgress] = useState<number>(0);
     const [showProgress, setShowProgress] = useState<boolean>(false);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+    const nameRef = useRef<HTMLInputElement>(null);
 
     function onChangeName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
@@ -51,29 +52,48 @@ export default function Authors({ tab }: ComponentProps) {
         setShowProgress(false);
         setButtonDisabled(false);
     }
+    function handleFormSubmit(event: React.FormEvent) {
+        event.preventDefault(); // Previene la recarga de la página
+        if (name == "" || surname == "") { return; }
+        onClickAdd();
+        if (nameRef.current) {
+            nameRef.current.focus();
+        }
+    }
 
     return (
         <div>
-            <Stack direction="row" spacing={2}>
-                <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
-                <TextField label="Nombre" onChange={onChangeName} value={name} />
-                <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
-                <Button variant="contained" onClick={onClickAdd}>Añadir</Button>
-            </Stack>
-            <Stack direction="column" spacing={2}>
+            <Box component="form" onSubmit={handleFormSubmit} >
                 <Grid container spacing={1}>
-                    {authors.map((author, index) => {
-                        return (
-                            <Grid item key={index}>
-                                <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
-                            </Grid>
-                        )
-                    }
-                    )}
+                    <Grid item xs={12}>
+                        <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
+                    </Grid>
+                    <Grid item xs={5}>
+                        <TextField label="Nombre" onChange={onChangeName} value={name} inputRef={nameRef} />
+                    </Grid>
+                    <Grid item xs={5}>
+                        <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Button variant="contained" type="submit" sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
+                    </Grid>
                 </Grid>
-                <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
-                <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
-            </Stack>
+            </Box>
+            <br />
+            <Grid container spacing={1}>
+                {authors.map((author, index) => {
+                    return (
+                        <Grid item key={index}>
+                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                        </Grid>
+                    )
+                }
+                )}
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
+                </Grid>
+            </Grid>
+            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
         </div>
     )
 
