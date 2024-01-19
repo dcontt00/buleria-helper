@@ -47,20 +47,3 @@ export default defineContentScript({
     });
   },
 });
-async function waitForInputElements(): Promise<HTMLInputElement> {
-  return new Promise((resolve, reject) => {
-    const observer = new MutationObserver((mutations, observer) => {
-      let titleElement = document.getElementById(
-        "aspect_submission_StepTransformer_field_dc_title"
-      ) as HTMLInputElement;
-      alert("titleElement");
-      if (titleElement) {
-        observer.disconnect();
-        resolve(titleElement);
-        return;
-      }
-    });
-
-    observer.observe(document, { childList: true, subtree: true });
-  });
-}
