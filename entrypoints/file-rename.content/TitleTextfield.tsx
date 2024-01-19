@@ -1,7 +1,7 @@
 import { getFileNameFromTitle } from "@/utils/stringUtils"
 import { Button, IconButton, Paper, Stack, TextField, Tooltip } from "@mui/material"
 import { ThemeProvider } from "@mui/material"
-import theme from "@/utils/theme"
+import { themeLight } from "@/utils/theme"
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { useState, useEffect } from "react";
 
@@ -35,7 +35,7 @@ export default function TitleTextfield({ title }: TitleTextfieldProps) {
         }
     };
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeLight}>
             <br />
             <Stack direction="row" spacing={1}>
                 <TextField id="title" label="Título de archivo" variant="outlined" fullWidth

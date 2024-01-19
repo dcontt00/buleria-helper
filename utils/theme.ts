@@ -4,7 +4,7 @@ const isDarkMode =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-var theme = createTheme({
+var themeAuto = createTheme({
   palette: {
     mode: isDarkMode ? "dark" : "light",
     primary: {
@@ -16,4 +16,16 @@ var theme = createTheme({
   },
 });
 
-export default theme;
+var themeLight = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#00bcd4",
+    },
+    secondary: {
+      main: "#ff4081",
+    },
+  },
+});
+
+export { themeAuto, themeLight };
