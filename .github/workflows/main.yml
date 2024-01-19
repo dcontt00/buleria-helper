@@ -44,7 +44,7 @@ jobs:
       - name: Generate Changelog
         id: changelog
         run: |
-          changelog=$(git diff --unified=0 1.0.1 HEAD -- Changelog.md | grep '^+' | grep -v '+++' | sed 's/^[-+]//' | tail -n +2)
+          changelog=$(git diff --unified=0 ${{ steps.lasttag.outputs.tag }} HEAD -- Changelog.md | grep '^+' | grep -v '+++' | sed 's/^[-+]//' | tail -n +2)
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
