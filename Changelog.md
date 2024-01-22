@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Added
+
+- SherpaRomeo: Añadido acordeón e iconos para ver todo más fácil de primeras
+
 ## [1.1.1] - 2024-01-19
 
 ### Added
