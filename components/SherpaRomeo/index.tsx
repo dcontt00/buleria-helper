@@ -165,7 +165,3 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
         </Stack>
     )
 }
-
-async function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
