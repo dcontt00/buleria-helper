@@ -6,6 +6,7 @@ import { sendMessage } from "@/utils/messaging";
 import ComponentProps from "@/interfaces/ComponentProps";
 import waitForTabComplete from "@/utils/tabUtils";
 import ProgressComponent from "./Progress";
+import { detectSeparator, separateKeywords } from "@/entrypoints/keywords.content/common";
 
 
 export default function Keywords({ tab }: ComponentProps) {
@@ -50,17 +51,7 @@ export default function Keywords({ tab }: ComponentProps) {
         setButtonDisabled(false);
     }
 
-    function detectSeparator(keywords: string) {
-        var separators = [',', ';', '.'];
-        var separator = separators.find(separator => keywords.includes(separator));
-        if (separator != undefined) {
-            return separator;
-        }
-    }
 
-    function separateKeywords(keywords: string, separator: string) {
-        return keywords.split(separator);
-    }
 
     async function onCorrectClick() {
         // Obtiene keywords que están en una sola linea de la página y las pega en el campo de keywords

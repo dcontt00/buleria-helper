@@ -39,4 +39,15 @@ function pasteKeyword(keyword: string) {
   return true;
 }
 
-export { getKeywords, pasteKeyword };
+function detectSeparator(keywords: string) {
+  var separators = [",", ";", "."];
+  var separator = separators.find((separator) => keywords.includes(separator));
+  if (separator != undefined) {
+    return separator;
+  }
+}
+
+function separateKeywords(keywords: string, separator: string) {
+  return keywords.split(separator);
+}
+export { getKeywords, pasteKeyword, detectSeparator, separateKeywords };
