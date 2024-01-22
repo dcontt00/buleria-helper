@@ -7,6 +7,7 @@ type PublisherPolicy = {
   locations: string[];
   copyrightOwner: string | undefined;
   publisherDeposit: { url: string; name: string } | undefined;
+  url: string;
 };
 
 export default PublisherPolicy;

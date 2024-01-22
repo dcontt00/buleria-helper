@@ -10,6 +10,7 @@ interface ProtocolMap {
   pasteAuthor(author: Author): boolean;
   addCitationButtonToPage(): boolean;
   addTitleButtonToPage(): boolean;
+  addSherpaRomeoButtonToPage(): boolean;
 }
 
 export const { sendMessage, onMessage } =

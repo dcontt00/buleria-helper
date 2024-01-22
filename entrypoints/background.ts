@@ -6,6 +6,7 @@ export default defineBackground(() => {
       await waitForTabComplete(tabId);
       await sendMessage("addCitationButtonToPage", undefined, tabId);
       await sendMessage("addTitleButtonToPage", undefined, tabId);
+      await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
     }
   });
 });
