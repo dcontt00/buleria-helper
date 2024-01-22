@@ -8,7 +8,7 @@ import PublisherPolicyData from "./PublisherPolicyData";
 import LaunchIcon from '@mui/icons-material/Launch';
 import SearchIcon from '@mui/icons-material/Search';
 import ComponentProps from "@/interfaces/ComponentProps";
-import getAPI from "@/entrypoints/sherpa-romeo.content/common";
+import getPublisherPolicies from "@/entrypoints/sherpa-romeo.content/common";
 
 export default function SherpaRomeo({ tab }: ComponentProps) {
     const urlPatters = [
@@ -37,7 +37,7 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
 
 
     async function searchOnSherpaRomeo() {
-        var response = await getAPI(issn);
+        var response = await getPublisherPolicies(issn);
         if (response.length > 0) {
             setNotFound(false);
             setUrl(response[0].url);

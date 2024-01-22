@@ -1,7 +1,9 @@
 import { PublisherPolicy } from "@/types";
 import axios from "axios";
 
-export default async function getAPI(issn: string): Promise<PublisherPolicy[]> {
+export default async function getPublisherPolicies(
+  issn: string
+): Promise<PublisherPolicy[]> {
   var result = await axios
     .get("https://v2.sherpa.ac.uk/cgi/retrieve", {
       params: {
