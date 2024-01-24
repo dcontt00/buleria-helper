@@ -48,6 +48,17 @@ function detectSeparator(keywords: string) {
 }
 
 function separateKeywords(keywords: string, separator: string) {
-  return keywords.split(separator);
+  var result: string[] = [];
+  var aux = keywords.split(separator);
+
+  // Poner la primera letra de cada palabra en mayúscula
+  aux.forEach((word) => {
+    word = word.trim();
+    var fixed = word.charAt(0).toUpperCase() + word.slice(1);
+    console.log(fixed);
+    result.push(fixed);
+  });
+
+  return result;
 }
 export { getKeywords, pasteKeyword, detectSeparator, separateKeywords };

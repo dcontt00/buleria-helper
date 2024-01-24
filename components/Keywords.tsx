@@ -24,7 +24,7 @@ export default function Keywords({ tab }: ComponentProps) {
 
 
     async function onAcceptClick() {
-        var keywords = keywordsString.split(separator);
+        var keywords = separateKeywords(keywordsString, separator);
         await pasteKeywords(keywords);
 
     }

@@ -5,6 +5,10 @@
 - SherpaRomeo: Añadido acordeón e iconos para ver todo más fácil de primeras
 - SherpaRomeo: Añadido un botón en página al lado de los issn para buscar en SherpaRomeo
 
+### Changed
+
+- Keywords: Se añaden las keywords con la primera letra de la primera palabra en mayuscula
+
 ## [1.1.1] - 2024-01-19
 
 ### Added
