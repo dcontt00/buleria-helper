@@ -1,10 +1,16 @@
 import CitationInfo from "@/interfaces/CitationInfo";
-
+import { DocumentType } from "@/types";
+import Article from "./Article";
+const DocumentType = {
+  ARTICULO: "Articulo",
+  LIBRO: "Libro",
+  CAPITULO_LIBRO: "Capítulo libro",
+};
 /**
  * Retrieves the citation information from Submission Submit Page and returns it as a CitationInfo object.
  * @returns The citation information.
  */
-function getCitationInfoSubmit(): CitationInfo {
+function getCitationInfoSubmit(documentType: DocumentType): string {
   var title: string;
   var authors: string;
   var date: string;
@@ -14,10 +20,7 @@ function getCitationInfoSubmit(): CitationInfo {
   var startPage: string = "";
   var endPage: string = "";
 
-  let titleElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_title"
-  ) as HTMLInputElement;
-
+  // Common data
   let authorsCheckboxes = document.querySelectorAll(
     "[name='dc_contributor_author_selected']"
   );
@@ -33,17 +36,23 @@ function getCitationInfoSubmit(): CitationInfo {
     "aspect_submission_StepTransformer_field_dc_date_year"
   ) as HTMLInputElement;
 
+  let titleElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_title"
+  ) as HTMLInputElement;
+
+  // Specific data
+
   let journalElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_journal_title"
+  ) as HTMLInputElement;
+
+  let bookTitleElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_relation_ispartof"
   ) as HTMLInputElement;
 
   let volumeElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_volume_number"
   ) as HTMLInputElement;
-
-  let doiCheckboxes = document.querySelectorAll(
-    "[name='dc_identifier_selected']"
-  );
 
   let startPageElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_page_initial"
@@ -52,33 +61,35 @@ function getCitationInfoSubmit(): CitationInfo {
   let endPageElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_page_final"
   ) as HTMLInputElement;
-  doiCheckboxes.forEach((checkbox) => {
-    var parent = checkbox.parentElement;
-    var doiElement: HTMLCollectionOf<HTMLSpanElement> | undefined =
-      parent?.getElementsByTagName("span");
 
-    if (doiElement && doiElement[0].innerText.includes("doi:")) {
-      doi = doiElement[0].innerText.replace("doi:", "");
-    }
-  });
+  let editorialCheckBoxes = document.querySelectorAll(
+    "[name='dc_publisher_selected']"
+  );
+  var editorial;
+  var editorialParent = editorialCheckBoxes[0].parentElement;
+  editorial = editorialParent?.getElementsByTagName("span")[0].innerText;
 
-  title = titleElement?.value;
-  authors = formatAuthors(authorsArray);
-  date = dateElement?.value;
-  journal = journalElement?.value;
-  volume = volumeElement?.value;
-  startPage = startPageElement?.value;
-  endPage = endPageElement?.value;
-  return {
-    title: title,
-    authors: authors,
-    date: date,
-    journal: journal,
-    volume: volume,
-    doi: doi,
-    startPage: startPage,
-    endPage: endPage,
-  };
+  var numPages =
+    parseInt(endPageElement.value) - parseInt(startPageElement.value) + 1;
+
+  switch (documentType) {
+    case "Articulo":
+      var article = new Article(
+        authorsArray,
+        dateElement.value,
+        titleElement.value,
+        journalElement.value,
+        volumeElement.value,
+        numPages.toString()
+      );
+      return article.toString();
+    case "Libro":
+      return "Libro";
+    case "Capítulolibro":
+      return "Capítulo libro";
+  }
+
+  return "";
 }
 
 /**
@@ -92,6 +103,7 @@ function getCitationInfoEdit(): CitationInfo {
   var journal = "";
   var volume = "";
   var doi = "";
+  var editorial = "";
 
   var authorsArray: string[] = [];
 
@@ -135,11 +147,19 @@ function getCitationInfoEdit(): CitationInfo {
           doi = td.nextElementSibling.getElementsByTagName("textarea")[0].value;
         }
         break;
+
+      case "dc. publisher":
+        if (td.nextElementSibling) {
+          editorial =
+            td.nextElementSibling.getElementsByTagName("textarea")[0].value;
+        }
+        break;
     }
     authors = formatAuthors(authorsArray);
   });
   return {
     title: title,
+    titleJounalOrBook: "",
     authors: authors,
     date: date,
     journal: journal,
@@ -147,6 +167,7 @@ function getCitationInfoEdit(): CitationInfo {
     doi: doi,
     startPage: "",
     endPage: "",
+    editorial: editorial,
   };
 }
 
@@ -216,4 +237,23 @@ function pasteCitation(citation: string) {
   }
 }
 
-export { getCitationInfoSubmit, getCitationInfoEdit, pasteCitation };
+/**
+ * Generates an APA citation based on the information provided by the user.
+ */
+function generateCitation(citationInfo: CitationInfo): string {
+  var citation = `${citationInfo.authors}. (${citationInfo.date}). ${citationInfo.title}`;
+  // DocumentType.ARTICULO: Autores. (Fecha). Titulo. Titulo revista, Volumen, Paginas
+  // DocumentType.LIBRO: Autores. (Fecha). Titulo. Editorial
+
+  // DocumentType.CAPITULO_LIBRO: Autores. (Fecha). Titulo Capitulo. En Titulo libro. (p. paginas) Editorial
+
+  return citation;
+}
+
+export {
+  getCitationInfoSubmit,
+  getCitationInfoEdit,
+  pasteCitation,
+  generateCitation,
+  formatAuthors,
+};

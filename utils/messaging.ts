@@ -1,9 +1,8 @@
 import { defineExtensionMessaging } from "@webext-core/messaging";
-import CitationInfo from "@/interfaces/CitationInfo";
-import { Author } from "../types";
+import { Author, DocumentType } from "../types";
 interface ProtocolMap {
   getStringLength(data: string): number;
-  getCitationInfo(): CitationInfo | undefined;
+  getCitation(documentType: DocumentType): string;
   pasteCitation(citation: string): boolean;
   getKeywords(): string | null | undefined;
   pasteKeyword(keyword: string): boolean;

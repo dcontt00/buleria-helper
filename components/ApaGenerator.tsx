@@ -5,10 +5,10 @@ import CitationInfo from "@/interfaces/CitationInfo";
 import { useEffect, useState } from "react";
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Alert, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Button, MenuItem, Select, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import HideAlert from "./HideAlert";
 import ComponentProps from "@/interfaces/ComponentProps";
-import generateCitation from "@/utils/generateCitation";
+import { DocumentType } from "@/types";
 export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [
         /^https?:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -16,10 +16,10 @@ export default function ApaGenerator({ tab }: ComponentProps) {
         /^https?:\/\/buleria\.unileon\.es\/handle\/\d+\/\d+\/workflow_edit_metadata\?workflowID=WW\d+$/
     ]
 
-    const [citationInfo, setCitationInfo] = useState<CitationInfo | undefined>(undefined);
     const [citation, setCitation] = useState<string | undefined>(undefined);
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
+    const [documentType, setDocumentType] = useState<DocumentType>('Articulo');
     useEffect(() => {
         console.log("useEffect");
         const apa = async () => {
@@ -39,13 +39,11 @@ export default function ApaGenerator({ tab }: ComponentProps) {
         console.log("Generating APA");
         try {
             if (tab) {
-                const response = await sendMessage('getCitationInfo', undefined, tab.id);
+                const response = await sendMessage('getCitation', "Articulo", tab.id);
                 // Check every atributte is defined
                 console.log(response);
                 if (response != undefined) {
-
-                    setCitationInfo(response);
-                    setCitation(generateCitation(response));
+                    setCitation(response);
                 } else {
                     setCitation("No se ha podido generar la cita");
                     console.log("Response is undefined");
@@ -96,6 +94,19 @@ export default function ApaGenerator({ tab }: ComponentProps) {
                 variant="outlined"
             />
             <Stack direction={"row"} spacing={2}>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={documentType}
+                    label="Age"
+                    onChange={(event) => {
+                        setDocumentType(event.target.value as DocumentType);
+                    }}
+                >
+                    <MenuItem value="Articulo">Articulo</MenuItem>
+                    <MenuItem value="Libro">Libro</MenuItem>
+                    <MenuItem value="CapituloLibro">Capítulo libro</MenuItem>
+                </Select>
                 <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar al portapapeles</Button>
                 <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>
                 <HideAlert show={showAlert} setShow={setShowAlert} message={alertMessage} severity="success" />
