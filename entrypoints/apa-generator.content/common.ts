@@ -13,15 +13,6 @@ const DocumentType = {
  * @returns The citation information.
  */
 function getCitationInfoSubmit(documentType: DocumentType): string {
-  var title: string;
-  var authors: string;
-  var date: string;
-  var journal: string;
-  var volume: string;
-  var doi: string = "";
-  var startPage: string = "";
-  var endPage: string = "";
-
   // Common data
   let authorsCheckboxes = document.querySelectorAll(
     "[name='dc_contributor_author_selected']"
