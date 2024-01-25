@@ -9,6 +9,7 @@ import { Alert, Button, MenuItem, Select, Snackbar, Stack, TextField, Typography
 import HideAlert from "./HideAlert";
 import ComponentProps from "@/interfaces/ComponentProps";
 import { DocumentType } from "@/types";
+
 export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [
         /^https?:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -34,12 +35,21 @@ export default function ApaGenerator({ tab }: ComponentProps) {
         apa();
     }, []);
 
+    useEffect(() => {
+        const apa = async () => {
+            await generateAPA(tab);
+
+        }
+        apa();
+    }
+        , [documentType]);
+
 
     async function generateAPA(tab?: Tabs.Tab) {
         console.log("Generating APA");
         try {
             if (tab) {
-                const response = await sendMessage('getCitation', "Articulo", tab.id);
+                const response = await sendMessage('getCitation', documentType, tab.id);
                 // Check every atributte is defined
                 console.log(response);
                 if (response != undefined) {
@@ -78,6 +88,12 @@ export default function ApaGenerator({ tab }: ComponentProps) {
             setShowAlert(true);
         }
     }
+
+    async function onSelectChange(event: { target: { value: string; }; }) {
+        const value = event.target.value as DocumentType;
+        setDocumentType(value);
+    }
+
     return (
         <Stack direction={"column"} spacing={2}>
             <Typography variant="body1">Cita en formato APA</Typography>
@@ -99,13 +115,11 @@ export default function ApaGenerator({ tab }: ComponentProps) {
                     id="demo-simple-select"
                     value={documentType}
                     label="Age"
-                    onChange={(event) => {
-                        setDocumentType(event.target.value as DocumentType);
-                    }}
+                    onChange={onSelectChange}
                 >
                     <MenuItem value="Articulo">Articulo</MenuItem>
                     <MenuItem value="Libro">Libro</MenuItem>
-                    <MenuItem value="CapituloLibro">Capítulo libro</MenuItem>
+                    <MenuItem value="Capítulolibro">Capítulo libro</MenuItem>
                 </Select>
                 <Button variant="contained" startIcon={<ContentCopyIcon />} onClick={copyToClipboard}>Copiar al portapapeles</Button>
                 <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={pasteAPA}>Pegar APA</Button>

@@ -1,6 +1,8 @@
 import CitationInfo from "@/interfaces/CitationInfo";
 import { DocumentType } from "@/types";
 import Article from "./Article";
+import Book from "./Book";
+import BookChapter from "./BookChapter";
 const DocumentType = {
   ARTICULO: "Articulo",
   LIBRO: "Libro",
@@ -42,14 +44,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
 
   // Specific data
 
-  let journalElement: HTMLInputElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_journal_title"
-  ) as HTMLInputElement;
-
-  let bookTitleElement: HTMLInputElement = document.getElementById(
-    "aspect_submission_StepTransformer_field_dc_relation_ispartof"
-  ) as HTMLInputElement;
-
   let volumeElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_volume_number"
   ) as HTMLInputElement;
@@ -62,6 +56,8 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
     "aspect_submission_StepTransformer_field_dc_page_final"
   ) as HTMLInputElement;
 
+  var numPages =
+    parseInt(endPageElement.value) - parseInt(startPageElement.value) + 1;
   let editorialCheckBoxes = document.querySelectorAll(
     "[name='dc_publisher_selected']"
   );
@@ -69,11 +65,19 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
   var editorialParent = editorialCheckBoxes[0].parentElement;
   editorial = editorialParent?.getElementsByTagName("span")[0].innerText;
 
-  var numPages =
-    parseInt(endPageElement.value) - parseInt(startPageElement.value) + 1;
-
   switch (documentType) {
     case "Articulo":
+      let journalElement: HTMLInputElement = document.getElementById(
+        "aspect_submission_StepTransformer_field_dc_journal_title"
+      ) as HTMLInputElement;
+
+      if (journalElement == null) {
+        return "Error: No se encuentra el titulo de la revista";
+      }
+      if (startPageElement.value == "" || endPageElement.value == "") {
+        return "Error: No se encuentra la pagina inicial o la final";
+      }
+
       var article = new Article(
         authorsArray,
         dateElement.value,
@@ -84,9 +88,33 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       );
       return article.toString();
     case "Libro":
-      return "Libro";
+      var book = new Book(
+        authorsArray,
+        dateElement.value,
+        titleElement.value,
+        editorial
+      );
+      return book.toString();
     case "Capítulolibro":
-      return "Capítulo libro";
+      let bookTitleElement: HTMLInputElement = document.getElementById(
+        "aspect_submission_StepTransformer_field_dc_relation_ispartof"
+      ) as HTMLInputElement;
+      if (bookTitleElement == null) {
+        return "Error: No se encuentra el titulo del libro";
+      }
+      if (startPageElement.value == "" || endPageElement.value == "") {
+        return "Error: No se encuentra la pagina inicial o la final";
+      }
+
+      var bookChapter = new BookChapter(
+        authorsArray,
+        dateElement.value,
+        titleElement.value,
+        bookTitleElement.value,
+        numPages.toString(),
+        editorial
+      );
+      return bookChapter.toString();
   }
 
   return "";
