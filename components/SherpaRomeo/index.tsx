@@ -8,6 +8,7 @@ import PublisherPolicyData from "./PublisherPolicyData";
 import LaunchIcon from '@mui/icons-material/Launch';
 import SearchIcon from '@mui/icons-material/Search';
 import ComponentProps from "@/interfaces/ComponentProps";
+import getPublisherPolicies from "@/entrypoints/sherpa-romeo.content/common";
 
 export default function SherpaRomeo({ tab }: ComponentProps) {
     const urlPatters = [
@@ -34,102 +35,16 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
         getTab();
     }, []);
 
-    async function getAPI(): Promise<PublisherPolicy[]> {
-        var result = await axios.get("https://v2.sherpa.ac.uk/cgi/retrieve",
-            {
-                params: {
-                    "item-type": "publication",
-
-                    "format": "Json",
-                    "limit": 10,
-                    "offset": 0,
-                    "order": "-id",
-                    "filter": JSON.stringify([["issn", "equals", issn]]),
-                    "api-key": import.meta.env.VITE_SHERPA_ROMEO_API_KEY,
-                },
-                headers: {
-                    'Accept': "*",
-                },
-            }
-        ).then((response) => {
-            var publisherPolicies: PublisherPolicy[] = [];
-            setUrl(response.data.items[0].system_metadata.uri)
-            for (const PublisherPolicy of response.data.items[0].publisher_policy) {
-                for (const PermittedOA of PublisherPolicy.permitted_oa) {
-                    try {
-                        var license = undefined;
-                        var embargo = undefined;
-
-                        var id = PermittedOA.id;
-                        if (PermittedOA.article_version_phrases == undefined) {
-                            continue;
-                        }
-                        var articleVersion = PermittedOA.article_version_phrases[0].phrase;
-                        var conditions = PermittedOA.conditions;
-                        if (PermittedOA.license) {
-                            license = PermittedOA.license[0].license_phrases[0].phrase;
-                        }
-
-                        if (PermittedOA.embargo) {
-                            embargo = PermittedOA.embargo.amount + " " + PermittedOA.embargo.units;
-                        } else {
-                            embargo = "No embargo";
-                        }
-
-                        var locations: string[] = [];
-                        for (const Location of PermittedOA.location.location_phrases) {
-                            var phrase: string = Location.phrase;
-                            locations.push(phrase);
-                        }
-
-                        var copyrightOwner;
-                        if (PermittedOA.copyright_owner_phrases) {
-                            copyrightOwner = PermittedOA.copyright_owner_phrases[0].phrase;
-                        }
-
-                        var publiserDeposit = undefined
-                        var publisherDepositURL, publisherDepositName;
-                        if (PermittedOA.publisher_deposit) {
-                            publisherDepositURL = PermittedOA.publisher_deposit[0].repository_metadata.url;
-                            publisherDepositName = PermittedOA.publisher_deposit[0].repository_metadata.name[0].name;
-                            publiserDeposit = { url: publisherDepositURL, name: publisherDepositName };
-                        }
-
-                        var publisherPolicy: PublisherPolicy = {
-                            id: id,
-                            articleVersion: articleVersion,
-                            conditions: conditions,
-                            license: license,
-                            embargo: embargo,
-                            locations: locations,
-                            copyrightOwner: copyrightOwner,
-                            publisherDeposit: publiserDeposit,
-                        }
-
-                        publisherPolicies.push(publisherPolicy);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-            }
-            return publisherPolicies;
-
-        }
-        ).catch((error) => {
-            console.log(error);
-            setNotFound(true);
-            return [];
-        });
-        return result;
-
-    }
 
     async function searchOnSherpaRomeo() {
-
-        //var response = await sendMessage('getSherpaRomeoInfo', "0340-7004", tab.id);
-        var response = await getAPI();
-        setPublisherPolicies(response);
-
+        var response = await getPublisherPolicies(issn);
+        if (response.length > 0) {
+            setNotFound(false);
+            setUrl(response[0].url);
+            setPublisherPolicies(response);
+        } else {
+            setNotFound(true);
+        }
     }
 
     async function navigateToSherpaRomeo() {
@@ -164,8 +79,4 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
             }
         </Stack>
     )
-}
-
-async function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -12,18 +12,18 @@ export default defineContentScript({
   runAt: "document_end",
 
   main: (ctx) => {
-    onMessage("getCitationInfo", (message) => {
+    onMessage("getCitation", (message) => {
       if (location.href.includes("/submit/")) {
         // Submit submission page
-        return getCitationInfoSubmit();
+        return getCitationInfoSubmit(message.data);
       } else if (location.href.includes("submit_metadata")) {
         // Edit submission page
-        return getCitationInfoEdit();
+        //return getCitationInfoEdit();
       } else if (location.href.includes("workflow_edit_metadata")) {
         // Review submission to aproove page
-        return getCitationInfoSubmit();
+        return getCitationInfoSubmit(message.data);
       } else {
-        return undefined;
+        return "No se ha podido generar la cita";
       }
     });
 

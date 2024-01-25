@@ -11,7 +11,12 @@ export default defineConfig({
     description:
       "Extensión para ayudar a la administracion del repositorio buleria.unileon.es",
     homepage_url: "https://github.com/dcontt00/buleria-helper",
-    permissions: ["https://buleria.unileon.es/*", "activeTab", "storage"],
+    permissions: [
+      "https://buleria.unileon.es/*",
+      "activeTab",
+      "storage",
+      "https://v2.sherpa.ac.uk/",
+    ],
     browser_specific_settings: {
       gecko: {
         id: "buleriahelper@dcontt00",

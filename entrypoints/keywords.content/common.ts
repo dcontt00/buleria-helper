@@ -39,4 +39,26 @@ function pasteKeyword(keyword: string) {
   return true;
 }
 
-export { getKeywords, pasteKeyword };
+function detectSeparator(keywords: string) {
+  var separators = [",", ";", "."];
+  var separator = separators.find((separator) => keywords.includes(separator));
+  if (separator != undefined) {
+    return separator;
+  }
+}
+
+function separateKeywords(keywords: string, separator: string) {
+  var result: string[] = [];
+  var aux = keywords.split(separator);
+
+  // Poner la primera letra de cada palabra en mayúscula
+  aux.forEach((word) => {
+    word = word.trim();
+    var fixed = word.charAt(0).toUpperCase() + word.slice(1);
+    console.log(fixed);
+    result.push(fixed);
+  });
+
+  return result;
+}
+export { getKeywords, pasteKeyword, detectSeparator, separateKeywords };
