@@ -1,9 +1,10 @@
-## [Unreleased]
+## [1.2.0] - 2024-01-25
 
 ### Added
 
 - SherpaRomeo: Añadido acordeón e iconos para ver todo más fácil de primeras
 - SherpaRomeo: Añadido un botón en página al lado de los issn para buscar en SherpaRomeo
+- APAGenerator: Selección del tipo de documento para crear la cita
 
 ### Changed
 
