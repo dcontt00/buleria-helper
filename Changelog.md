@@ -1,3 +1,9 @@
+## [1.2.1] - 2024-02-13
+
+### Added
+
+- Ahora la extension se puede usar en sidepanel
+
 ## [1.2.0] - 2024-01-25
 
 ### Added
