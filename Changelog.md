@@ -1,3 +1,9 @@
+## [1.2.3] - 2024-03-06
+
+### Fixed
+
+- APAGenerator: Arreglado error con numero de paginas
+
 ## [1.2.2] - 2024-03-06
 
 ### Fixed

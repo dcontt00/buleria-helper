@@ -26,9 +26,14 @@ class Article {
   // Autores. (Fecha). Titulo. Titulo revista, Volumen, Paginas
 
   toString(): string {
-    return `${formatAuthors(this.authors)} (${this.date}). ${this.title}. ${
-      this.journal
-    }, ${this.volume}, ${this.numPages}`;
+    var output = "";
+    output += formatAuthors(this.authors);
+    output += ` (${this.date}). ${this.title}. `;
+    output += `${this.journal}, ${this.volume}`;
+    if (this.numPages) {
+      output += this.numPages;
+    }
+    return output;
   }
 }
 

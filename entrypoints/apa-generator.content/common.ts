@@ -49,12 +49,20 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
 
   var numPages =
     parseInt(endPageElement.value) - parseInt(startPageElement.value) + 1;
+  var editorial;
   let editorialCheckBoxes = document.querySelectorAll(
     "[name='dc_publisher_selected']"
   );
-  var editorial;
-  var editorialParent = editorialCheckBoxes[0].parentElement;
-  editorial = editorialParent?.getElementsByTagName("span")[0].innerText;
+
+  if (editorialCheckBoxes && editorialCheckBoxes.length > 0) {
+    var editorialParent = editorialCheckBoxes[0].parentElement;
+    editorial = editorialParent?.getElementsByTagName("span")[0].innerText;
+  } else {
+    var editorialelement = document.getElementById(
+      "aspect_submission_StepTransformer_field_dc_publisher"
+    ) as HTMLInputElement;
+    editorial = editorialelement.value;
+  }
 
   switch (documentType) {
     case "Articulo":
@@ -65,9 +73,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       if (journalElement == null) {
         return "Error: No se encuentra el titulo de la revista";
       }
-      if (startPageElement.value == "" || endPageElement.value == "") {
-        return "Error: No se encuentra la pagina inicial o la final";
-      }
 
       var article = new Article(
         authorsArray,
@@ -77,6 +82,9 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         volumeElement.value,
         numPages.toString()
       );
+      if (startPageElement.value == "" || endPageElement.value == "") {
+        article.numPages = "";
+      }
       return article.toString();
     case "Libro":
       var book = new Book(
@@ -93,8 +101,9 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       if (bookTitleElement == null) {
         return "Error: No se encuentra el titulo del libro";
       }
-      if (startPageElement.value == "" || endPageElement.value == "") {
-        return "Error: No se encuentra la pagina inicial o la final";
+
+      if (editorial == "") {
+        return "Error: No se encuentra la editorial";
       }
 
       var bookChapter = new BookChapter(
@@ -105,6 +114,9 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         numPages.toString(),
         editorial
       );
+      if (startPageElement.value == "" || endPageElement.value == "") {
+        bookChapter.numPages = "";
+      }
       return bookChapter.toString();
   }
 
@@ -270,9 +282,9 @@ function generateCitation(citationInfo: CitationInfo): string {
 }
 
 export {
-  getCitationInfoSubmit,
-  getCitationInfoEdit,
-  pasteCitation,
-  generateCitation,
   formatAuthors,
+  generateCitation,
+  getCitationInfoEdit,
+  getCitationInfoSubmit,
+  pasteCitation,
 };
