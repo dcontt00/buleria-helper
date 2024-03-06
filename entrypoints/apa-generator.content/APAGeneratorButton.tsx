@@ -1,14 +1,14 @@
-import { Button, MenuItem, Select } from "@mui/material";
-import { pasteCitation, getCitationInfoSubmit, generateCitation } from "./common";
-import { ThemeProvider } from "@mui/material";
-import { themeLight } from "@/utils/theme";
-import { useEffect, useState } from "react";
 import { DocumentType } from "@/types";
+import { themeLight } from "@/utils/theme";
+import { Button, MenuItem, Select, ThemeProvider } from "@mui/material";
+import { useState } from "react";
+import { getCitationInfoSubmit, pasteCitation } from "./common";
 export default function APAGeneratorButton() {
     const [documentType, setDocumentType] = useState<DocumentType>('Articulo');
 
     function onClick() {
         var citation = getCitationInfoSubmit(documentType);
+        console.log(citation);
         pasteCitation(citation);
     }
 

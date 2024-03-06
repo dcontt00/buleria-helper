@@ -25,9 +25,15 @@ class BookChapter {
   }
   // Autores. (Fecha). Titulo Capitulo. En Titulo libro. (p. paginas) Editorial
   toString(): string {
-    return `${formatAuthors(this.authors)} (${this.date}). ${this.title}. (p. ${
-      this.numPages
-    }) En ${this.bookTitle}. ${this.editorial}`;
+    var output = "";
+    output += formatAuthors(this.authors);
+    output += ` (${this.date}). ${this.title}. `;
+    output += `En ${this.bookTitle}`;
+    if (this.numPages) {
+      output += ` (p. ${this.numPages})`;
+    }
+    output += ` ${this.editorial}`;
+    return output;
   }
 }
 
