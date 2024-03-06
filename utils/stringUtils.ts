@@ -1,7 +1,8 @@
-function capitalizeWords(word: string) {
-  return word.replace(/\b\w/g, function (char) {
-    return char.toUpperCase();
-  });
+function capitalizeWords(wordsString: string) {
+  return wordsString
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 }
 
 function getFileNameFromTitle(title: string) {
