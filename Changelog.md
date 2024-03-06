@@ -1,3 +1,10 @@
+## [1.2.2] - 2024-03-06
+
+### Fixed
+
+- Authors: Al añadir un nombre con tildes ponia mal las mayusculas
+- Keywords: Todas las palabras en una keyword se ponen ahora en mayusculas
+
 ## [1.2.1] - 2024-02-13
 
 ### Added
