@@ -1,3 +1,13 @@
+## [1.2.4] - 2024-03-08
+
+### Fixed
+
+- Nombre archivo: No se eliminaban los signos de puntuación
+
+### Changed
+
+- Nombre Archivo: Movido al final de la página
+
 ## [1.2.3] - 2024-03-06
 
 ### Fixed

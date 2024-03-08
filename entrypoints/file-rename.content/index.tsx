@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import ReactDOM from "react-dom/client";
 import TitleTextfield from "./TitleTextfield";
 export default defineContentScript({
@@ -12,12 +11,16 @@ export default defineContentScript({
                 "aspect_submission_StepTransformer_field_dc_title"
             ) as HTMLInputElement;
 
+            let elements = document.getElementsByClassName("ds-form-item row");
+            let latestElement = elements[elements.length - 1];
+
             const ui = createIntegratedUi(ctx, {
                 position: "inline",
-                anchor: titleElement.parentElement,
+                anchor: latestElement.parentElement,
                 onMount: (container) => {
                     // Create a root on the UI container and render a component
                     const root = ReactDOM.createRoot(container);
+
                     root.render(
                         <TitleTextfield title={titleElement.value} />
                     );

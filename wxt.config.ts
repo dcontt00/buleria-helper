@@ -1,5 +1,5 @@
-import { defineConfig } from "wxt";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "wxt";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -16,6 +16,7 @@ export default defineConfig({
       "activeTab",
       "storage",
       "https://v2.sherpa.ac.uk/",
+      "sidePanel",
     ],
     browser_specific_settings: {
       gecko: {
