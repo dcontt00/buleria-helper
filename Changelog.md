@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Added
+
+- SherpaRomeo: Ahora aparece la editorial
+
 ## [1.2.4] - 2024-03-08
 
 ### Fixed

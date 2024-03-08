@@ -22,6 +22,8 @@ export default async function getPublisherPolicies(
     })
     .then((response) => {
       var publisherPolicies: PublisherPolicy[] = [];
+      var publisherName =
+        response.data.items[0].publishers[0].publisher.name[0].name;
       const url = response.data.items[0].system_metadata.uri;
       for (const PublisherPolicy of response.data.items[0].publisher_policy) {
         for (const PermittedOA of PublisherPolicy.permitted_oa) {
@@ -73,6 +75,7 @@ export default async function getPublisherPolicies(
 
             var publisherPolicy: PublisherPolicy = {
               id: id,
+              publisherName: publisherName,
               articleVersion: articleVersion,
               conditions: conditions,
               license: license,
