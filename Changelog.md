@@ -1,4 +1,8 @@
-## [Unreleased]
+## [1.2.4] - 2024-03-08
+
+### Fixed
+
+- Nombre archivo: No se eliminaban los signos de puntuación
 
 ### Changed
 
