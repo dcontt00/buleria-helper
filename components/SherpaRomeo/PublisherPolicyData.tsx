@@ -1,13 +1,12 @@
-import { PublisherPolicy } from "@/types"
-import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Link, Paper, Stack, Typography } from "@mui/material"
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import FolderIcon from '@mui/icons-material/Folder';
-import ChecklistIcon from '@mui/icons-material/Checklist';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import BackupIcon from '@mui/icons-material/Backup';
+import { PublisherPolicy } from "@/types";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import BackupIcon from '@mui/icons-material/Backup';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import FolderIcon from '@mui/icons-material/Folder';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Stack, Typography } from "@mui/material";
 export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: PublisherPolicy[] }) {
 
     function Conditions(PublisherPolicy: PublisherPolicy) {
@@ -188,6 +187,7 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
     }
     return (
         <>
+            <Typography >Editorial: {PublisherPolicies[0].publisherName}</Typography>
             {
                 PublisherPolicies.length !== 0 && PublisherPolicies.map((PublisherPolicy, index) => {
                     return (

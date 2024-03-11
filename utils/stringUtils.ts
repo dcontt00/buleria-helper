@@ -18,10 +18,14 @@ function getFileNameFromTitle(title: string) {
 
   // Eliminar preposiciones, conjunciones y articulos
   const prepositionsAndConjunctions = [
+    "al",
+    "del",
     "de",
     "a",
     "en",
     "y",
+    "e",
+    "u",
     "o",
     "con",
     "por",

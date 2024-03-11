@@ -1,3 +1,10 @@
+## [1.2.5] - 2024-03-11
+
+### Added
+
+- SherpaRomeo: Ahora aparece la editorial
+- FileRename: Se eliminarán las palabras "al", "e", "u" y "del" en el nombre de archivo
+
 ## [1.2.4] - 2024-03-08
 
 ### Fixed
