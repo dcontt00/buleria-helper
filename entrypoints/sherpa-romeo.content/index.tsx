@@ -1,8 +1,6 @@
-import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
 import ReactDOM from "react-dom/client";
-import { Button, ThemeProvider } from "@mui/material";
-import CitationInfo from "@/interfaces/CitationInfo";
+import { defineContentScript } from "wxt/sandbox";
 import SherpaRomeoButton from "./SherpaRomeoButton";
 export default defineContentScript({
     // Set manifest options
