@@ -24,6 +24,8 @@ function getFileNameFromTitle(title: string) {
     "a",
     "en",
     "y",
+    "e",
+    "u",
     "o",
     "con",
     "por",
