@@ -1,18 +1,19 @@
-import './App.css';
 import ApaGenerator from '@/components/ApaGenerator';
+import Authors from '@/components/Authors';
+import FileRename from '@/components/FileRename';
 import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
-import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
 import { themeAuto } from '@/utils/theme';
-import { useEffect, useState } from 'react';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AbcIcon from '@mui/icons-material/Abc';
-import NotesIcon from '@mui/icons-material/Notes';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
-import PersonIcon from '@mui/icons-material/Person';
-import FileRename from '@/components/FileRename';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import Authors from '@/components/Authors';
+import FindInPageIcon from '@mui/icons-material/FindInPage';
+import NotesIcon from '@mui/icons-material/Notes';
+import PersonIcon from '@mui/icons-material/Person';
+import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Tabs } from 'wxt/browser';
+import './App.css';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
     const [showKeywords, setShowKeywords] = useState<boolean>(false);
