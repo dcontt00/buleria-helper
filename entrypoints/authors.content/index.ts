@@ -1,5 +1,5 @@
-import { defineContentScript } from "wxt/sandbox";
 import { onMessage } from "@/utils/messaging";
+import { defineContentScript } from "wxt/sandbox";
 
 async function waitForTrElements(): Promise<NodeListOf<Element>> {
   return new Promise((resolve, reject) => {
@@ -24,6 +24,21 @@ export default defineContentScript({
   runAt: "document_start",
 
   main: () => {
+    onMessage("removeAuthors", async () => {
+      let authorCheckboxes = document.querySelectorAll(
+        "input[name=dc_contributor_author_selected]"
+      ) as NodeListOf<HTMLInputElement>;
+      authorCheckboxes.forEach((checkbox) => {
+        checkbox.click();
+      });
+
+      let removeButton = document.querySelector(
+        "button[name=submit_dc_contributor_author_delete]"
+      ) as HTMLInputElement;
+      removeButton.click();
+      return true;
+    });
+
     onMessage("pasteAuthor", async (message) => {
       var author = message.data;
       let nameInput = document.getElementById(

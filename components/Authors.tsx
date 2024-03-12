@@ -1,12 +1,12 @@
-import { Box, Button, Chip, Grid, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
-import { useState, useRef } from "react";
-import PersonIcon from '@mui/icons-material/Person';
+import ComponentProps from "@/interfaces/ComponentProps";
 import { Author } from "@/types";
 import { sendMessage } from "@/utils/messaging";
-import ComponentProps from "@/interfaces/ComponentProps";
-import waitForTabComplete from "@/utils/tabUtils";
-import ProgressComponent from "./Progress";
 import { capitalizeWords } from "@/utils/stringUtils";
+import waitForTabComplete from "@/utils/tabUtils";
+import PersonIcon from '@mui/icons-material/Person';
+import { Box, Button, Chip, Grid, Stack, TextField, Typography } from "@mui/material";
+import { useRef, useState } from "react";
+import ProgressComponent from "./Progress";
 
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
@@ -61,8 +61,13 @@ export default function Authors({ tab }: ComponentProps) {
         }
     }
 
+    async function removeAuthors() {
+        await sendMessage("removeAuthors", null, tab.id);
+    }
+
     return (
-        <div>
+        <Stack spacing={1}>
+            <Button variant="contained" onClick={removeAuthors}>Eliminar autores</Button>
             <Box component="form" onSubmit={handleFormSubmit} >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -94,7 +99,7 @@ export default function Authors({ tab }: ComponentProps) {
                 </Grid>
             </Grid>
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
-        </div>
+        </Stack>
     )
 
 }

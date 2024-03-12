@@ -1,3 +1,9 @@
+## [1.2.7] - 2024-03-12
+
+### Added
+
+- Authors: Añadido boton para eliminar autores de un item
+
 ## [1.2.6] - 2024-03-12
 
 ### Fixed
