@@ -1,3 +1,9 @@
+## [1.2.6] - 2024-03-12
+
+### Fixed
+
+- SherpaRomeo: Arreglado error que hacia que no se mostrase
+
 ## [1.2.5] - 2024-03-11
 
 ### Added

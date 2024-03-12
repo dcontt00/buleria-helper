@@ -12,6 +12,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 import PersonIcon from '@mui/icons-material/Person';
 import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Tabs } from 'wxt/browser';
 import './App.css';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);

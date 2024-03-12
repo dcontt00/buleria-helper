@@ -185,44 +185,42 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
             </Grid>
         );
     }
+
     return (
         <>
-            <Typography >Editorial: {PublisherPolicies[0].publisherName}</Typography>
-            {
-                PublisherPolicies.length !== 0 && PublisherPolicies.map((PublisherPolicy, index) => {
-                    return (
-                        <div className="col-xs-6" >
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ArrowDownwardIcon />}
-                                >
-                                    <Stack direction="column" spacing={1}>
-                                        <Typography variant="body1" align="center">{PublisherPolicy.articleVersion}</Typography>
-                                        <Icons PublisherPolicy={PublisherPolicy} />
-                                    </Stack>
-                                </AccordionSummary>
-
-                                <AccordionDetails>
-                                    <Grid container spacing={2} key={index}>
-                                        <Grid item xs={12}>
-                                            <Typography variant="h6">{PublisherPolicy.articleVersion}</Typography>
-                                        </Grid>
-                                        {Embargo(PublisherPolicy)}
-                                        {Licencia(PublisherPolicy)}
-                                        {CopyrightOwner(PublisherPolicy)}
-                                        {PublisherDeposit(PublisherPolicy)}
-                                        {Locations(PublisherPolicy)}
-                                        {Conditions(PublisherPolicy)}
-                                    </Grid>
-                                </AccordionDetails>
-                            </Accordion>
-                        </div>
-
-                    )
-                }
-                )
+            {PublisherPolicies.length > 0 &&
+                <Typography variant="h6">Editorial: {PublisherPolicies[0].publisherName}</Typography>
             }
-        </>
+            {PublisherPolicies.map((PublisherPolicy, index) => {
+                return (
+                    <div className="col-xs-6" >
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ArrowDownwardIcon />}
+                            >
+                                <Stack direction="column" spacing={1}>
+                                    <Typography variant="body1" align="center">{PublisherPolicy.articleVersion}</Typography>
+                                    <Icons PublisherPolicy={PublisherPolicy} />
+                                </Stack>
+                            </AccordionSummary>
 
+                            <AccordionDetails>
+                                <Grid container spacing={2} key={index}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="h6">{PublisherPolicy.articleVersion}</Typography>
+                                    </Grid>
+                                    {Embargo(PublisherPolicy)}
+                                    {Licencia(PublisherPolicy)}
+                                    {CopyrightOwner(PublisherPolicy)}
+                                    {PublisherDeposit(PublisherPolicy)}
+                                    {Locations(PublisherPolicy)}
+                                    {Conditions(PublisherPolicy)}
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                )
+            })}
+        </>
     )
 }
