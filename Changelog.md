@@ -1,3 +1,9 @@
+## [1.2.9] - 2024-03-13
+
+### Fixed
+
+- Keywords: Error que no permitia separar por un separador añadido
+
 ## [1.2.8] - 2024-03-13
 
 ### Added

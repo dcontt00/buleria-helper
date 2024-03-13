@@ -1,12 +1,10 @@
-import { browser } from "wxt/browser"
-import { Tabs } from "webextension-polyfill/namespaces/tabs";
-import React, { useEffect, useState } from "react";
-import { Alert, Button, CircularProgress, Grid, LinearProgress, Paper, Stack, TextField, Typography } from "@mui/material";
-import { sendMessage } from "@/utils/messaging";
-import ComponentProps from "@/interfaces/ComponentProps";
-import waitForTabComplete from "@/utils/tabUtils";
-import ProgressComponent from "./Progress";
 import { detectSeparator, separateKeywords } from "@/entrypoints/keywords.content/common";
+import ComponentProps from "@/interfaces/ComponentProps";
+import { sendMessage } from "@/utils/messaging";
+import waitForTabComplete from "@/utils/tabUtils";
+import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
+import ProgressComponent from "./Progress";
 
 
 export default function Keywords({ tab }: ComponentProps) {
@@ -87,6 +85,7 @@ export default function Keywords({ tab }: ComponentProps) {
 
     function onTextFieldSeparatorChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSeparator(event.target.value);
+        setButtonDisabled(false);
     }
     return (
         <>
