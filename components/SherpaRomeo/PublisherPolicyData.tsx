@@ -1,5 +1,6 @@
 import { PublisherPolicy } from "@/types";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BackupIcon from '@mui/icons-material/Backup';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import CopyrightIcon from '@mui/icons-material/Copyright';
@@ -131,6 +132,19 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
         }
     }
 
+    function oaFee(PublisherPolicy: PublisherPolicy) {
+        if (PublisherPolicy.oafee) {
+            return (
+                <Grid item xs={12}>
+                    <Stack direction="row" spacing={1}>
+                        <AttachMoneyIcon />
+                        <Typography variant="body1" align="left">Open Access Fee</Typography>
+                    </Stack>
+                </Grid>
+            )
+        }
+    }
+
     function formatLocations(locations: string[]) {
         var length = locations.length;
         var result = locations[0] + " +" + length;
@@ -140,6 +154,13 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
     function Icons({ PublisherPolicy }: { PublisherPolicy: PublisherPolicy }) {
         return (
             <Grid container spacing={2}>
+
+                {PublisherPolicy.oafee && (
+                    <Grid item>
+                        <AttachMoneyIcon />
+                    </Grid>
+                )}
+
                 {PublisherPolicy.embargo != undefined && (
                     <Grid item>
 
@@ -205,10 +226,12 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                             </AccordionSummary>
 
                             <AccordionDetails>
+                                {PublisherPolicy.oafee}
                                 <Grid container spacing={2} key={index}>
                                     <Grid item xs={12}>
                                         <Typography variant="h6">{PublisherPolicy.articleVersion}</Typography>
                                     </Grid>
+                                    {oaFee(PublisherPolicy)}
                                     {Embargo(PublisherPolicy)}
                                     {Licencia(PublisherPolicy)}
                                     {CopyrightOwner(PublisherPolicy)}

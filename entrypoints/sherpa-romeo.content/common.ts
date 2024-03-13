@@ -30,6 +30,11 @@ export default async function getPublisherPolicies(
           try {
             var license = undefined;
             var embargo = undefined;
+            var oaFee = false;
+
+            if (PermittedOA.additional_oa_fee == "yes") {
+              oaFee = true;
+            }
 
             var id = PermittedOA.id;
             if (PermittedOA.article_version_phrases == undefined) {
@@ -76,6 +81,7 @@ export default async function getPublisherPolicies(
             var publisherPolicy: PublisherPolicy = {
               id: id,
               publisherName: publisherName,
+              oafee: oaFee,
               articleVersion: articleVersion,
               conditions: conditions,
               license: license,
