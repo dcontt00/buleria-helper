@@ -1,3 +1,9 @@
+## [1.2.8] - 2024-03-13
+
+### Added
+
+- SherpaRomeo: Añadido indicador de tarifa
+
 ## [1.2.7] - 2024-03-12
 
 ### Added
