@@ -27,14 +27,14 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <ChecklistIcon />
-                            <Typography variant="body1" align="left">Condiciones</Typography>
+                            <ChecklistIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Condiciones</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
                         {PublisherPolicy.conditions.map((condition, index) => {
                             return (
-                                <Typography variant="body1" key={index} align="left">{condition}</Typography>
+                                <Typography variant="body1" sx={{ fontSize: "16px" }} key={index} align="left">{condition}</Typography>
                             )
 
                         }
@@ -51,14 +51,14 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <FolderIcon />
-                            <Typography variant="body1" align="left">Localizacion</Typography>
+                            <FolderIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Localizacion</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
                         {PublisherPolicy.locations.map((location, index) => {
                             return (
-                                <Typography variant="body1" key={index} align="left">{location}</Typography>
+                                <Typography variant="body1" sx={{ fontSize: "16px" }} key={index} align="left">{location}</Typography>
                             )
 
                         }
@@ -75,12 +75,12 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <ReceiptLongIcon />
-                            <Typography variant="body1" align="left">Licencia</Typography>
+                            <ReceiptLongIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Licencia</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
-                        <Typography variant="body1" align="left">{PublisherPolicy.license}</Typography>
+                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.license}</Typography>
                     </Grid>
                 </>
             )
@@ -93,12 +93,12 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <HourglassBottomIcon />
-                            <Typography variant="body1" align="left">Embargo</Typography>
+                            <HourglassBottomIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Embargo</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
-                        <Typography variant="body1" align="left">{PublisherPolicy.embargo} </Typography>
+                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.embargo} </Typography>
                     </Grid>
                 </>
             )
@@ -110,12 +110,12 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <CopyrightIcon />
-                            <Typography variant="body1" align="left">Copyright Owner</Typography>
+                            <CopyrightIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Copyright Owner</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
-                        <Typography variant="body1" align="left">{PublisherPolicy.copyrightOwner} </Typography>
+                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.copyrightOwner} </Typography>
                     </Grid>
                 </>
             )
@@ -127,13 +127,13 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                 <>
                     <Grid item xs={5}>
                         <Stack direction="row" spacing={1}>
-                            <BackupIcon />
-                            <Typography variant="body1" align="left">Publisher Deposit</Typography>
+                            <BackupIcon sx={{ fontSize: "24px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Publisher Deposit</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>
                         <Link href={PublisherPolicy.publisherDeposit.url} target="_blank" rel="noopener noreferrer">
-                            <Typography variant="body1" align="left">{PublisherPolicy.publisherDeposit.name} </Typography>
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.publisherDeposit.name} </Typography>
                         </Link>
                     </Grid>
                 </>
@@ -148,8 +148,8 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
             return (
                 <Grid item xs={12}>
                     <Stack direction="row" spacing={1}>
-                        <AttachMoneyIcon />
-                        <Typography variant="body1" align="left">Open Access Fee</Typography>
+                        <AttachMoneyIcon sx={{ fontSize: "24px" }} />
+                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">Open Access Fee</Typography>
                     </Stack>
                 </Grid>
             )
@@ -168,7 +168,7 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
 
                 {PublisherPolicy.oafee && (
                     <Grid item>
-                        <AttachMoneyIcon />
+                        <AttachMoneyIcon sx={{ fontSize: "20px" }} />
                     </Grid>
                 )}
 
@@ -176,8 +176,8 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                     <Grid item>
 
                         <Stack direction="row" spacing={1}>
-                            <HourglassBottomIcon />
-                            <Typography variant="body1" align="left">{PublisherPolicy.embargo === "No embargo" ? "None" : PublisherPolicy.embargo}</Typography>
+                            <HourglassBottomIcon sx={{ fontSize: "20px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.embargo === "No embargo" ? "None" : PublisherPolicy.embargo}</Typography>
                         </Stack>
                     </Grid>
                 )}
@@ -185,8 +185,8 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                     <Grid item>
 
                         <Stack direction="row" spacing={1}>
-                            <ReceiptLongIcon />
-                            <Typography variant="body1" align="left">{PublisherPolicy.license}</Typography>
+                            <ReceiptLongIcon sx={{ fontSize: "20px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.license}</Typography>
                         </Stack>
                     </Grid>
                 )}
@@ -195,21 +195,21 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                     <Grid item>
 
                         <Stack direction="row" spacing={1}>
-                            <BackupIcon />
-                            <Typography variant="body1" align="left">{PublisherPolicy.publisherDeposit.name}</Typography>
+                            <BackupIcon sx={{ fontSize: "20px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{PublisherPolicy.publisherDeposit.name}</Typography>
                         </Stack>
                     </Grid>
                 )}
                 {PublisherPolicy.conditions != undefined && (
                     <Grid item>
-                        <ChecklistIcon />
+                        <ChecklistIcon sx={{ fontSize: "20px" }} />
                     </Grid>
                 )}
                 {PublisherPolicy.locations != undefined && (
                     <Grid item>
                         <Stack direction="row" spacing={1}>
-                            <FolderIcon />
-                            <Typography variant="body1" align="left">{formatLocations(PublisherPolicy.locations)}</Typography>
+                            <FolderIcon sx={{ fontSize: "20px" }} />
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="left">{formatLocations(PublisherPolicy.locations)}</Typography>
                         </Stack>
                     </Grid>
                 )}
@@ -219,27 +219,29 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
     }
 
     return (
-        <>
+        <div >
             {PublisherPolicies.length > 0 &&
-                <Stack direction="row" spacing={1}>
-                    <TextField id="title" label="Editorial" variant="outlined" fullWidth
-                        InputLabelProps={{ style: { fontSize: 16 } }}
-                        InputProps={{ style: { fontSize: 16 } }}
-                        value={PublisherPolicies[0].publisherName}
-                        multiline
-                    />
-                    <Button variant="contained" onClick={() => handleCopy(PublisherPolicies[0].publisherName)} startIcon={<FileCopyIcon />} >Copiar</Button>
-                </Stack>
+                <div className="col-xs-12 needs-xs-spacing">
+                    <Stack direction="row" spacing={1}>
+                        <TextField id="title" label="Editorial" variant="outlined" fullWidth
+                            InputLabelProps={{ style: { fontSize: 16 } }}
+                            InputProps={{ style: { fontSize: 16 } }}
+                            value={PublisherPolicies[0].publisherName}
+                            multiline
+                        />
+                        <Button variant="contained" onClick={() => handleCopy(PublisherPolicies[0].publisherName)} startIcon={<FileCopyIcon />} >Copiar</Button>
+                    </Stack>
+                </div>
             }
             {PublisherPolicies.map((PublisherPolicy, index) => {
                 return (
-                    <div className="col-xs-6" >
+                    <div className="col-xs-6" style={{ marginTop: 20 }}>
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ArrowDownwardIcon />}
                             >
                                 <Stack direction="column" spacing={1}>
-                                    <Typography variant="body1" align="center">{PublisherPolicy.articleVersion}</Typography>
+                                    <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">{PublisherPolicy.articleVersion}</Typography>
                                     <Icons PublisherPolicy={PublisherPolicy} />
                                 </Stack>
                             </AccordionSummary>
@@ -247,9 +249,6 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                             <AccordionDetails>
                                 {PublisherPolicy.oafee}
                                 <Grid container spacing={2} key={index}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="h6">{PublisherPolicy.articleVersion}</Typography>
-                                    </Grid>
                                     {oaFee(PublisherPolicy)}
                                     {Embargo(PublisherPolicy)}
                                     {Licencia(PublisherPolicy)}
@@ -263,6 +262,6 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
                     </div>
                 )
             })}
-        </>
+        </div>
     )
 }

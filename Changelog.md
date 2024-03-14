@@ -1,4 +1,14 @@
-## [1.2.10] - 2024-03-13
+## [1.3.0] - 2024-03-14
+
+### Added
+
+- SherpaRomeo: Textfield con editorial en pagina de envios
+
+### Changed
+
+- SherpaRomeo: Adaptado el tamaño de la letra en la pagina de envios
+
+## [1.2.10] - 2024-03-14
 
 ### Added
 
