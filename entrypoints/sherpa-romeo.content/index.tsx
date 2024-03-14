@@ -16,15 +16,19 @@ export default defineContentScript({
 
             // Buscar elemento span con class ds-interpreted-field y su valor contiene issn
             let spanElements = document.querySelectorAll("span.ds-interpreted-field") as NodeListOf<HTMLElement>;
-            var issn = "";
+            var issns: string[] = [];
 
-            let issnElement = Array.from(spanElements).find(element => element.textContent?.includes('issn'));
-            if (issnElement?.textContent == undefined) {
-                // issnElement es el primer span que contiene 'issn' en su valor
-                //alert(issnElement.textContent);
-                return true;
+            let issnElements = Array.from(spanElements).filter(element => element.textContent?.includes('issn'));
+            for (let i = 0; i < issnElements.length; i++) {
+                var issn = issnElements[i].textContent?.split(':')[1].trim();
+                issns.push(issn);
             }
-            issn = issnElement.textContent?.split(':')[1].trim();
+            let essnElements = Array.from(spanElements).filter(element => element.textContent?.includes('essn'));
+            for (let i = 0; i < essnElements.length; i++) {
+                var essn = essnElements[i].textContent?.split(':')[1].trim();
+                issns.push(essn);
+            }
+
 
 
 
@@ -36,7 +40,7 @@ export default defineContentScript({
                     const root = ReactDOM.createRoot(container);
                     root.render(
                         <div className="control-group row">
-                            <SherpaRomeoButton issn={issn} />
+                            <SherpaRomeoButton issns={issns} />
 
                         </div>
                     );

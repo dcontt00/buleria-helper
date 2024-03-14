@@ -10,6 +10,7 @@ import PublisherPolicyData from "./PublisherPolicyData";
 
 export default function SherpaRomeo({ tab }: ComponentProps) {
     const [issn, setIssn] = useState<string>("");
+    const [text, setText] = useState<string>("")
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
     const [notFound, setNotFound] = useState<boolean>(false);
@@ -17,15 +18,24 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
 
 
     async function searchOnSherpaRomeo() {
-        var response = await getPublisherPolicies(issn);
-        if (response.length > 0) {
-            setNotFound(false);
-            setUrl(response[0].url);
-            setPublisherPolicies(response);
+        var search = text.replaceAll(" ", "");
+        var searchValues: string[] = [];
+        if (search.includes(",")) {
+            searchValues = search.split(",");
         } else {
-            setNotFound(true);
-            setPublisherPolicies([]);
+            searchValues.push(search);
         }
+
+        searchValues.forEach(async (issn) => {
+            var response = await getPublisherPolicies(issn);
+            if (response.length > 0) {
+                setNotFound(false);
+                setUrl(response[0].url);
+                setPublisherPolicies(response);
+                setIssn(issn);
+                return;
+            }
+        });
     }
 
     async function navigateToSherpaRomeo() {
@@ -33,12 +43,13 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
     }
 
     function onTextFieldChange(event: React.ChangeEvent<HTMLInputElement>) {
+        var value = event.target.value;
+        setText(value);
 
-        setIssn(event.target.value.replaceAll(" ", ""));
-        if (event.target.value.length > 0) {
-            setButtonDisabled(false);
-        } else {
+        if (value.length == 0) {
             setButtonDisabled(true);
+        } else {
+            setButtonDisabled(false);
         }
     }
 
@@ -46,13 +57,16 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
         <Stack direction={"column"} spacing={2}>
             <Typography variant="body1">Introduce el ISSN</Typography>
 
-            <TextField label="ISSN" variant="outlined" value={issn} onChange={onTextFieldChange} />
+            <TextField label="ISSN" variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un ISSN o varios separados por comas" />
             <Button variant="contained" startIcon={<SearchIcon />} onClick={searchOnSherpaRomeo}
                 disabled={buttonDisabled}>Buscar</Button>
             {
                 url != "" &&
                 <Button variant="contained" startIcon={<LaunchIcon />} onClick={navigateToSherpaRomeo}>Ver en
                     SherpaRomeo</Button>
+            }
+            {!notFound && publisherPolicies.length > 0 &&
+                <Typography>ISSN: {issn}</Typography>
             }
             <PublisherPolicyData PublisherPolicies={publisherPolicies} />
             {
