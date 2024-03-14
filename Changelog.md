@@ -1,3 +1,9 @@
+## [1.3.5] - 2024-03-14
+
+### Fixed
+
+- SherpaRomeo: Ya no aparece mensaje de no encontrado aunque encuentre un ISSN
+
 ## [1.3.4] - 2024-03-14
 
 ### Added
