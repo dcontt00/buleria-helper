@@ -1,3 +1,9 @@
+## [1.3.4] - 2024-03-14
+
+### Added
+
+- SherpaRomeo: En la pagina si no se encuentra nada mostrará un mensaje
+
 ## [1.3.3] - 2024-03-14
 
 ### Fixed
