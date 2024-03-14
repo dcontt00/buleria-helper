@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Added
+
+- FileRename: Las comillas también se eliminan ahora
+
 ## [1.3.5] - 2024-03-14
 
 ### Fixed

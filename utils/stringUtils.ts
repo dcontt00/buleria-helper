@@ -13,7 +13,7 @@ function getFileNameFromTitle(title: string) {
   title = title.replace(/-/g, " ");
 
   // Eliminar simbolos puntuacion
-  const punctuationRegex = /[-.,;:?¿!(){}[\]]/g;
+  const punctuationRegex = /[-.,;:?¿!(){}[\]"'“”]/g;
   const withoutPunctuation = title.replace(punctuationRegex, "");
 
   // Eliminar preposiciones, conjunciones y articulos
