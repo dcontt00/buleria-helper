@@ -1,3 +1,9 @@
+## [1.3.3] - 2024-03-14
+
+### Fixed
+
+- SherpaRomeo: Arreglado error que mostraba la busqueda anterior cuando se hacia una nueva
+
 ## [1.3.2] - 2024-03-14
 
 ### Fixed
