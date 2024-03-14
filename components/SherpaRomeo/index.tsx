@@ -35,6 +35,7 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
                 setIssn(issn);
                 return;
             }
+            setNotFound(true);
         });
     }
 
