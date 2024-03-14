@@ -1,3 +1,9 @@
+## [Unreleased] - 2024-03-14
+
+### Added
+
+- SherpaRomeo: Ahora se pueden poner varios ISSNs separados por comas y se mostrará la info del ISSN que se encuentre
+
 ## [1.3.0] - 2024-03-14
 
 ### Added
