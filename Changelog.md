@@ -1,3 +1,9 @@
+## [1.3.2] - 2024-03-14
+
+### Fixed
+
+- SherpaRomeo: Se vuelve a mostrar si no se encuentra un ISSN
+
 ## [1.3.1] - 2024-03-14
 
 ### Added
