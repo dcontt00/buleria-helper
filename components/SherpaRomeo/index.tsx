@@ -18,6 +18,7 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
 
 
     async function searchOnSherpaRomeo() {
+        setPublisherPolicies([]);
         var search = text.replaceAll(" ", "");
         var searchValues: string[] = [];
         if (search.includes(",")) {
