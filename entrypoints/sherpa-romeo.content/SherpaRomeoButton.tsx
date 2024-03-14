@@ -18,7 +18,11 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
                 return;
             }
         });
-        setNotFound(true);
+
+        if (publisherPolicies.length === 0) {
+            setNotFound(true);
+        }
+
     }
     return (
         <ThemeProvider theme={themeLight}>
