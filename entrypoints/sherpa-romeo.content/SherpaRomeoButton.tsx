@@ -7,6 +7,7 @@ import getPublisherPolicies from "./common";
 export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
     const [issn, setIssn] = useState<string>("");
+    const [notFound, setNotFound] = useState<boolean>(false);
 
     async function onClick() {
         issns.forEach(async (issn) => {
@@ -17,6 +18,7 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
                 return;
             }
         });
+        setNotFound(true);
     }
     return (
         <ThemeProvider theme={themeLight}>
@@ -26,7 +28,11 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
             <br />
             <br />
             {
-                publisherPolicies.length < 0 && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
+                notFound &&
+                <div className="col-xs-12 needs-xs-spacing">
+
+                    <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra en Sherpa Romeo</Typography></Alert>
+                </div>
             }
             {publisherPolicies.length > 0 &&
                 <div className="col-xs-12 needs-xs-spacing">
