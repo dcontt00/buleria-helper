@@ -4,11 +4,22 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BackupIcon from '@mui/icons-material/Backup';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import CopyrightIcon from '@mui/icons-material/Copyright';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import FolderIcon from '@mui/icons-material/Folder';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Stack, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Link, Stack, TextField, Typography } from "@mui/material";
 export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: PublisherPolicy[] }) {
+
+
+    const handleCopy = async (value: string) => {
+        try {
+            await navigator.clipboard.writeText(value);
+            console.log('Text copied to clipboard');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     function Conditions(PublisherPolicy: PublisherPolicy) {
         if (PublisherPolicy.conditions != undefined && PublisherPolicy.conditions.length !== 0) {
@@ -210,7 +221,15 @@ export default function SherpaRomeo({ PublisherPolicies }: { PublisherPolicies: 
     return (
         <>
             {PublisherPolicies.length > 0 &&
-                <Typography variant="h6">Editorial: {PublisherPolicies[0].publisherName}</Typography>
+                <Stack direction="row" spacing={1}>
+                    <TextField id="title" label="Editorial" variant="outlined" fullWidth
+                        InputLabelProps={{ style: { fontSize: 16 } }}
+                        InputProps={{ style: { fontSize: 16 } }}
+                        value={PublisherPolicies[0].publisherName}
+                        multiline
+                    />
+                    <Button variant="contained" onClick={() => handleCopy(PublisherPolicies[0].publisherName)} startIcon={<FileCopyIcon />} >Copiar</Button>
+                </Stack>
             }
             {PublisherPolicies.map((PublisherPolicy, index) => {
                 return (

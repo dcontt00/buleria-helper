@@ -1,3 +1,9 @@
+## [1.2.10] - 2024-03-13
+
+### Added
+
+- SherpaRomeo: Añadido textfield de editorial con boton para copiar
+
 ## [1.2.9] - 2024-03-13
 
 ### Fixed
