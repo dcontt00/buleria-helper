@@ -14,6 +14,7 @@ import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Tabs } from 'wxt/browser';
 import './App.css';
+import DOISearch from './DOISearch';
 function App() {
     const [showAPAGenerator, setShowAPAGenerator] = useState<boolean>(false);
     const [showKeywords, setShowKeywords] = useState<boolean>(false);
@@ -21,6 +22,7 @@ function App() {
     const [showSherpaRomeo, setShowSherpaRomeo] = useState<boolean>(false);
     const [showFileRename, setShowFileRename] = useState<boolean>(false);
     const [showAuthors, setShowAuthors] = useState<boolean>(false);
+    const [showDOISearch, setShowDOISearch] = useState<boolean>(false);
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
 
     useEffect(() => {
@@ -49,6 +51,9 @@ function App() {
         }
         if (showAuthors) {
             return <Authors tab={tab} />
+        }
+        if (showDOISearch) {
+            return <DOISearch tab={tab} />
         }
     }
 
@@ -79,6 +84,10 @@ function App() {
                     setShowAuthors(true);
                     setShowBackButton(true)
                 }}>Autores</Button>
+                <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => {
+                    setShowDOISearch(true);
+                    setShowBackButton(true)
+                }}>Buscar DOI</Button>
             </>
         }
 
@@ -92,6 +101,7 @@ function App() {
         setShowSherpaRomeo(false);
         setShowFileRename(false);
         setShowAuthors(false);
+        setShowDOISearch(false);
     }
 
     return (
