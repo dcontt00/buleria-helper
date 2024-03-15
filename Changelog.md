@@ -1,3 +1,14 @@
+## [1.4.0] - 2024-03-15
+
+### Added
+
+- FileRename: Las comillas también se eliminan ahora
+- DOISearch: Busca un DOI y devuelve info
+
+### Fixed
+
+- SherpaRomeo: Ya no aparece mensaje de no encontrado aunque encuentre un ISSN
+
 ## [1.3.5] - 2024-03-14
 
 ### Fixed

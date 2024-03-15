@@ -30,6 +30,11 @@ export default defineContentScript({
             }
 
 
+            if (issns.length === 0) {
+                return false;
+            }
+
+
 
 
             const ui = createIntegratedUi(ctx, {
