@@ -1,26 +1,38 @@
 import { formatAuthors } from "./common";
 
 class Article {
-  authors: string[];
-  date: string;
   title: string;
   journal: string;
+  authors: string[];
+  ISSN: string;
+  DOI: string;
+  date: string;
   volume: string;
+  number: string;
+  publisher: string;
   numPages: string;
 
   constructor(
-    authors: string[],
-    date: string,
     title: string,
     journal: string,
+    authors: string[],
+    ISSN: string,
+    DOI: string,
+    date: string,
     volume: string,
+    number: string,
+    publisher: string,
     numPages: string
   ) {
-    this.authors = authors;
-    this.date = date;
     this.title = title;
     this.journal = journal;
+    this.authors = authors;
+    this.ISSN = ISSN;
+    this.DOI = DOI;
+    this.date = date;
     this.volume = volume;
+    this.number = number;
+    this.publisher = publisher;
     this.numPages = numPages;
   }
   // Autores. (Fecha). Titulo. Titulo revista, Volumen, Paginas

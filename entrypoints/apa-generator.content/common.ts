@@ -33,10 +33,36 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
     "aspect_submission_StepTransformer_field_dc_title"
   ) as HTMLInputElement;
 
+  // ISSN and ESSN
+
+  let spanElements = document.querySelectorAll(
+    "span.ds-interpreted-field"
+  ) as NodeListOf<HTMLElement>;
+
+  let issnElement = Array.from(spanElements).find((element) =>
+    element.textContent?.includes("issn")
+  );
+
+  let essnElement = Array.from(spanElements).find((element) =>
+    element.textContent?.includes("essn")
+  );
+
+  let issn = issnElement || essnElement;
+
+  // DOI
+  let doiElement = Array.from(spanElements).find((element) =>
+    element.textContent?.includes("doi")
+  );
+  let doi = doiElement?.textContent?.split(":")[1].trim() || "";
+
   // Specific data
 
   let volumeElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_volume_number"
+  ) as HTMLInputElement;
+
+  let numberElement: HTMLInputElement = document.getElementById(
+    "aspect_submission_StepTransformer_field_dc_issue_number"
   ) as HTMLInputElement;
 
   let startPageElement: HTMLInputElement = document.getElementById(
@@ -75,11 +101,15 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       }
 
       var article = new Article(
-        authorsArray,
-        dateElement.value,
         titleElement.value,
         journalElement.value,
+        authorsArray,
+        issn?.textContent?.split(":")[1].trim() || "",
+        doi,
+        dateElement.value,
         volumeElement.value,
+        numberElement.value,
+        editorial,
         numPages.toString()
       );
       if (startPageElement.value == "" || endPageElement.value == "") {
