@@ -1,5 +1,6 @@
 import ApaGenerator from '@/components/ApaGenerator';
 import Authors from '@/components/Authors';
+import DOISearch from '@/components/DOISearch';
 import FileRename from '@/components/FileRename';
 import Keywords from '@/components/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
@@ -21,6 +22,7 @@ function App() {
     const [showSherpaRomeo, setShowSherpaRomeo] = useState<boolean>(false);
     const [showFileRename, setShowFileRename] = useState<boolean>(false);
     const [showAuthors, setShowAuthors] = useState<boolean>(false);
+    const [showDOISearch, setShowDOISearch] = useState<boolean>(false);
     const [tab, setTab] = useState<Tabs.Tab | undefined>(undefined);
 
     useEffect(() => {
@@ -49,6 +51,9 @@ function App() {
         }
         if (showAuthors) {
             return <Authors tab={tab} />
+        }
+        if (showDOISearch) {
+            return <DOISearch tab={tab} />
         }
     }
 
@@ -79,6 +84,10 @@ function App() {
                     setShowAuthors(true);
                     setShowBackButton(true)
                 }}>Autores</Button>
+                <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => {
+                    setShowDOISearch(true);
+                    setShowBackButton(true)
+                }}>DOI Search</Button>
             </>
         }
 
@@ -92,6 +101,7 @@ function App() {
         setShowSherpaRomeo(false);
         setShowFileRename(false);
         setShowAuthors(false);
+        setShowDOISearch(false);
     }
 
     return (

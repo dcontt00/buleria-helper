@@ -3,6 +3,7 @@
 ### Added
 
 - FileRename: Las comillas también se eliminan ahora
+- DOISearch: Busca un DOI y devuelve info
 
 ### Fixed
 
