@@ -109,8 +109,9 @@ function App() {
             <Stack direction="column" spacing={2} justifyContent={"center"}>
                 <Typography variant="h4">Buleria Helper</Typography>
                 <Buttons />
-                <Modules />
             </Stack>
+            <br />
+            <Modules />
         </ThemeProvider>
     );
 }
