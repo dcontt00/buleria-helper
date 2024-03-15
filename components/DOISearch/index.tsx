@@ -1,7 +1,7 @@
 import ComponentProps from "@/interfaces/ComponentProps";
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, Chip, CircularProgress, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Button, Chip, CircularProgress, Grid, Paper, TextField, Typography } from "@mui/material";
 import axios from "axios";
 
 import React, { useState } from "react";
@@ -43,9 +43,10 @@ export default function DOISearch({ tab }: ComponentProps) {
                     data.publisher,
                 );
                 setDocument(documentt);
+                setNotFound(false);
             }
             ).catch((error) => {
-                alert("No se encuentra en Sherpa Romeo");
+                setNotFound(true);
                 console.log(error);
             }).finally(() => {
                 setLoading(false);
@@ -69,86 +70,100 @@ export default function DOISearch({ tab }: ComponentProps) {
     }
 
     return (
-        <Stack direction={"column"} spacing={2}>
-            <Typography variant="body1">Introduce el DOI</Typography>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Typography variant="body1">Introduce el DOI</Typography>
+            </Grid>
 
-            <TextField label="DOI" variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un ISSN o varios separados por comas" />
-            <Button variant="contained"
-                startIcon={<SearchIcon />}
-                onClick={searchDOI}
-                disabled={buttonDisabled}
-            >
-                Buscar
-            </Button>
+            <Grid item xs={12}>
+                <TextField label="DOI" fullWidth variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un DOI" />
+            </Grid>
+            <Grid item xs={12}>
+                <Button variant="contained"
+                    startIcon={<SearchIcon />}
+                    onClick={searchDOI}
+                    disabled={buttonDisabled}
+                    fullWidth
+                >
+                    Buscar
+                </Button>
+            </Grid>
+
             {
-                loading && <CircularProgress />
-            }
-
-            {
-                document &&
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-
-                        <CopyTextField label="Titulo" text={document.title} fullWidth multiline />
-                    </Grid>
-
-
-                    <Grid item xs={12}>
-                        <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <CopyTextField label="Tipo" text={document.type} fullWidth multiline />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <CopyTextField label="ISSN" text={document.ISSN.join(",")} fullWidth multiline />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper sx={{ p: 2 }}>
-
-                            <Grid container spacing={1}>
-                                <Grid item xs={12}>
-                                    <Typography variant="body1">Autores</Typography>
-                                </Grid>
-
-                                {document.authors.map((author, index) => {
-                                    return (
-                                        <Grid item key={index}>
-                                            <Chip key={index} label={author} icon={<PersonIcon />} />
-                                        </Grid>
-                                    )
-                                }
-                                )}
-                            </Grid>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <CopyTextField label="DOI" text={document.DOI} fullWidth multiline />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <CopyTextField label="Fecha" text={document.date} fullWidth multiline />
-                    </Grid>
-                    {
-                        document.volume != undefined &&
-                        <Grid item xs={3}>
-                            <CopyTextField label="Volumen" text={document.volume} fullWidth multiline />
-                        </Grid>
-                    }
-                    {document.number != undefined &&
-                        <Grid item xs={3}>
-                            <CopyTextField label="Numero" text={document.number} fullWidth multiline />
-                        </Grid>
-                    }
-
+                loading &&
+                <Grid item xs={12}>
+                    <CircularProgress />
                 </Grid>
             }
 
             {
-                notFound && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
+                document &&
+                <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+
+                            <CopyTextField label="Titulo" text={document.title} fullWidth multiline />
+                        </Grid>
+
+
+                        <Grid item xs={12}>
+                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CopyTextField label="Tipo" text={document.type} fullWidth multiline />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CopyTextField label="ISSN" text={document.ISSN.join(",")} fullWidth multiline />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Paper sx={{ p: 2 }}>
+
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="body1">Autores</Typography>
+                                    </Grid>
+
+                                    {document.authors.map((author, index) => {
+                                        return (
+                                            <Grid item key={index}>
+                                                <Chip key={index} label={author} icon={<PersonIcon />} />
+                                            </Grid>
+                                        )
+                                    }
+                                    )}
+                                </Grid>
+                            </Paper>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <CopyTextField label="DOI" text={document.DOI} fullWidth multiline />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CopyTextField label="Fecha" text={document.date} fullWidth multiline />
+                        </Grid>
+                        {
+                            document.volume != undefined &&
+                            <Grid item xs={3}>
+                                <CopyTextField label="Volumen" text={document.volume} fullWidth multiline />
+                            </Grid>
+                        }
+                        {document.number != undefined &&
+                            <Grid item xs={3}>
+                                <CopyTextField label="Numero" text={document.number} fullWidth multiline />
+                            </Grid>
+                        }
+
+                    </Grid>
+                </Grid>
             }
-        </Stack>
+
+            {
+                notFound && <Alert hidden={false} severity="error">No se encuentra el DOI</Alert>
+            }
+        </Grid>
+
     )
 }
