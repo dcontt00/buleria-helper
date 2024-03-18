@@ -6,18 +6,18 @@ import axios, { AxiosError } from "axios";
 
 import { Author } from "@/types";
 import React, { useState } from "react";
+import DoiInfo from "../../classes/DoiInfo";
 import CopyTextField from "./CopyTextfield";
-import Document from "./Document";
 
 export default function DOISearch({ tab }: ComponentProps) {
     const [text, setText] = useState<string>("")
-    const [document, setDocument] = useState<Document | undefined>(undefined)
+    const [doiInfo, setDoiInfo] = useState<DoiInfo | undefined>(undefined)
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
     const [notFound, setNotFound] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
     function searchDOI() {
-        setDocument(undefined);
+        setDoiInfo(undefined);
         setLoading(true);
         axios
             .get(`http://dx.doi.org/${text}`, {
@@ -39,7 +39,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                     return { name: author.given, surname: author.family }
                 });
 
-                var documentt = new Document(
+                var doiInfo = new DoiInfo(
                     data.title,
                     data.type,
                     data["container-title"],
@@ -51,7 +51,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                     data.number,
                     data.publisher,
                 );
-                setDocument(documentt);
+                setDoiInfo(doiInfo);
                 setNotFound(false);
             }
             ).catch((error: AxiosError) => {
@@ -106,26 +106,26 @@ export default function DOISearch({ tab }: ComponentProps) {
             }
 
             {
-                document &&
+                doiInfo &&
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
 
-                            <CopyTextField label="Titulo" text={document.title} fullWidth multiline />
+                            <CopyTextField label="Titulo" text={doiInfo.title} fullWidth multiline />
                         </Grid>
 
 
                         <Grid item xs={12}>
-                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
+                            <CopyTextField label="Revista" text={doiInfo.journal} fullWidth multiline />
                         </Grid>
                         <Grid item xs={12}>
-                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
+                            <CopyTextField label="Editorial" text={doiInfo.publisher} fullWidth multiline />
                         </Grid>
                         <Grid item xs={6}>
-                            <CopyTextField label="Tipo" text={document.type} fullWidth multiline />
+                            <CopyTextField label="Tipo" text={doiInfo.type} fullWidth multiline />
                         </Grid>
                         <Grid item xs={6}>
-                            <CopyTextField label="ISSN" text={document.ISSN.join(",")} fullWidth multiline />
+                            <CopyTextField label="ISSN" text={doiInfo.ISSN.join(",")} fullWidth multiline />
                         </Grid>
                         <Grid item xs={12}>
                             <Paper sx={{ p: 2 }}>
@@ -135,7 +135,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                                         <Typography variant="body1">Autores</Typography>
                                     </Grid>
 
-                                    {document.authors.map((author, index) => {
+                                    {doiInfo.authors.map((author, index) => {
                                         return (
                                             <Grid item key={index}>
                                                 <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} />
@@ -148,20 +148,20 @@ export default function DOISearch({ tab }: ComponentProps) {
                         </Grid>
 
                         <Grid item xs={12}>
-                            <CopyTextField label="DOI" text={document.DOI} fullWidth multiline />
+                            <CopyTextField label="DOI" text={doiInfo.DOI} fullWidth multiline />
                         </Grid>
                         <Grid item xs={6}>
-                            <CopyTextField label="Fecha" text={document.date} fullWidth multiline />
+                            <CopyTextField label="Fecha" text={doiInfo.date} fullWidth multiline />
                         </Grid>
                         {
-                            document.volume != undefined &&
+                            doiInfo.volume != undefined &&
                             <Grid item xs={3}>
-                                <CopyTextField label="Volumen" text={document.volume} fullWidth multiline />
+                                <CopyTextField label="Volumen" text={doiInfo.volume} fullWidth multiline />
                             </Grid>
                         }
-                        {document.number != undefined &&
+                        {doiInfo.number != undefined &&
                             <Grid item xs={3}>
-                                <CopyTextField label="Numero" text={document.number} fullWidth multiline />
+                                <CopyTextField label="Numero" text={doiInfo.number} fullWidth multiline />
                             </Grid>
                         }
 

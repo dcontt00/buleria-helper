@@ -1,6 +1,6 @@
 import { Author } from "@/types";
 
-class Document {
+class DoiInfo {
     title: string;
     type: string;
     journal: string;
@@ -37,4 +37,4 @@ class Document {
     }
 }
 
-export default Document;
+export default DoiInfo;
