@@ -2,8 +2,9 @@ import ComponentProps from "@/interfaces/ComponentProps";
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import { Alert, Button, Chip, CircularProgress, Grid, Paper, TextField, Typography } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
+import { Author } from "@/types";
 import React, { useState } from "react";
 import CopyTextField from "./CopyTextfield";
 import Document from "./Document";
@@ -15,19 +16,20 @@ export default function DOISearch({ tab }: ComponentProps) {
     const [notFound, setNotFound] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    async function searchDOI() {
+    function searchDOI() {
+        setDocument(undefined);
         setLoading(true);
-        await axios
-            .get(`https://dx.doi.org/${text}`, {
+        axios
+            .get(`http://dx.doi.org/${text}`, {
 
                 headers: {
-                    Accept: 'Application/Json',
+                    Accept: 'application/json',
                 },
             }).then((response) => {
                 const data = response.data;
                 const date = `${data["issued"]["date-parts"][0][0]}-${data["issued"]["date-parts"][0][1]}-${data["issued"]["date-parts"][0][2]}`
-                var authors = data.author.map((author: any) => {
-                    return author.given + " " + author.family;
+                var authors: Author[] = data.author.map((author: any) => {
+                    return { name: author.given, surname: author.family }
                 });
 
                 var documentt = new Document(
@@ -45,9 +47,9 @@ export default function DOISearch({ tab }: ComponentProps) {
                 setDocument(documentt);
                 setNotFound(false);
             }
-            ).catch((error) => {
+            ).catch((error: AxiosError) => {
                 setNotFound(true);
-                console.log(error);
+                alert(error.message);
             }).finally(() => {
                 setLoading(false);
             });
@@ -107,10 +109,10 @@ export default function DOISearch({ tab }: ComponentProps) {
 
 
                         <Grid item xs={12}>
-                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
+                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
                         </Grid>
                         <Grid item xs={12}>
-                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
+                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
                         </Grid>
                         <Grid item xs={6}>
                             <CopyTextField label="Tipo" text={document.type} fullWidth multiline />
@@ -129,7 +131,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                                     {document.authors.map((author, index) => {
                                         return (
                                             <Grid item key={index}>
-                                                <Chip key={index} label={author} icon={<PersonIcon />} />
+                                                <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} />
                                             </Grid>
                                         )
                                     }

@@ -1,9 +1,10 @@
+import { Author } from "@/types";
 
 class Document {
     title: string;
     type: string;
     journal: string;
-    authors: string[];
+    authors: Author[];
     ISSN: string[];
     DOI: string;
     date: string;
@@ -15,7 +16,7 @@ class Document {
         title: string,
         type: string,
         journal: string,
-        authors: string[],
+        authors: Author[],
         ISSN: string[],
         DOI: string,
         date: string,
