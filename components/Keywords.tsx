@@ -2,7 +2,7 @@ import { detectSeparator, separateKeywords } from "@/entrypoints/keywords.conten
 import ComponentProps from "@/interfaces/ComponentProps";
 import { sendMessage } from "@/utils/messaging";
 import waitForTabComplete from "@/utils/tabUtils";
-import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ProgressComponent from "./Progress";
 
@@ -88,24 +88,29 @@ export default function Keywords({ tab }: ComponentProps) {
         setButtonDisabled(false);
     }
     return (
-        <>
-            <Stack direction="column" spacing={1}>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
                 <Typography variant="body1">Si las palabras clave están en 1 sola linea, corregirlo automaticamente</Typography>
-                <Button variant="contained" onClick={onCorrectClick}>Corregir Palabras Clave</Button>
-                <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
-            </Stack>
-            <Grid container spacing={1}>
-                <Grid item xs={10}>
-                    <TextField label="Palabras clave" variant="outlined" fullWidth value={keywordsString} onChange={onTextFieldKeywordChange} />
-
-                </Grid>
-                <Grid item xs={2}>
-                    <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
-                </Grid>
             </Grid>
-            <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
+            <Grid item xs={12}>
+                <Button variant="contained" onClick={onCorrectClick}>Corregir Palabras Clave</Button>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
+            </Grid>
+            <Grid item xs={10}>
+                <TextField label="Palabras clave" variant="outlined" fullWidth value={keywordsString} onChange={onTextFieldKeywordChange} />
+            </Grid>
+            <Grid item xs={2}>
+                <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
+            </Grid>
+            <Grid item xs={12}>
+                <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
+            </Grid>
+            <Grid item xs={12}>
+                <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
+            </Grid>
+        </Grid>
 
-            <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
-        </>
     )
 }
