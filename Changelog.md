@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Fixed
+
+- DOISearch: Arreglado error que no daba ningun resultado al buscar un DOI
+
 ## [1.4.0] - 2024-03-15
 
 ### Added
