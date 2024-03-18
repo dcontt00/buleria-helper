@@ -2,7 +2,7 @@ import ComponentProps from "@/interfaces/ComponentProps";
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import { Alert, Button, Chip, CircularProgress, Grid, Paper, TextField, Typography } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import React, { useState } from "react";
 import CopyTextField from "./CopyTextfield";
@@ -15,13 +15,13 @@ export default function DOISearch({ tab }: ComponentProps) {
     const [notFound, setNotFound] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    async function searchDOI() {
+    function searchDOI() {
         setLoading(true);
-        await axios
-            .get(`https://dx.doi.org/${text}`, {
+        axios
+            .get(`http://dx.doi.org/${text}`, {
 
                 headers: {
-                    Accept: 'Application/Json',
+                    Accept: 'application/json',
                 },
             }).then((response) => {
                 const data = response.data;
@@ -45,9 +45,9 @@ export default function DOISearch({ tab }: ComponentProps) {
                 setDocument(documentt);
                 setNotFound(false);
             }
-            ).catch((error) => {
+            ).catch((error: AxiosError) => {
                 setNotFound(true);
-                console.log(error);
+                alert(error.message);
             }).finally(() => {
                 setLoading(false);
             });
