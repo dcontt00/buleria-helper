@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Alert, Button, Chip, CircularProgress, Grid, Paper, TextField, Typography } from "@mui/material";
 import axios, { AxiosError } from "axios";
 
+import { Author } from "@/types";
 import React, { useState } from "react";
 import CopyTextField from "./CopyTextfield";
 import Document from "./Document";
@@ -26,8 +27,8 @@ export default function DOISearch({ tab }: ComponentProps) {
             }).then((response) => {
                 const data = response.data;
                 const date = `${data["issued"]["date-parts"][0][0]}-${data["issued"]["date-parts"][0][1]}-${data["issued"]["date-parts"][0][2]}`
-                var authors = data.author.map((author: any) => {
-                    return author.given + " " + author.family;
+                var authors: Author[] = data.author.map((author: any) => {
+                    return { name: author.given, surname: author.family }
                 });
 
                 var documentt = new Document(
@@ -129,7 +130,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                                     {document.authors.map((author, index) => {
                                         return (
                                             <Grid item key={index}>
-                                                <Chip key={index} label={author} icon={<PersonIcon />} />
+                                                <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} />
                                             </Grid>
                                         )
                                     }
