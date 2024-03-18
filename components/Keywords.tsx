@@ -45,7 +45,6 @@ export default function Keywords({ tab }: ComponentProps) {
             await waitForTabComplete(tab?.id);
             setProgress(oldProgress => oldProgress + increment);
         }
-        setShowProgress(false);
         setButtonDisabled(false);
     }
 
