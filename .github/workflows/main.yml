@@ -1,0 +1,60 @@
+name: "Publish Firefox Extension"
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  sign:
+    name: "Release"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Install Dependencies"
+        run: yarn
+
+      - name: "WXT Build"
+        run: yarn build:firefox
+        env:
+          VITE_SHERPA_ROMEO_API_KEY: ${{ secrets.VITE_SHERPA_ROMEO_API_KEY }}
+
+      - name: "web-ext build"
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: build
+          source: .output/firefox-mv2
+
+      - name: "web-ext sign"
+        id: web-ext-sign
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: sign
+          source: ${{ steps.web-ext-build.outputs.target }}
+          apiKey: ${{ secrets.FIREFOX_API_KEY }}
+          apiSecret: ${{ secrets.FIREFOX_API_SECRET }}
+          timeout: 900000
+
+      - name: Get last tag
+        id: lasttag
+        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          changelog=$(git diff --unified=0 ${{ steps.lasttag.outputs.tag }} HEAD -- Changelog.md | grep '^+' | grep -v '+++' | sed 's/^[-+]//' | tail -n +2)
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo ${changelog}
+          echo "${changelog}" > CHANGELOG.txt
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: CHANGELOG.txt
+          token: ${{ secrets.REPO_TOKEN }}
+          files: ${{ steps.web-ext-sign.outputs.target }}
