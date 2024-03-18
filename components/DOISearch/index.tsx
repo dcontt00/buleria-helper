@@ -27,7 +27,14 @@ export default function DOISearch({ tab }: ComponentProps) {
                 },
             }).then((response) => {
                 const data = response.data;
-                const date = `${data["issued"]["date-parts"][0][0]}-${data["issued"]["date-parts"][0][1]}-${data["issued"]["date-parts"][0][2]}`
+                var date = `${data["issued"]["date-parts"][0][0]}`
+                if (data["issued"]["date-parts"][0][1] != undefined) {
+                    date += `-${data["issued"]["date-parts"][0][1]}`
+                }
+                if (data["issued"]["date-parts"][0][2] != undefined) {
+                    date += `-${data["issued"]["date-parts"][0][2]}`
+                }
+
                 var authors: Author[] = data.author.map((author: any) => {
                     return { name: author.given, surname: author.family }
                 });
