@@ -14,8 +14,34 @@ var themeDark = createTheme({
       main: "#ff4081",
     },
     text: {
-      primary: "#FFFFFF", // color de texto principal
+      primary: "#ffffff", // color de texto principal
       secondary: "#757575", // color de texto secundario
+    },
+  },
+  typography: {
+    body1: {
+      color: "#ffffff",
+    },
+    body2: {
+      color: "#ffffff",
+    },
+    h1: {
+      color: "#ffffff",
+    },
+    h2: {
+      color: "#ffffff",
+    },
+    h3: {
+      color: "#ffffff",
+    },
+    h4: {
+      color: "#ffffff",
+    },
+    h5: {
+      color: "#ffffff",
+    },
+    h6: {
+      color: "#ffffff",
     },
   },
 });
@@ -32,6 +58,32 @@ var themeLight = createTheme({
     text: {
       primary: "#000000", // color de texto principal
       secondary: "#757575", // color de texto secundario
+    },
+  },
+  typography: {
+    body1: {
+      color: "#000000",
+    },
+    body2: {
+      color: "#000000",
+    },
+    h1: {
+      color: "#000000",
+    },
+    h2: {
+      color: "#000000",
+    },
+    h3: {
+      color: "#000000",
+    },
+    h4: {
+      color: "#000000",
+    },
+    h5: {
+      color: "#000000",
+    },
+    h6: {
+      color: "#000000",
     },
   },
 });
