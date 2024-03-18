@@ -65,30 +65,60 @@ function App() {
         } else {
 
             return <>
-                <Button variant="contained" startIcon={<NotesIcon />} onClick={() => {
-                    setShowAPAGenerator(true);
-                    setShowBackButton(true)
-                }}>APA Generator</Button>
-                <Button variant="contained" startIcon={<AbcIcon />} onClick={() => {
-                    setShowKeywords(true);
-                    setShowBackButton(true)
-                }}>Keywords</Button>
-                <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => {
-                    setShowSherpaRomeo(true);
-                    setShowBackButton(true)
-                }}>Sherpa Romeo</Button>
-                <Button variant="contained" startIcon={<DriveFileRenameOutlineIcon />} onClick={() => {
-                    setShowFileRename(true);
-                    setShowBackButton(true)
-                }}>Nombre Archivo</Button>
-                <Button variant="contained" startIcon={<PersonIcon />} onClick={() => {
-                    setShowAuthors(true);
-                    setShowBackButton(true)
-                }}>Autores</Button>
-                <Button variant="contained" startIcon={<ManageSearchIcon />} onClick={() => {
-                    setShowDOISearch(true);
-                    setShowBackButton(true)
-                }}>Buscar DOI</Button>
+                <Button
+                    variant="contained"
+                    startIcon={<NotesIcon />}
+                    onClick={() => {
+                        setShowAPAGenerator(true);
+                        setShowBackButton(true)
+                    }}>
+                    APA Generator
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<AbcIcon />}
+                    onClick={() => {
+                        setShowKeywords(true);
+                        setShowBackButton(true)
+                    }}>
+                    Keywords
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<FindInPageIcon />}
+                    onClick={() => {
+                        setShowSherpaRomeo(true);
+                        setShowBackButton(true)
+                    }}>
+                    Sherpa Romeo
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<ManageSearchIcon />}
+                    onClick={() => {
+                        setShowDOISearch(true);
+                        setShowBackButton(true)
+                    }}>
+                    Buscar DOI
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<DriveFileRenameOutlineIcon />}
+                    onClick={() => {
+                        setShowFileRename(true);
+                        setShowBackButton(true)
+                    }}>
+                    Nombre Archivo
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<PersonIcon />}
+                    onClick={() => {
+                        setShowAuthors(true);
+                        setShowBackButton(true)
+                    }}>
+                    Autores
+                </Button>
             </>
         }
 

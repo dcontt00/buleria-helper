@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Changed
+
+- Reoganizados botones para mostrar SherpaRomeo y Buscar DOI juntos
+
 ## [1.4.1] - 2024-03-18
 
 ### Fixed
