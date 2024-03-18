@@ -18,6 +18,15 @@ var themeDark = createTheme({
       secondary: "#757575", // color de texto secundario
     },
   },
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#bebebe",
+        },
+      },
+    },
+  },
   typography: {
     body1: {
       color: "#ffffff",
@@ -58,6 +67,15 @@ var themeLight = createTheme({
     text: {
       primary: "#000000", // color de texto principal
       secondary: "#757575", // color de texto secundario
+    },
+  },
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#bebebe",
+        },
+      },
     },
   },
   typography: {
