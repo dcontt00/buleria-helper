@@ -88,7 +88,7 @@ export default function Keywords({ tab }: ComponentProps) {
         setButtonDisabled(false);
     }
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={1} alignItems="center">
             <Grid item xs={12}>
                 <Typography variant="body1">Si las palabras clave están en 1 sola linea, corregirlo automaticamente</Typography>
             </Grid>
