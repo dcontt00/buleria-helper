@@ -17,6 +17,7 @@ export default function DOISearch({ tab }: ComponentProps) {
     const [loading, setLoading] = useState<boolean>(false);
 
     function searchDOI() {
+        setDocument(undefined);
         setLoading(true);
         axios
             .get(`http://dx.doi.org/${text}`, {
@@ -108,10 +109,10 @@ export default function DOISearch({ tab }: ComponentProps) {
 
 
                         <Grid item xs={12}>
-                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
+                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
                         </Grid>
                         <Grid item xs={12}>
-                            <CopyTextField label="Revista" text={document.journal} fullWidth multiline />
+                            <CopyTextField label="Editorial" text={document.publisher} fullWidth multiline />
                         </Grid>
                         <Grid item xs={6}>
                             <CopyTextField label="Tipo" text={document.type} fullWidth multiline />
