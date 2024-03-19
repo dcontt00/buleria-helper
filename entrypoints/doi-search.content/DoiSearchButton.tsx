@@ -33,8 +33,6 @@ export default function DoiSearchButton({ doi }: { doi: string }) {
                     <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra DOI</Typography></Alert>
                 </div>
             }
-            <br />
-
             <DoiInfoComponent doiInfo={doiInfo} />
         </ThemeProvider>
     );

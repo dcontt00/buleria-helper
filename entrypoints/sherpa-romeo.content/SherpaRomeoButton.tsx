@@ -44,10 +44,6 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
                     <Typography sx={{ fontSize: "16px" }}><b>ISSN:</b> {issn}</Typography>
                 </div>
             }
-            <br />
-
-
-
             <PublisherPolicyData PublisherPolicies={publisherPolicies} />
         </ThemeProvider>
     );
