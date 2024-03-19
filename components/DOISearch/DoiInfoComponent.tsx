@@ -41,7 +41,7 @@ export default function DoiInfoComponent({ doiInfo }: DoiInfoComponentProps) {
                                 {doiInfo.authors.map((author, index) => {
                                     return (
                                         <Grid item key={index}>
-                                            <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} />
+                                            <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} style={{ fontSize: "14px" }} />
                                         </Grid>
                                     )
                                 }

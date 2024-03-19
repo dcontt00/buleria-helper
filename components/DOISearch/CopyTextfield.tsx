@@ -22,6 +22,7 @@ export default function CopyTextField({ label, text, fullWidth, multiline }: Cop
             fullWidth={fullWidth}
             multiline={multiline}
             InputProps={{
+                style: { fontSize: "16px" },
                 readOnly: true, endAdornment: (
                     <InputAdornment position="end">
                         <IconButton onClick={onClickCopy}>
