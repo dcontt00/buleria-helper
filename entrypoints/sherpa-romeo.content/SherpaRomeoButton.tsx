@@ -1,7 +1,7 @@
 import PublisherPolicyData from "@/components/SherpaRomeo/PublisherPolicyData";
 import { PublisherPolicy } from "@/types";
 import { themeLight } from "@/utils/theme";
-import { Alert, Button, ThemeProvider, Typography } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import getPublisherPolicies from "./common";
 export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
@@ -26,25 +26,16 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <div className="col-xs-6" >
-                <Button variant="contained" onClick={onClick}>Buscar en SherpaRomeo</Button>
-            </div>
-            <br />
-            <br />
-            {
-                notFound &&
-                <div className="col-xs-12 needs-xs-spacing">
-
-                    <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra en Sherpa Romeo</Typography></Alert>
-                </div>
-            }
+            <Button variant="contained" onClick={onClick}>Buscar en SherpaRomeo</Button>
             {publisherPolicies.length > 0 &&
-                <div className="col-xs-12 needs-xs-spacing">
+                <>
+                    <br />
+                    <br />
 
-                    <Typography sx={{ fontSize: "16px" }}><b>ISSN:</b> {issn}</Typography>
-                </div>
+                </>
             }
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} />
+
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} />
         </ThemeProvider>
     );
 }

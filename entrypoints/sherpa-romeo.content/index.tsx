@@ -43,8 +43,10 @@ export default defineContentScript({
                 onMount: (container) => {
                     // Create a root on the UI container and render a component
                     const root = ReactDOM.createRoot(container);
-                    container.className = "control-group row";
+                    container.className = "control-group needs-xs-spacing";
+                    container.style.marginTop = "10px";
                     root.render(
+
                         <SherpaRomeoButton issns={issns} />
                     );
                     return root;

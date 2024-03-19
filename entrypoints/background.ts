@@ -4,10 +4,31 @@ export default defineBackground(() => {
   browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (changeInfo.status === "complete" && tab.active) {
       await waitForTabComplete(tabId);
-      await sendMessage("addCitationButtonToPage", undefined, tabId);
-      await sendMessage("addTitleButtonToPage", undefined, tabId);
-      await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
-      await sendMessage("addSearchDoiButtonToPage", undefined, tabId);
+      try {
+        await sendMessage("searchIssnPortal", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        await sendMessage("addCitationButtonToPage", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        await sendMessage("addTitleButtonToPage", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        await sendMessage("addSearchDoiButtonToPage", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
     }
   });
 });

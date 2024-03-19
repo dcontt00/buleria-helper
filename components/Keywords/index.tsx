@@ -2,7 +2,7 @@ import { detectSeparator, separateKeywords } from "@/entrypoints/keywords.conten
 import ComponentProps from "@/interfaces/ComponentProps";
 import { sendMessage } from "@/utils/messaging";
 import waitForTabComplete from "@/utils/tabUtils";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ProgressComponent from "../Progress";
 
@@ -35,6 +35,7 @@ export default function Keywords({ tab }: ComponentProps) {
      */
     async function pasteKeywords(keywords: string[]) {
         setProgress(0);
+        setShowProgress(true);
         setButtonDisabled(true);
         setShowProgress(true);
 
@@ -46,6 +47,8 @@ export default function Keywords({ tab }: ComponentProps) {
             setProgress(oldProgress => oldProgress + increment);
         }
         setButtonDisabled(false);
+        setShowProgress(false);
+
     }
 
 
@@ -87,29 +90,27 @@ export default function Keywords({ tab }: ComponentProps) {
         setButtonDisabled(false);
     }
     return (
-        <Grid container spacing={1} alignItems="center">
-            <Grid item xs={12}>
+        <div>
+            <Stack spacing={1}>
                 <Typography variant="body1">Si las palabras clave están en 1 sola linea, corregirlo automaticamente</Typography>
-            </Grid>
-            <Grid item xs={12}>
                 <Button variant="contained" onClick={onCorrectClick}>Corregir Palabras Clave</Button>
-            </Grid>
-            <Grid item xs={12}>
                 <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
+            </Stack>
+            <br />
+            <Grid container spacing={1}>
+                <Grid item xs={9}>
+                    <TextField label="Palabras clave" variant="outlined" fullWidth value={keywordsString} onChange={onTextFieldKeywordChange} />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
+                </Grid>
             </Grid>
-            <Grid item xs={10}>
-                <TextField label="Palabras clave" variant="outlined" fullWidth value={keywordsString} onChange={onTextFieldKeywordChange} />
-            </Grid>
-            <Grid item xs={2}>
-                <TextField label="Separador" variant="standard" fullWidth value={separator} disabled={separatorDetected} onChange={onTextFieldSeparatorChange} />
-            </Grid>
-            <Grid item xs={12}>
+            <br />
+            <Stack spacing={1}>
                 <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
-            </Grid>
-            <Grid item xs={12}>
                 <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
-            </Grid>
-        </Grid>
+            </Stack>
+        </div>
 
     )
 }
