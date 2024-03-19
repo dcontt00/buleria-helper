@@ -43,11 +43,9 @@ export default defineContentScript({
                 onMount: (container) => {
                     // Create a root on the UI container and render a component
                     const root = ReactDOM.createRoot(container);
+                    container.className = "control-group row";
                     root.render(
-                        <div className="control-group row">
-                            <SherpaRomeoButton issns={issns} />
-
-                        </div>
+                        <SherpaRomeoButton issns={issns} />
                     );
                     return root;
                 },

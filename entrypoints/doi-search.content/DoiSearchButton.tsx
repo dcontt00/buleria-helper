@@ -21,7 +21,7 @@ export default function DoiSearchButton({ doi }: { doi: string }) {
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <div className="col-xs-12 needs-xs-spacing" >
+            <div className="col-xs-6" >
                 <Button variant="contained" onClick={onClick}>Buscar DOI</Button>
             </div>
             <br />

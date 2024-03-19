@@ -26,7 +26,7 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <div className="col-xs-12 needs-xs-spacing" >
+            <div className="col-xs-6" >
                 <Button variant="contained" onClick={onClick}>Buscar en SherpaRomeo</Button>
             </div>
             <br />
