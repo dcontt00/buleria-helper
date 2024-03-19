@@ -106,7 +106,7 @@ export default function Keywords({ tab }: ComponentProps) {
                 </Grid>
             </Grid>
             <br />
-            <Stack>
+            <Stack spacing={1}>
                 <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
                 <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
             </Stack>
