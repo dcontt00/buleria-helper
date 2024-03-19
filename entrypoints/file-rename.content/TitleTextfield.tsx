@@ -36,7 +36,7 @@ export default function TitleTextfield({ title }: TitleTextfieldProps) {
     return (
         <ThemeProvider theme={themeLight}>
             <Stack direction="column" spacing={2}>
-                <Typography>Copia este titulo para ponerselo al archivo en el paso siguiente</Typography>
+                <Typography sx={{ fontSize: "16px" }}>Copia este titulo para ponerselo al archivo en el paso siguiente</Typography>
                 <TextField id="title" label="Título de archivo" variant="outlined" fullWidth
                     InputLabelProps={{ style: { fontSize: 16 } }}
                     InputProps={{ style: { fontSize: 16 } }}
