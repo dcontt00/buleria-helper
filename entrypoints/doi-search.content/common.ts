@@ -5,7 +5,7 @@ export default async function getDoiInfo(
   doi: string
 ): Promise<DoiInfo | undefined> {
   var result = await axios
-    .get(`https://dx.doi.org/${doi}`, {
+    .get(`http://dx.doi.org/${doi}`, {
       headers: {
         Accept: "application/json",
       },
