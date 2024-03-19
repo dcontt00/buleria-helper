@@ -1,10 +1,14 @@
-## [Unreleased]
+## [1.6.0] - 2024-03-19
 
 ### Fixed
 
 - FileRename: Reorganizado filerename en pagina
 - FileRename: Aumentado tamaño texto de pagina
 - Keywords: Centrados elementos
+
+### Added
+
+- SherpaRomeo: Añadido boton de busqueda en los documentos de portalcientifico.unileon.es
 
 ## [1.5.0] - 2024-03-19
 

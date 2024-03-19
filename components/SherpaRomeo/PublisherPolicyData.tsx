@@ -11,16 +11,6 @@ import { Accordion, AccordionDetails, AccordionSummary, Alert, Grid, Link, Stack
 import CopyTextField from "../DOISearch/CopyTextfield";
 export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { PublisherPolicies: PublisherPolicy[], issn: string, notFound: boolean }) {
 
-
-    const handleCopy = async (value: string) => {
-        try {
-            await navigator.clipboard.writeText(value);
-            console.log('Text copied to clipboard');
-        } catch (err) {
-            console.error('Failed to copy text: ', err);
-        }
-    };
-
     function Conditions(PublisherPolicy: PublisherPolicy) {
         if (PublisherPolicy.conditions != undefined && PublisherPolicy.conditions.length !== 0) {
             return (
@@ -224,6 +214,11 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { Pub
                 notFound &&
                 <Grid item xs={12}>
                     <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra en Sherpa Romeo</Typography></Alert>
+                </Grid>
+            }
+            {PublisherPolicies.length > 0 &&
+                <Grid item xs={12}>
+                    <Typography variant="body1" sx={{ fontSize: "16px" }} ><b>ISSN:</b>{issn}</Typography>
                 </Grid>
             }
             {PublisherPolicies.length > 0 &&
