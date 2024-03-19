@@ -35,6 +35,7 @@ export default function Keywords({ tab }: ComponentProps) {
      */
     async function pasteKeywords(keywords: string[]) {
         setProgress(0);
+        setShowProgress(true);
         setButtonDisabled(true);
         setShowProgress(true);
 
@@ -46,6 +47,8 @@ export default function Keywords({ tab }: ComponentProps) {
             setProgress(oldProgress => oldProgress + increment);
         }
         setButtonDisabled(false);
+        setShowProgress(false);
+
     }
 
 
@@ -62,7 +65,6 @@ export default function Keywords({ tab }: ComponentProps) {
                 await pasteKeywords(keywords);
             }
         }
-        setShowProgress(false);
     }
 
     function manageKeywordsString(keywords: string) {
