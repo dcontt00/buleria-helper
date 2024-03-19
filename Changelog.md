@@ -3,6 +3,7 @@
 ### Fixed
 
 - FileRename: Reorganizado filerename en pagina
+- Keywords: Centrados elementos
 
 ## [1.5.0] - 2024-03-19
 
