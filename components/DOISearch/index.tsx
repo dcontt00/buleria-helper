@@ -106,8 +106,10 @@ export default function DOISearch({ tab }: ComponentProps) {
 
             {
                 doiInfo &&
+                <Grid item xs={12}>
 
-                <DoiInfoComponent doiInfo={doiInfo} />
+                    <DoiInfoComponent doiInfo={doiInfo} />
+                </Grid>
             }
 
             {
