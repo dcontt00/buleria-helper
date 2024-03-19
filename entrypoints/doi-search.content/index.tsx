@@ -30,9 +30,9 @@ export default defineContentScript({
                     // Create a root on the UI container and render a component
                     const root = ReactDOM.createRoot(container);
                     container.className = "control-group row";
+                    container.style.marginTop = "20px";
                     root.render(
                         <DoiSearchButton doi={doi} />
-
                     );
                     return root;
                 },
