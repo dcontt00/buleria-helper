@@ -73,7 +73,7 @@ var themeLight = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: "#bebebe",
+          color: "#5c5c5c",
         },
       },
     },
