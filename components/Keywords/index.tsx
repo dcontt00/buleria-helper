@@ -62,6 +62,7 @@ export default function Keywords({ tab }: ComponentProps) {
                 await pasteKeywords(keywords);
             }
         }
+        setShowProgress(false);
     }
 
     function manageKeywordsString(keywords: string) {
