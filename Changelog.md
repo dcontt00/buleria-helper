@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- DoiSearch: Ahora tambien se puede hacer la búsqueda en la propia página
+
 ### Changed
 
 - Reoganizados botones para mostrar SherpaRomeo y Buscar DOI juntos
