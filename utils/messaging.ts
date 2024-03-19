@@ -12,6 +12,7 @@ interface ProtocolMap {
   addSherpaRomeoButtonToPage(): boolean;
   addSearchDoiButtonToPage(): boolean;
   removeAuthors(): boolean;
+  searchIssnPortal(): boolean;
 }
 
 export const { sendMessage, onMessage } =
