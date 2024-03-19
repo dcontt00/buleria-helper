@@ -4,7 +4,7 @@ import { sendMessage } from "@/utils/messaging";
 import waitForTabComplete from "@/utils/tabUtils";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import ProgressComponent from "./Progress";
+import ProgressComponent from "../Progress";
 
 
 export default function Keywords({ tab }: ComponentProps) {

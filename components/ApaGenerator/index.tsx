@@ -1,14 +1,12 @@
-import { browser } from "wxt/browser"
-import { Tabs } from "webextension-polyfill/namespaces/tabs";
-import { sendMessage } from "@/utils/messaging";
-import CitationInfo from "@/interfaces/CitationInfo";
-import { useEffect, useState } from "react";
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Alert, Button, MenuItem, Select, Snackbar, Stack, TextField, Typography } from "@mui/material";
-import HideAlert from "./HideAlert";
 import ComponentProps from "@/interfaces/ComponentProps";
 import { DocumentType } from "@/types";
+import { sendMessage } from "@/utils/messaging";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import { Button, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Tabs } from "webextension-polyfill/namespaces/tabs";
+import HideAlert from "../HideAlert";
 
 export default function ApaGenerator({ tab }: ComponentProps) {
     const urlPatters = [

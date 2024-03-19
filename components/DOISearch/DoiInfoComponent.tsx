@@ -56,12 +56,12 @@ export default function DoiInfoComponent({ doiInfo }: DoiInfoComponentProps) {
                         </Grid>
                         {
                             doiInfo.volume != undefined &&
-                            <Grid item xs={3}>
+                            <Grid item xs={6}>
                                 <CopyTextField label="Volumen" text={doiInfo.volume} fullWidth multiline />
                             </Grid>
                         }
                         {doiInfo.number != undefined &&
-                            <Grid item xs={3}>
+                            <Grid item xs={6}>
                                 <CopyTextField label="Numero" text={doiInfo.number} fullWidth multiline />
                             </Grid>
                         }

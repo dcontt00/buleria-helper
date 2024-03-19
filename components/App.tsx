@@ -1,7 +1,7 @@
 import ApaGenerator from '@/components/ApaGenerator';
 import Authors from '@/components/Authors';
 import FileRename from '@/components/FileRename';
-import Keywords from '@/components/Keywords';
+import Keywords from '@/components/Keywords/Keywords';
 import SherpaRomeo from '@/components/SherpaRomeo';
 import { themeAuto } from '@/utils/theme';
 import AbcIcon from '@mui/icons-material/Abc';

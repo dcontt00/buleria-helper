@@ -6,7 +6,7 @@ import waitForTabComplete from "@/utils/tabUtils";
 import PersonIcon from '@mui/icons-material/Person';
 import { Box, Button, Chip, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
-import ProgressComponent from "./Progress";
+import ProgressComponent from "../Progress";
 
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
