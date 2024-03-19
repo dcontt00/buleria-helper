@@ -8,6 +8,7 @@ import AbcIcon from '@mui/icons-material/Abc';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import NotesIcon from '@mui/icons-material/Notes';
 import PersonIcon from '@mui/icons-material/Person';
 import { Button, Stack, ThemeProvider, Typography } from '@mui/material';
@@ -64,30 +65,60 @@ function App() {
         } else {
 
             return <>
-                <Button variant="contained" startIcon={<NotesIcon />} onClick={() => {
-                    setShowAPAGenerator(true);
-                    setShowBackButton(true)
-                }}>APA Generator</Button>
-                <Button variant="contained" startIcon={<AbcIcon />} onClick={() => {
-                    setShowKeywords(true);
-                    setShowBackButton(true)
-                }}>Keywords</Button>
-                <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => {
-                    setShowSherpaRomeo(true);
-                    setShowBackButton(true)
-                }}>Sherpa Romeo</Button>
-                <Button variant="contained" startIcon={<DriveFileRenameOutlineIcon />} onClick={() => {
-                    setShowFileRename(true);
-                    setShowBackButton(true)
-                }}>Nombre Archivo</Button>
-                <Button variant="contained" startIcon={<PersonIcon />} onClick={() => {
-                    setShowAuthors(true);
-                    setShowBackButton(true)
-                }}>Autores</Button>
-                <Button variant="contained" startIcon={<FindInPageIcon />} onClick={() => {
-                    setShowDOISearch(true);
-                    setShowBackButton(true)
-                }}>Buscar DOI</Button>
+                <Button
+                    variant="contained"
+                    startIcon={<NotesIcon />}
+                    onClick={() => {
+                        setShowAPAGenerator(true);
+                        setShowBackButton(true)
+                    }}>
+                    APA Generator
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<AbcIcon />}
+                    onClick={() => {
+                        setShowKeywords(true);
+                        setShowBackButton(true)
+                    }}>
+                    Keywords
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<FindInPageIcon />}
+                    onClick={() => {
+                        setShowSherpaRomeo(true);
+                        setShowBackButton(true)
+                    }}>
+                    Sherpa Romeo
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<ManageSearchIcon />}
+                    onClick={() => {
+                        setShowDOISearch(true);
+                        setShowBackButton(true)
+                    }}>
+                    Buscar DOI
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<DriveFileRenameOutlineIcon />}
+                    onClick={() => {
+                        setShowFileRename(true);
+                        setShowBackButton(true)
+                    }}>
+                    Nombre Archivo
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<PersonIcon />}
+                    onClick={() => {
+                        setShowAuthors(true);
+                        setShowBackButton(true)
+                    }}>
+                    Autores
+                </Button>
             </>
         }
 

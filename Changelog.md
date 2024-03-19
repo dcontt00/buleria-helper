@@ -1,3 +1,13 @@
+## [1.5.0] - 2024-03-19
+
+### Added
+
+- DoiSearch: Ahora tambien se puede hacer la búsqueda en la propia página
+
+### Changed
+
+- Reoganizados botones para mostrar SherpaRomeo y Buscar DOI juntos
+
 ## [1.4.1] - 2024-03-18
 
 ### Fixed

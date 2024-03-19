@@ -7,6 +7,7 @@ export default defineBackground(() => {
       await sendMessage("addCitationButtonToPage", undefined, tabId);
       await sendMessage("addTitleButtonToPage", undefined, tabId);
       await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
+      await sendMessage("addSearchDoiButtonToPage", undefined, tabId);
     }
   });
 });

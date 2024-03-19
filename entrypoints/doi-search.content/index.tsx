@@ -1,7 +1,7 @@
 import { onMessage } from "@/utils/messaging";
 import ReactDOM from "react-dom/client";
 import { defineContentScript } from "wxt/sandbox";
-import SherpaRomeoButton from "./SherpaRomeoButton";
+import DoiSearchButton from "./DoiSearchButton";
 export default defineContentScript({
     // Set manifest options
     matches: ["https://buleria.unileon.es/*", "http://buleria.unileon.es/*"],
@@ -9,33 +9,19 @@ export default defineContentScript({
 
     main: async (ctx) => {
 
-        onMessage("addSherpaRomeoButtonToPage", async (message) => {
+        onMessage("addSearchDoiButtonToPage", async (message) => {
             let issnInputElement = document.getElementById(
                 "aspect_submission_StepTransformer_field_dc_identifier_qualifier"
             ) as HTMLInputElement;
 
             // Buscar elemento span con class ds-interpreted-field y su valor contiene issn
             let spanElements = document.querySelectorAll("span.ds-interpreted-field") as NodeListOf<HTMLElement>;
-            var issns: string[] = [];
 
-            let issnElements = Array.from(spanElements).filter(element => element.textContent?.includes('issn'));
-            for (let i = 0; i < issnElements.length; i++) {
-                var issn = issnElements[i].textContent?.split(':')[1].trim();
-                issns.push(issn);
+            let doiElement = Array.from(spanElements).find(element => element.textContent?.includes('doi'));
+
+            if (doiElement?.textContent != null && doiElement.textContent.includes('doi')) {
+                var doi = doiElement.textContent.split(":")[1].trim();
             }
-            let essnElements = Array.from(spanElements).filter(element => element.textContent?.includes('essn'));
-            for (let i = 0; i < essnElements.length; i++) {
-                var essn = essnElements[i].textContent?.split(':')[1].trim();
-                issns.push(essn);
-            }
-
-
-            if (issns.length === 0) {
-                return false;
-            }
-
-
-
 
             const ui = createIntegratedUi(ctx, {
                 position: "inline",
@@ -45,7 +31,8 @@ export default defineContentScript({
                     const root = ReactDOM.createRoot(container);
                     container.className = "control-group row";
                     root.render(
-                        <SherpaRomeoButton issns={issns} />
+                        <DoiSearchButton doi={doi} />
+
                     );
                     return root;
                 },

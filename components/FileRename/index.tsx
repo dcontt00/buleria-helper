@@ -1,8 +1,7 @@
+import { getFileNameFromTitle } from "@/utils/stringUtils";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import HideAlert from "./HideAlert";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { getFileNameFromTitle } from "@/utils/stringUtils";
 export default function FileRename() {
     const [title, setTitle] = useState<string>("");
     const [filename, setFilename] = useState<string>("");
