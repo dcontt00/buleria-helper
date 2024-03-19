@@ -1,13 +1,12 @@
 import ComponentProps from "@/interfaces/ComponentProps";
-import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, Chip, CircularProgress, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
 import axios, { AxiosError } from "axios";
 
 import { Author } from "@/types";
 import React, { useState } from "react";
 import DoiInfo from "../../classes/DoiInfo";
-import CopyTextField from "./CopyTextfield";
+import DoiInfoComponent from "./DoiInfoComponent";
 
 export default function DOISearch({ tab }: ComponentProps) {
     const [text, setText] = useState<string>("")
@@ -107,70 +106,15 @@ export default function DOISearch({ tab }: ComponentProps) {
 
             {
                 doiInfo &&
-                <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
 
-                            <CopyTextField label="Titulo" text={doiInfo.title} fullWidth multiline />
-                        </Grid>
-
-
-                        <Grid item xs={12}>
-                            <CopyTextField label="Revista" text={doiInfo.journal} fullWidth multiline />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <CopyTextField label="Editorial" text={doiInfo.publisher} fullWidth multiline />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <CopyTextField label="Tipo" text={doiInfo.type} fullWidth multiline />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <CopyTextField label="ISSN" text={doiInfo.ISSN.join(",")} fullWidth multiline />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper sx={{ p: 2 }}>
-
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="body1">Autores</Typography>
-                                    </Grid>
-
-                                    {doiInfo.authors.map((author, index) => {
-                                        return (
-                                            <Grid item key={index}>
-                                                <Chip key={index} label={`${author.name}, ${author.surname}`} icon={<PersonIcon />} />
-                                            </Grid>
-                                        )
-                                    }
-                                    )}
-                                </Grid>
-                            </Paper>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <CopyTextField label="DOI" text={doiInfo.DOI} fullWidth multiline />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <CopyTextField label="Fecha" text={doiInfo.date} fullWidth multiline />
-                        </Grid>
-                        {
-                            doiInfo.volume != undefined &&
-                            <Grid item xs={3}>
-                                <CopyTextField label="Volumen" text={doiInfo.volume} fullWidth multiline />
-                            </Grid>
-                        }
-                        {doiInfo.number != undefined &&
-                            <Grid item xs={3}>
-                                <CopyTextField label="Numero" text={doiInfo.number} fullWidth multiline />
-                            </Grid>
-                        }
-
-                    </Grid>
-                </Grid>
+                <DoiInfoComponent doiInfo={doiInfo} />
             }
 
             {
-                notFound && <Alert hidden={false} severity="error">No se encuentra el DOI</Alert>
+                notFound &&
+                <Grid item xs={12}>
+                    <Alert hidden={false} severity="error">No se encuentra el DOI</Alert>
+                </Grid>
             }
         </Grid>
 
