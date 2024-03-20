@@ -5,7 +5,7 @@ export default defineBackground(() => {
     if (changeInfo.status === "complete" && tab.active) {
       await waitForTabComplete(tabId);
       try {
-        await sendMessage("searchIssnPortal", undefined, tabId);
+        await sendMessage("addSherpaRomeoButtonToPortal", undefined, tabId);
       } catch (error) {
         console.error(error);
       }
@@ -20,12 +20,17 @@ export default defineBackground(() => {
         console.error(error);
       }
       try {
-        await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
+        await sendMessage("addSherpaRomeoButtonToBuleria", undefined, tabId);
       } catch (error) {
         console.error(error);
       }
       try {
-        await sendMessage("addSearchDoiButtonToPage", undefined, tabId);
+        await sendMessage("addCopyDoiButton", undefined, tabId);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        await sendMessage("addSearchDoiButtonToPortal", undefined, tabId);
       } catch (error) {
         console.error(error);
       }

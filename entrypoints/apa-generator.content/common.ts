@@ -90,13 +90,25 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
     editorial = editorialelement.value;
   }
 
+  if (editorial == undefined || editorial == "") {
+    return "Error: No se encuentra la editorial";
+  }
+
+  if (titleElement.value == "") {
+    return "Error: No se encuentra el titulo";
+  }
+
+  if (dateElement == null || dateElement.value == "") {
+    return "Error: No se encuentra la fecha";
+  }
+
   switch (documentType) {
     case "Articulo":
       let journalElement: HTMLInputElement = document.getElementById(
         "aspect_submission_StepTransformer_field_dc_journal_title"
       ) as HTMLInputElement;
 
-      if (journalElement == null) {
+      if (journalElement == null || journalElement.value == "") {
         return "Error: No se encuentra el titulo de la revista";
       }
 
@@ -127,12 +139,8 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       let bookTitleElement: HTMLInputElement = document.getElementById(
         "aspect_submission_StepTransformer_field_dc_relation_ispartof"
       ) as HTMLInputElement;
-      if (bookTitleElement == null) {
+      if (bookTitleElement == null || bookTitleElement.value == "") {
         return "Error: No se encuentra el titulo del libro";
-      }
-
-      if (editorial == "") {
-        return "Error: No se encuentra la editorial";
       }
 
       var bookChapter = new BookChapter(

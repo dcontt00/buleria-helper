@@ -9,10 +9,12 @@ interface ProtocolMap {
   pasteAuthor(author: Author): boolean;
   addCitationButtonToPage(): boolean;
   addTitleButtonToPage(): boolean;
-  addSherpaRomeoButtonToPage(): boolean;
-  addSearchDoiButtonToPage(): boolean;
+  addSherpaRomeoButtonToBuleria(): boolean;
+  addSherpaRomeoButtonToPortal(): boolean;
+  addCopyDoiButton(): boolean;
+  addSearchDoiButtonToPortal(): boolean;
+  addSearchDoiButtonToBuleria(): boolean;
   removeAuthors(): boolean;
-  searchIssnPortal(): boolean;
 }
 
 export const { sendMessage, onMessage } =

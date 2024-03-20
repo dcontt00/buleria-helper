@@ -49,6 +49,12 @@ class Article {
     if (this.startPage && this.endPage) {
       output += `, ${this.startPage}-${this.endPage}`;
     }
+    if (this.number) {
+      output += `(${this.number})`;
+    }
+    if (this.DOI) {
+      output += `, https://doi.org/${this.DOI}`;
+    }
     return output;
   }
 }

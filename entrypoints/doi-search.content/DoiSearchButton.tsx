@@ -1,6 +1,7 @@
 import DoiInfo from "@/classes/DoiInfo";
 import DoiInfoComponent from "@/components/DOISearch/DoiInfoComponent";
 import { themeLight } from "@/utils/theme";
+import SearchIcon from '@mui/icons-material/Search';
 import { Alert, Button, ThemeProvider, Typography } from "@mui/material";
 import { useState } from "react";
 import getDoiInfo from "./common";
@@ -22,7 +23,7 @@ export default function DoiSearchButton({ doi }: { doi: string }) {
     return (
         <ThemeProvider theme={themeLight}>
             <div className="col-xs-6" >
-                <Button variant="contained" onClick={onClick}>Buscar DOI</Button>
+                <Button variant="contained" onClick={onClick} startIcon={<SearchIcon />}>Buscar DOI</Button>
             </div>
             <br />
             <br />

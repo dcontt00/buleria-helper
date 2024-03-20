@@ -9,7 +9,7 @@ export default defineContentScript({
 
     main: async (ctx) => {
 
-        onMessage("addSherpaRomeoButtonToPage", async (message) => {
+        onMessage("addSherpaRomeoButtonToBuleria", async (message) => {
             let issnInputElement = document.getElementById(
                 "aspect_submission_StepTransformer_field_dc_identifier_qualifier"
             ) as HTMLInputElement;

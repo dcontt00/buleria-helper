@@ -1,8 +1,10 @@
 import PublisherPolicyData from "@/components/SherpaRomeo/PublisherPolicyData";
 import { PublisherPolicy } from "@/types";
 import { themeLight } from "@/utils/theme";
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 import { Button, ThemeProvider } from "@mui/material";
 import { useState } from "react";
+
 import getPublisherPolicies from "./common";
 export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     const [publisherPolicies, setPublisherPolicies] = useState<PublisherPolicy[]>([]);
@@ -26,7 +28,7 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <Button variant="contained" onClick={onClick}>Buscar en SherpaRomeo</Button>
+            <Button variant="contained" onClick={onClick} startIcon={<FindInPageIcon />}>Buscar en SherpaRomeo</Button>
             {publisherPolicies.length > 0 &&
                 <>
                     <br />

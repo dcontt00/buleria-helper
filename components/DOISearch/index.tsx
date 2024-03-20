@@ -55,7 +55,6 @@ export default function DOISearch({ tab }: ComponentProps) {
             }
             ).catch((error: AxiosError) => {
                 setNotFound(true);
-                alert(error.message);
             }).finally(() => {
                 setLoading(false);
             });

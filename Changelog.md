@@ -1,3 +1,11 @@
+## [1.7.0] - 2024-03-20
+
+### Added
+
+- APAGenerator: Añadido DOI a citas de articulos
+- Boton Copiar DOI en portal investigación
+- Boton Buscar DOI en portal investigación
+
 ## [1.6.3] - 2024-03-20
 
 ### Fixed
