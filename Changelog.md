@@ -1,3 +1,9 @@
+## [1.6.3] - 2024-03-20
+
+### Fixed
+
+- APAGenerator: Arreglado error cita de articulos
+
 ## [1.6.2] - 2024-03-20
 
 ### Changed

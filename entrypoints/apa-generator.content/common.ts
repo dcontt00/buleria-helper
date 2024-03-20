@@ -110,11 +110,10 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         volumeElement.value,
         numberElement.value,
         editorial,
-        numPages.toString()
+        startPageElement.value,
+        endPageElement.value
       );
-      if (startPageElement.value == "" || endPageElement.value == "") {
-        article.numPages = "";
-      }
+
       return article.toString();
     case "Libro":
       var book = new Book(
