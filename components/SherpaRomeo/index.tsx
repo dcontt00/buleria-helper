@@ -67,10 +67,8 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
                 <Button variant="contained" startIcon={<LaunchIcon />} onClick={navigateToSherpaRomeo}>Ver en
                     SherpaRomeo</Button>
             }
-            {!notFound && publisherPolicies.length > 0 &&
-                <Typography>ISSN: {issn}</Typography>
-            }
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} />
+
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} />
             {
                 notFound && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
             }
