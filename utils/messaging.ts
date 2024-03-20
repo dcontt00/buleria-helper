@@ -9,7 +9,7 @@ interface ProtocolMap {
   pasteAuthor(author: Author): boolean;
   addCitationButtonToPage(): boolean;
   addTitleButtonToPage(): boolean;
-  addSherpaRomeoButtonToPage(): boolean;
+  addSherpaRomeoButtonToBuleria(): boolean;
   addSearchDoiButtonToPage(): boolean;
   removeAuthors(): boolean;
   searchIssnPortal(): boolean;

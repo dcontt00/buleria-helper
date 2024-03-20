@@ -20,7 +20,7 @@ export default defineBackground(() => {
         console.error(error);
       }
       try {
-        await sendMessage("addSherpaRomeoButtonToPage", undefined, tabId);
+        await sendMessage("addSherpaRomeoButtonToBuleria", undefined, tabId);
       } catch (error) {
         console.error(error);
       }
