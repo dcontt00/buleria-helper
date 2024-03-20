@@ -1,13 +1,16 @@
 import DoiInfo from "@/classes/DoiInfo";
 import DoiInfoComponent from "@/components/DOISearch/DoiInfoComponent";
 import { themeLight } from "@/utils/theme";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, ThemeProvider, Typography } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import getDoiInfo from "./common";
 export default function DoiSearchButton({ doi }: { doi: string }) {
     const [doiInfo, setDoiInfo] = useState<DoiInfo | undefined>(undefined);
     const [notFound, setNotFound] = useState<boolean>(false);
+    const [open, setOpen] = useState(false);
 
     async function onClick() {
         var response = await getDoiInfo(doi);
@@ -17,24 +20,17 @@ export default function DoiSearchButton({ doi }: { doi: string }) {
             return;
         }
         setNotFound(true);
+        setOpen(!open);
 
 
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <div className="col-xs-6" >
-                <Button variant="contained" onClick={onClick} startIcon={<SearchIcon />}>Buscar DOI</Button>
-            </div>
+            <Button variant="contained" onClick={onClick} startIcon={<SearchIcon />} endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}>Buscar DOI</Button>
             <br />
             <br />
-            {
-                notFound &&
-                <div className="col-xs-12 needs-xs-spacing">
 
-                    <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra DOI</Typography></Alert>
-                </div>
-            }
-            <DoiInfoComponent doiInfo={doiInfo} />
+            <DoiInfoComponent doiInfo={doiInfo} notFound={notFound} />
         </ThemeProvider>
     );
 }

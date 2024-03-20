@@ -27,7 +27,6 @@ export default defineContentScript({
                     // Create a root on the UI container and render a component
                     const root = ReactDOM.createRoot(container);
                     container.className = "documento-detalle__localizacion";
-                    container.style.height = "40.5px"
                     root.render(
 
                         <DoiSearchButton doi={doi} />

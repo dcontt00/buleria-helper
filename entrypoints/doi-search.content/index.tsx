@@ -32,7 +32,9 @@ export default defineContentScript({
                     container.className = "control-group row";
                     container.style.marginTop = "20px";
                     root.render(
-                        <DoiSearchButton doi={doi} />
+                        <div className="col-xs-12 needs-xs-spacing" >
+                            <DoiSearchButton doi={doi} />
+                        </div>
                     );
                     return root;
                 },
