@@ -1,3 +1,11 @@
+## [Unreleased]
+
+### Changed
+
+- SherpaRomeo: Ajustadas columnas de resultados de busqueda
+
+###
+
 ## [1.6.0] - 2024-03-19
 
 ### Fixed
