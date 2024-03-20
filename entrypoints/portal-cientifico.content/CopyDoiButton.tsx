@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
+import { ContentCopy } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
 interface CopyDoiButtonProps {
@@ -15,7 +16,7 @@ export default function CopyDoiButton({ doi }: CopyDoiButtonProps) {
     return (
         <ThemeProvider theme={themeLight}>
 
-            <Button variant="contained" onClick={onClick}>Copiar DOI</Button>
+            <Button variant="contained" onClick={onClick} startIcon={<ContentCopy />}>Copiar DOI</Button>
         </ThemeProvider>
     )
 }

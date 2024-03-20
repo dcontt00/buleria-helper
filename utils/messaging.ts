@@ -13,6 +13,7 @@ interface ProtocolMap {
   addSherpaRomeoButtonToPortal(): boolean;
   addCopyDoiButton(): boolean;
   addSearchDoiButtonToPortal(): boolean;
+  addSearchDoiButtonToBuleria(): boolean;
   removeAuthors(): boolean;
 }
 
