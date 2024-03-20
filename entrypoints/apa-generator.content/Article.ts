@@ -49,6 +49,9 @@ class Article {
     if (this.startPage && this.endPage) {
       output += `, ${this.startPage}-${this.endPage}`;
     }
+    if (this.number) {
+      output += `(${this.number})`;
+    }
     return output;
   }
 }
