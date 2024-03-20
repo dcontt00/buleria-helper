@@ -3,7 +3,7 @@ import ComponentProps from "@/interfaces/ComponentProps";
 import { PublisherPolicy } from "@/types";
 import LaunchIcon from '@mui/icons-material/Launch';
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { browser } from "wxt/browser";
 import PublisherPolicyData from "./PublisherPolicyData";
@@ -67,13 +67,9 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
                 <Button variant="contained" startIcon={<LaunchIcon />} onClick={navigateToSherpaRomeo}>Ver en
                     SherpaRomeo</Button>
             }
-            {!notFound && publisherPolicies.length > 0 &&
-                <Typography>ISSN: {issn}</Typography>
-            }
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} />
-            {
-                notFound && <Alert hidden={false} severity="error">No se encuentra en Sherpa Romeo</Alert>
-            }
+
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={6} />
+
         </Stack>
     )
 }

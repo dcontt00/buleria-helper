@@ -11,11 +11,16 @@ export default defineContentScript({
         onMessage("searchIssnPortal", async (message) => {
 
             let parentElement = document.querySelector("p.documento-detalle__localizacion") as HTMLElement;
-            let issn = parentElement.getElementsByTagName("span")[1].textContent?.trim();
-            if (issn === undefined) {
-                return false;
-            }
+            let issnElements = parentElement.getElementsByTagName("span");
 
+
+            var issns: string[] = [];
+            for (var i = 0; i < issnElements.length; i++) {
+                if (issnElements[i].className != "documento-detalle__localizacion") {
+                    continue;
+                }
+                issns.push(issnElements[i].textContent?.trim().replace(",", "") as string);
+            }
             const ui = createIntegratedUi(ctx, {
                 position: "inline",
                 anchor: parentElement.parentElement,
@@ -24,7 +29,7 @@ export default defineContentScript({
                     const root = ReactDOM.createRoot(container);
                     container.className = "documento-detalle__localizacion";
                     root.render(
-                        <SherpaRomeoButton issns={[issn]} />
+                        <SherpaRomeoButton issns={issns} />
                     );
                     return root;
                 },

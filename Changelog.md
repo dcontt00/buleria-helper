@@ -1,3 +1,14 @@
+## [1.6.1] - 2024-03-20
+
+### Changed
+
+- SherpaRomeo: Ajustadas columnas de resultados de busqueda
+
+### Fixed
+
+- SherpaRomeo: Busqueda de varios ISSNs en portalcientifico
+- Autores: Arreglado error que no pegaba autores
+
 ## [1.6.0] - 2024-03-19
 
 ### Fixed

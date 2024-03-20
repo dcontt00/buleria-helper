@@ -5,8 +5,10 @@ async function waitForTrElements(): Promise<NodeListOf<Element>> {
   return new Promise((resolve, reject) => {
     const observer = new MutationObserver((mutations, observer) => {
       const elements = document.querySelectorAll("tr.odd");
+      alert(elements[0]?.querySelector("td")?.outerHTML);
       if (
         elements[0] &&
+        elements[0].querySelector("td")?.innerHTML != "" &&
         elements[0].querySelector("td")?.innerText != "...., ....."
       ) {
         observer.disconnect();

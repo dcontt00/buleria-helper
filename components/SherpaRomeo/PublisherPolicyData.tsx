@@ -9,8 +9,7 @@ import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { Accordion, AccordionDetails, AccordionSummary, Alert, Grid, Link, Stack, Typography } from "@mui/material";
 import CopyTextField from "../DOISearch/CopyTextfield";
-export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { PublisherPolicies: PublisherPolicy[], issn: string, notFound: boolean }) {
-
+export default function SherpaRomeo({ PublisherPolicies, issn, notFound, cols }: { PublisherPolicies: PublisherPolicy[], issn: string, notFound: boolean, cols: number }) {
     function Conditions(PublisherPolicy: PublisherPolicy) {
         if (PublisherPolicy.conditions != undefined && PublisherPolicy.conditions.length !== 0) {
             return (
@@ -209,7 +208,7 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { Pub
     }
 
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={2} columns={cols}>
             {
                 notFound &&
                 <Grid item xs={12}>
@@ -226,37 +225,35 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { Pub
                     <CopyTextField label="Editorial" text={PublisherPolicies[0].publisherName} fullWidth />
                 </Grid>
             }
-            <Grid container spacing={2}>
-                {PublisherPolicies.map((PublisherPolicy, index) => {
-                    return (
-                        <Grid item xs={6}>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ArrowDownwardIcon />}
-                                >
-                                    <Stack direction="column" spacing={1}>
-                                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">{PublisherPolicy.articleVersion}</Typography>
-                                        <Icons PublisherPolicy={PublisherPolicy} />
-                                    </Stack>
-                                </AccordionSummary>
+            {PublisherPolicies.map((PublisherPolicy, index) => {
+                return (
+                    <Grid item xs={6}>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ArrowDownwardIcon />}
+                            >
+                                <Stack direction="column" spacing={1}>
+                                    <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">{PublisherPolicy.articleVersion}</Typography>
+                                    <Icons PublisherPolicy={PublisherPolicy} />
+                                </Stack>
+                            </AccordionSummary>
 
-                                <AccordionDetails>
-                                    {PublisherPolicy.oafee}
-                                    <Grid container spacing={2} key={index}>
-                                        {oaFee(PublisherPolicy)}
-                                        {Embargo(PublisherPolicy)}
-                                        {Licencia(PublisherPolicy)}
-                                        {CopyrightOwner(PublisherPolicy)}
-                                        {PublisherDeposit(PublisherPolicy)}
-                                        {Locations(PublisherPolicy)}
-                                        {Conditions(PublisherPolicy)}
-                                    </Grid>
-                                </AccordionDetails>
-                            </Accordion>
-                        </Grid>
-                    )
-                })}
-            </Grid>
+                            <AccordionDetails>
+                                {PublisherPolicy.oafee}
+                                <Grid container spacing={2} key={index}>
+                                    {oaFee(PublisherPolicy)}
+                                    {Embargo(PublisherPolicy)}
+                                    {Licencia(PublisherPolicy)}
+                                    {CopyrightOwner(PublisherPolicy)}
+                                    {PublisherDeposit(PublisherPolicy)}
+                                    {Locations(PublisherPolicy)}
+                                    {Conditions(PublisherPolicy)}
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </Grid>
+                )
+            })}
         </Grid>
     )
 }

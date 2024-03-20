@@ -10,11 +10,11 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     const [notFound, setNotFound] = useState<boolean>(false);
 
     async function onClick() {
-        for (const issn of issns) {
-            var response = await getPublisherPolicies(issn);
+        for (const value of issns) {
+            var response = await getPublisherPolicies(value);
             if (response.length > 0) {
                 setPublisherPolicies(response);
-                setIssn(issn);
+                setIssn(value);
                 setNotFound(false);
                 return;
             }
@@ -35,7 +35,7 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
                 </>
             }
 
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} />
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={12} />
         </ThemeProvider>
     );
 }
