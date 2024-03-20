@@ -35,7 +35,7 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
                 </>
             }
 
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} />
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={12} />
         </ThemeProvider>
     );
 }

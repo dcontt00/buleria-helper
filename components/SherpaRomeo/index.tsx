@@ -68,7 +68,7 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
                     SherpaRomeo</Button>
             }
 
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} />
+            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={6} />
 
         </Stack>
     )
