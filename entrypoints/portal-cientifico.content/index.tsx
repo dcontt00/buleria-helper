@@ -8,7 +8,7 @@ export default defineContentScript({
     runAt: "document_end",
 
     main: async (ctx) => {
-        onMessage("searchIssnPortal", async (message) => {
+        onMessage("addSherpaRomeoButtonToPortal", async (message) => {
 
             let parentElement = document.querySelector("p.documento-detalle__localizacion") as HTMLElement;
             let issnElements = parentElement.getElementsByTagName("span");

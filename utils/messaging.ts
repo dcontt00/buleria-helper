@@ -12,7 +12,7 @@ interface ProtocolMap {
   addSherpaRomeoButtonToBuleria(): boolean;
   addSearchDoiButtonToPage(): boolean;
   removeAuthors(): boolean;
-  searchIssnPortal(): boolean;
+  addSherpaRomeoButtonToPortal(): boolean;
 }
 
 export const { sendMessage, onMessage } =

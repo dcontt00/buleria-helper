@@ -5,7 +5,7 @@ export default defineBackground(() => {
     if (changeInfo.status === "complete" && tab.active) {
       await waitForTabComplete(tabId);
       try {
-        await sendMessage("searchIssnPortal", undefined, tabId);
+        await sendMessage("addSherpaRomeoButtonToPortal", undefined, tabId);
       } catch (error) {
         console.error(error);
       }
