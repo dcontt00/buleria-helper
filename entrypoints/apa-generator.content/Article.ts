@@ -52,6 +52,9 @@ class Article {
     if (this.number) {
       output += `(${this.number})`;
     }
+    if (this.DOI) {
+      output += `, https://doi.org/${this.DOI}`;
+    }
     return output;
   }
 }

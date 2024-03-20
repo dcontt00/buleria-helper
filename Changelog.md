@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Added
+
+- APAGenerator: Añadido DOI a citas de articulos
+
 ## [1.6.3] - 2024-03-20
 
 ### Fixed
