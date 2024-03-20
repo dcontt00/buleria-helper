@@ -1,7 +1,7 @@
+import CopyTextField from "@/components/DOISearch/CopyTextfield";
 import { getFileNameFromTitle } from "@/utils/stringUtils";
 import { themeLight } from "@/utils/theme";
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import { Button, Stack, TextField, ThemeProvider, Typography } from "@mui/material";
+import { Stack, ThemeProvider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface TitleTextfieldProps {
@@ -25,24 +25,11 @@ export default function TitleTextfield({ title }: TitleTextfieldProps) {
             titleElement.removeEventListener('input', handleInputChange);
         };
     }, []);
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(value);
-            console.log('Text copied to clipboard');
-        } catch (err) {
-            console.error('Failed to copy text: ', err);
-        }
-    };
     return (
         <ThemeProvider theme={themeLight}>
             <Stack direction="column" spacing={2}>
                 <Typography sx={{ fontSize: "16px" }}>Copia este titulo para ponerselo al archivo en el paso siguiente</Typography>
-                <TextField id="title" label="Título de archivo" variant="outlined" fullWidth
-                    InputLabelProps={{ style: { fontSize: 16 } }}
-                    InputProps={{ style: { fontSize: 16 } }}
-                    value={value}
-                />
-                <Button variant="contained" onClick={handleCopy} startIcon={<FileCopyIcon />} >Copiar</Button>
+                <CopyTextField text={value} label="Titulo archivo" fullWidth />
             </Stack>
         </ThemeProvider>
     )

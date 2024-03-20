@@ -41,7 +41,7 @@ export default function CopyTextField({ label, text, fullWidth, multiline }: Cop
                     </InputAdornment>
                 ),
             }}
-            InputLabelProps={{ shrink: true, classes: { shrink: classes.shrink } }}
+            InputLabelProps={{ shrink: true, classes: { shrink: classes.shrink }, style: { fontSize: "16px" } }}
         />
     )
 }
