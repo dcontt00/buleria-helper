@@ -3,6 +3,7 @@
 ### Added
 
 - APAGenerator: Añadido DOI a citas de articulos
+- Boton Copiar DOI
 
 ## [1.6.3] - 2024-03-20
 

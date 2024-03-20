@@ -10,9 +10,10 @@ interface ProtocolMap {
   addCitationButtonToPage(): boolean;
   addTitleButtonToPage(): boolean;
   addSherpaRomeoButtonToBuleria(): boolean;
-  addSearchDoiButtonToBuleria(): boolean;
-  removeAuthors(): boolean;
   addSherpaRomeoButtonToPortal(): boolean;
+  addCopyDoiButton(): boolean;
+  addSearchDoiButtonToPortal(): boolean;
+  removeAuthors(): boolean;
 }
 
 export const { sendMessage, onMessage } =
