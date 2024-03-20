@@ -10,7 +10,6 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { Accordion, AccordionDetails, AccordionSummary, Alert, Grid, Link, Stack, Typography } from "@mui/material";
 import CopyTextField from "../DOISearch/CopyTextfield";
 export default function SherpaRomeo({ PublisherPolicies, issn, notFound }: { PublisherPolicies: PublisherPolicy[], issn: string, notFound: boolean }) {
-
     function Conditions(PublisherPolicy: PublisherPolicy) {
         if (PublisherPolicy.conditions != undefined && PublisherPolicy.conditions.length !== 0) {
             return (
