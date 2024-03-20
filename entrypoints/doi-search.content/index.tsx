@@ -9,7 +9,7 @@ export default defineContentScript({
 
     main: async (ctx) => {
 
-        onMessage("addSearchDoiButtonToPage", async (message) => {
+        onMessage("addSearchDoiButtonToBuleria", async (message) => {
             let issnInputElement = document.getElementById(
                 "aspect_submission_StepTransformer_field_dc_identifier_qualifier"
             ) as HTMLInputElement;

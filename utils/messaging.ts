@@ -10,7 +10,7 @@ interface ProtocolMap {
   addCitationButtonToPage(): boolean;
   addTitleButtonToPage(): boolean;
   addSherpaRomeoButtonToBuleria(): boolean;
-  addSearchDoiButtonToPage(): boolean;
+  addSearchDoiButtonToBuleria(): boolean;
   removeAuthors(): boolean;
   addSherpaRomeoButtonToPortal(): boolean;
 }

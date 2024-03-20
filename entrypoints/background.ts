@@ -25,7 +25,7 @@ export default defineBackground(() => {
         console.error(error);
       }
       try {
-        await sendMessage("addSearchDoiButtonToPage", undefined, tabId);
+        await sendMessage("addSearchDoiButtonToBuleria", undefined, tabId);
       } catch (error) {
         console.error(error);
       }
