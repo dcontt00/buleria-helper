@@ -2,7 +2,7 @@ import DoiInfo from "@/classes/DoiInfo";
 import DoiInfoComponent from "@/components/DOISearch/DoiInfoComponent";
 import { themeLight } from "@/utils/theme";
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, ThemeProvider, Typography } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import getDoiInfo from "./common";
 export default function DoiSearchButton({ doi }: { doi: string }) {
@@ -22,19 +22,11 @@ export default function DoiSearchButton({ doi }: { doi: string }) {
     }
     return (
         <ThemeProvider theme={themeLight}>
-            <div className="col-xs-6" >
-                <Button variant="contained" onClick={onClick} startIcon={<SearchIcon />}>Buscar DOI</Button>
-            </div>
+            <Button variant="contained" onClick={onClick} startIcon={<SearchIcon />}>Buscar DOI</Button>
             <br />
             <br />
-            {
-                notFound &&
-                <div className="col-xs-12 needs-xs-spacing">
 
-                    <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra DOI</Typography></Alert>
-                </div>
-            }
-            <DoiInfoComponent doiInfo={doiInfo} />
+            <DoiInfoComponent doiInfo={doiInfo} notFound={notFound} />
         </ThemeProvider>
     );
 }
