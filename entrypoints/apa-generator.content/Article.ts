@@ -9,7 +9,6 @@ class Article {
   date: string;
   volume: string;
   number: string;
-  publisher: string;
   startPage: string;
   endPage: string;
 
@@ -22,7 +21,6 @@ class Article {
     date: string,
     volume: string,
     number: string,
-    publisher: string,
     startPage: string,
     endPage: string
   ) {
@@ -34,7 +32,6 @@ class Article {
     this.date = date;
     this.volume = volume;
     this.number = number;
-    this.publisher = publisher;
     this.startPage = startPage;
     this.endPage = endPage;
   }
