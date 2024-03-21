@@ -1,3 +1,9 @@
+## [1.7.2] - 2024-03-21
+
+### Fixed
+
+- Autores: Arreglado boton añadir autores al recuperar autores de localstorage
+
 ## [1.7.1] - 2024-03-21
 
 ### Added

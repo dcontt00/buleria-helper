@@ -27,6 +27,7 @@ export default function Authors({ tab }: ComponentProps) {
             if (storedAuthors) {
                 setAuthors(storedAuthors);
                 setRemoveAuthorsDisabled(false);
+                setAddAuthorsDisabled(false);
             }
         }
 
