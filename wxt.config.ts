@@ -14,9 +14,10 @@ export default defineConfig({
     permissions: [
       "https://buleria.unileon.es/*",
       "https://portalcientifico.unileon.es/*",
+      "https://v2.sherpa.ac.uk/",
+      "https://dx.doi.org/*",
       "activeTab",
       "storage",
-      "https://v2.sherpa.ac.uk/",
       "sidePanel",
     ],
     browser_specific_settings: {
