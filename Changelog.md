@@ -1,3 +1,10 @@
+## [1.7.1] - 2024-03-21
+
+### Added
+
+- Autores: Ahora se guardan los autores aunque se cierre el panel
+- Autores: Añadido un boton para borrar los autores añadidos en la extensión
+
 ## [1.7.0] - 2024-03-20
 
 ### Added
