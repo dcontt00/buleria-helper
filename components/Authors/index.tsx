@@ -5,7 +5,7 @@ import { capitalizeWords } from "@/utils/stringUtils";
 import waitForTabComplete from "@/utils/tabUtils";
 import PersonIcon from '@mui/icons-material/Person';
 import { Box, Button, Chip, Grid, Stack, TextField, Typography } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProgressComponent from "../Progress";
 
 export default function Authors({ tab }: ComponentProps) {
@@ -14,8 +14,24 @@ export default function Authors({ tab }: ComponentProps) {
     const [surname, setSurname] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
     const [showProgress, setShowProgress] = useState<boolean>(false);
-    const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+    const [addAuthorsDisabled, setAddAuthorsDisabled] = useState<boolean>(true);
+    const [removeAuthorsDisabled, setRemoveAuthorsDisabled] = useState<boolean>(true);
+
     const nameRef = useRef<HTMLInputElement>(null);
+
+
+    useEffect(() => {
+        async function fetchAuthors() {
+            const storedAuthors: Author[] | null = await storage.getItem("local:authors");
+            console.log(storedAuthors);
+            if (storedAuthors) {
+                setAuthors(storedAuthors);
+                setRemoveAuthorsDisabled(false);
+            }
+        }
+
+        fetchAuthors();
+    }, []);
 
     function onChangeName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
@@ -24,21 +40,24 @@ export default function Authors({ tab }: ComponentProps) {
     function onChangeSurname(event: React.ChangeEvent<HTMLInputElement>) {
         setSurname(event.target.value);
     }
-    function onClickAdd() {
-        setAuthors([...authors, { name: capitalizeWords(name), surname: capitalizeWords(surname) }]);
+    async function onClickAdd() {
+        const temp = [...authors, { name: capitalizeWords(name), surname: capitalizeWords(surname) }]
+        setAuthors(temp);
         setName("");
         setSurname("");
-        setButtonDisabled(false);
+        setAddAuthorsDisabled(false);
+        await storage.setItem("local:authors", temp);
+        setRemoveAuthorsDisabled(false);
     }
     function onDelete(index: number) {
         setAuthors(authors.filter((_, i) => i !== index));
         if (authors.length == 1) {
-            setButtonDisabled(true);
+            setAddAuthorsDisabled(true);
         }
     }
 
     async function onAddAuthorsClick() {
-        setButtonDisabled(true);
+        setAddAuthorsDisabled(true);
         setProgress(0);
         var increment = 100 / authors.length;
         setShowProgress(true);
@@ -50,7 +69,7 @@ export default function Authors({ tab }: ComponentProps) {
             setProgress(oldProgress => oldProgress + increment);
         }
         setShowProgress(false);
-        setButtonDisabled(false);
+        setAddAuthorsDisabled(false);
     }
     function handleFormSubmit(event: React.FormEvent) {
         event.preventDefault(); // Previene la recarga de la página
@@ -61,13 +80,19 @@ export default function Authors({ tab }: ComponentProps) {
         }
     }
 
-    async function removeAuthors() {
+    async function removeAuthorsFromPage() {
         await sendMessage("removeAuthors", null, tab.id);
+    }
+
+    async function removeAuthors() {
+        setAuthors([]);
+        await storage.removeItem("local:authors");
+        setRemoveAuthorsDisabled(true);
     }
 
     return (
         <Stack spacing={1}>
-            <Button variant="contained" onClick={removeAuthors}>Eliminar autores</Button>
+            <Button variant="contained" onClick={removeAuthorsFromPage}>Eliminar autores</Button>
             <Box component="form" onSubmit={handleFormSubmit} >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -94,8 +119,12 @@ export default function Authors({ tab }: ComponentProps) {
                     )
                 }
                 )}
-                <Grid item xs={12}>
-                    <Button variant="contained" onClick={onAddAuthorsClick} disabled={buttonDisabled}>Añadir autores</Button>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={6}>
+                    <Button variant="contained" onClick={onAddAuthorsClick} disabled={addAuthorsDisabled}>Añadir autores</Button>
+                </Grid>
+                <Grid item xs={6}>
+                    <Button variant="contained" onClick={removeAuthors} disabled={removeAuthorsDisabled}>Eliminar autores</Button>
                 </Grid>
             </Grid>
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />
