@@ -89,6 +89,7 @@ export default function Authors({ tab }: ComponentProps) {
         setAuthors([]);
         await storage.removeItem("local:authors");
         setRemoveAuthorsDisabled(true);
+        setAddAuthorsDisabled(true);
     }
 
     return (

@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Fixed
+
+- Autores: Al borrar los autores se bloquea el boton de añadir autores
+
 ## [1.7.3] - 2024-03-21
 
 ### Fixed
