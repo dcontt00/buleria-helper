@@ -19,7 +19,7 @@ export default function DOISearch({ tab }: ComponentProps) {
         setDoiInfo(undefined);
         setLoading(true);
         axios
-            .get(`http://dx.doi.org/${text}`, {
+            .get(`https://dx.doi.org/${text}`, {
 
                 headers: {
                     Accept: 'application/json',

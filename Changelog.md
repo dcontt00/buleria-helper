@@ -1,3 +1,9 @@
+## [1.7.3] - 2024-03-21
+
+### Fixed
+
+- DoiSearch: Arreglada busqueda de DOI en pagina
+
 ## [1.7.2] - 2024-03-21
 
 ### Fixed
