@@ -3,11 +3,13 @@ import { Author } from "@/types";
 import { sendMessage } from "@/utils/messaging";
 import { capitalizeWords } from "@/utils/stringUtils";
 import waitForTabComplete from "@/utils/tabUtils";
+import AddIcon from '@mui/icons-material/Add';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import DeleteIcon from '@mui/icons-material/Delete';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box, Button, Chip, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import ProgressComponent from "../Progress";
-
 export default function Authors({ tab }: ComponentProps) {
     const [authors, setAuthors] = useState<Author[]>([]);
     const [name, setName] = useState<string>("");
@@ -94,7 +96,7 @@ export default function Authors({ tab }: ComponentProps) {
 
     return (
         <Stack spacing={1}>
-            <Button variant="contained" onClick={removeAuthorsFromPage}>Eliminar autores</Button>
+            <Button variant="contained" startIcon={<DeleteIcon />} onClick={removeAuthorsFromPage}>Eliminar autores del envío</Button>
             <Box component="form" onSubmit={handleFormSubmit} >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -107,7 +109,7 @@ export default function Authors({ tab }: ComponentProps) {
                         <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                     </Grid>
                     <Grid item xs={2}>
-                        <Button variant="contained" type="submit" sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
+                        <Button variant="contained" type="submit" startIcon={<AddIcon />} sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
                     </Grid>
                 </Grid>
             </Box>
@@ -123,10 +125,10 @@ export default function Authors({ tab }: ComponentProps) {
                 )}
                 <Grid item xs={12}></Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" onClick={onAddAuthorsClick} disabled={addAuthorsDisabled}>Añadir autores</Button>
+                    <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={onAddAuthorsClick} disabled={addAuthorsDisabled}>Pegar autores</Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" onClick={removeAuthors} disabled={removeAuthorsDisabled}>Eliminar autores</Button>
+                    <Button variant="contained" startIcon={<DeleteIcon />} onClick={removeAuthors} disabled={removeAuthorsDisabled}>Eliminar autores</Button>
                 </Grid>
             </Grid>
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />

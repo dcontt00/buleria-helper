@@ -1,5 +1,9 @@
 ## [1.7.4] - 2024-04-03
 
+### Added
+
+- Autores: Añadidos iconos a botones
+
 ### Fixed
 
 - Autores: Al borrar los autores se bloquea el boton de añadir autores
