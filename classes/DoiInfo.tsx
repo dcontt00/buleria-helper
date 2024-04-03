@@ -5,7 +5,7 @@ class DoiInfo {
     type: string;
     journal: string;
     authors: Author[];
-    ISSN: string[];
+    ISSN: string[] | undefined;
     DOI: string;
     date: string;
     volume: string;
@@ -17,7 +17,7 @@ class DoiInfo {
         type: string,
         journal: string,
         authors: Author[],
-        ISSN: string[],
+        ISSN: string[] | undefined,
         DOI: string,
         date: string,
         volume: string,

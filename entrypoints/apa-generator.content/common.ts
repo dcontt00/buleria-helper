@@ -90,10 +90,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
     editorial = editorialelement.value;
   }
 
-  if (editorial == undefined || editorial == "") {
-    return "Error: No se encuentra la editorial";
-  }
-
   if (titleElement.value == "") {
     return "Error: No se encuentra el titulo";
   }
@@ -121,13 +117,15 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         dateElement.value,
         volumeElement.value,
         numberElement.value,
-        editorial,
         startPageElement.value,
         endPageElement.value
       );
 
       return article.toString();
     case "Libro":
+      if (editorial == undefined || editorial == "") {
+        return "Error: No se encuentra la editorial";
+      }
       var book = new Book(
         authorsArray,
         dateElement.value,
@@ -141,6 +139,9 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       ) as HTMLInputElement;
       if (bookTitleElement == null || bookTitleElement.value == "") {
         return "Error: No se encuentra el titulo del libro";
+      }
+      if (editorial == undefined || editorial == "") {
+        return "Error: No se encuentra la editorial";
       }
 
       var bookChapter = new BookChapter(
@@ -156,8 +157,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       }
       return bookChapter.toString();
   }
-
-  return "";
 }
 
 /**

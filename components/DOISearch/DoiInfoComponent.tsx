@@ -30,9 +30,12 @@ export default function DoiInfoComponent({ doiInfo, notFound }: DoiInfoComponent
                 <Grid item xs={6}>
                     <CopyTextField label="Tipo" text={doiInfo.type} fullWidth multiline />
                 </Grid>
-                <Grid item xs={6}>
-                    <CopyTextField label="ISSN" text={doiInfo.ISSN.join(",")} fullWidth multiline />
-                </Grid>
+                {
+                    doiInfo.ISSN != undefined &&
+                    <Grid item xs={6}>
+                        <CopyTextField label="ISSN" text={doiInfo.ISSN.join(",")} fullWidth multiline />
+                    </Grid>
+                }
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2 }}>
 
