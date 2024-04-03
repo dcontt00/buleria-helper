@@ -1,3 +1,13 @@
+## [Unreleased]
+
+### Added
+
+- Keywords: Añadidos iconos en botones
+
+### Removed
+
+- SearchDOI: Eliminado boton en buleria y portal porque no funciona la busqueda
+
 ## [1.7.4] - 2024-04-03
 
 ### Added
