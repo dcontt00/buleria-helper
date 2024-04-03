@@ -16,6 +16,7 @@ export default function DOISearch({ tab }: ComponentProps) {
     const [loading, setLoading] = useState<boolean>(false);
 
     function searchDOI() {
+        console.log("searching DOI");
         setDoiInfo(undefined);
         setLoading(true);
         axios
@@ -26,17 +27,15 @@ export default function DOISearch({ tab }: ComponentProps) {
                 },
             }).then((response) => {
                 const data = response.data;
-                var date = `${data["issued"]["date-parts"][0][0]}`
-                if (data["issued"]["date-parts"][0][1] != undefined) {
-                    date += `-${data["issued"]["date-parts"][0][1]}`
-                }
-                if (data["issued"]["date-parts"][0][2] != undefined) {
-                    date += `-${data["issued"]["date-parts"][0][2]}`
-                }
-
+                var dateArray = data["issued"]["date-parts"][0];
+                //var date = dateArray.join("-");
+                console.log(dateArray);
+                var date = "2020"
                 var authors: Author[] = data.author.map((author: any) => {
                     return { name: author.given, surname: author.family }
                 });
+
+                console.log(data.ISSN)
 
                 var doiInfo = new DoiInfo(
                     data.title,
@@ -107,7 +106,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                 doiInfo &&
                 <Grid item xs={12}>
 
-                    <DoiInfoComponent doiInfo={doiInfo} />
+                    <DoiInfoComponent doiInfo={doiInfo} notFound={notFound} />
                 </Grid>
             }
 

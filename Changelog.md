@@ -1,8 +1,9 @@
-## [Unreleased]
+## [1.7.4] - 2024-04-03
 
 ### Fixed
 
 - Autores: Al borrar los autores se bloquea el boton de añadir autores
+- DOISearch: Al buscar un documento sin ISSN no se mostraba
 
 ## [1.7.3] - 2024-03-21
 
