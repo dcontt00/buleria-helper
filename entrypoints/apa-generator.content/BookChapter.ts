@@ -5,8 +5,8 @@ class BookChapter {
   date: string;
   title: string;
   bookTitle: string;
-  startPage: number;
-  endPage: number;
+  startPage: string;
+  endPage: string;
   editorial: string;
 
   constructor(
@@ -14,8 +14,8 @@ class BookChapter {
     date: string,
     title: string,
     bookTitle: string,
-    startPage: number,
-    endPage: number,
+    startPage: string,
+    endPage: string,
     editorial: string
   ) {
     this.authors = authors;
@@ -32,8 +32,9 @@ class BookChapter {
     output += formatAuthors(this.authors);
     output += ` (${this.date}). ${this.title}. `;
     output += `En ${this.bookTitle}`;
-    if (this.startPage != null && this.endPage != null) {
-      output += ` (p. ${this.startPage}-${this.endPage})`;
+    alert(this.startPage);
+    if (this.startPage != "" && this.endPage != "") {
+      output += ` (p. ${parseInt(this.endPage) - parseInt(this.startPage)}).`;
     }
     output += ` ${this.editorial}`;
     return output;

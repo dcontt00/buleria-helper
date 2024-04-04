@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Fixed
+
+- APAGenerator: Arreglado error con capitulo de libro
+
 ## [1.7.6] - 2024-04-04
 
 ### Fixed
