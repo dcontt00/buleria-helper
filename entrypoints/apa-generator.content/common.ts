@@ -123,7 +123,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       if (editorial == undefined || editorial == "") {
         return "Error: No se encuentra la editorial";
       }
-      alert("Libro");
       var book = new Book(
         authorsArray,
         dateElement.value,
