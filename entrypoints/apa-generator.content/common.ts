@@ -72,9 +72,6 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
   let endPageElement: HTMLInputElement = document.getElementById(
     "aspect_submission_StepTransformer_field_dc_page_final"
   ) as HTMLInputElement;
-
-  var numPages =
-    parseInt(endPageElement.value) - parseInt(startPageElement.value) + 1;
   var editorial;
   let editorialCheckBoxes = document.querySelectorAll(
     "[name='dc_publisher_selected']"
@@ -126,6 +123,7 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
       if (editorial == undefined || editorial == "") {
         return "Error: No se encuentra la editorial";
       }
+      alert("Libro");
       var book = new Book(
         authorsArray,
         dateElement.value,
@@ -149,12 +147,11 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         dateElement.value,
         titleElement.value,
         bookTitleElement.value,
-        numPages.toString(),
+        parseInt(startPageElement.value),
+        parseInt(endPageElement.value),
         editorial
       );
-      if (startPageElement.value == "" || endPageElement.value == "") {
-        bookChapter.numPages = "";
-      }
+
       return bookChapter.toString();
   }
 }
