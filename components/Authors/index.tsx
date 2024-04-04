@@ -52,8 +52,9 @@ export default function Authors({ tab }: ComponentProps) {
         await storage.setItem("local:authors", temp);
         setRemoveAuthorsDisabled(false);
     }
-    function onDelete(index: number) {
+    async function onDeleteAuthor(index: number) {
         setAuthors(authors.filter((_, i) => i !== index));
+        await storage.setItem("local:authors", authors.filter((_, i) => i !== index));
         if (authors.length == 1) {
             setAddAuthorsDisabled(true);
         }
@@ -118,7 +119,7 @@ export default function Authors({ tab }: ComponentProps) {
                 {authors.map((author, index) => {
                     return (
                         <Grid item key={index}>
-                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDeleteAuthor(index)} />
                         </Grid>
                     )
                 }
