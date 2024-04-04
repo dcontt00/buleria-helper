@@ -2,11 +2,11 @@ import { detectSeparator, separateKeywords } from "@/entrypoints/keywords.conten
 import ComponentProps from "@/interfaces/ComponentProps";
 import { sendMessage } from "@/utils/messaging";
 import waitForTabComplete from "@/utils/tabUtils";
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ProgressComponent from "../Progress";
-
-
 export default function Keywords({ tab }: ComponentProps) {
     const urlPatters = [
         /^https:\/\/buleria\.unileon\.es\/admin\/item\?administrative-continue=\w+&submit_metadata$/,
@@ -93,7 +93,7 @@ export default function Keywords({ tab }: ComponentProps) {
         <div>
             <Stack spacing={1}>
                 <Typography variant="body1">Si las palabras clave están en 1 sola linea, corregirlo automaticamente</Typography>
-                <Button variant="contained" onClick={onCorrectClick}>Corregir Palabras Clave</Button>
+                <Button variant="contained" startIcon={<AutoFixHighIcon />} onClick={onCorrectClick}>Corregir Palabras Clave</Button>
                 <Typography variant="body1">Introduce la cadena de keywords para separarlas y añadirlas automáticamente al campo de palabras clave</Typography>
             </Stack>
             <br />
@@ -107,7 +107,7 @@ export default function Keywords({ tab }: ComponentProps) {
             </Grid>
             <br />
             <Stack spacing={1}>
-                <Button variant="contained" color="primary" disabled={buttonDisabled} onClick={onAcceptClick}>Aceptar</Button>
+                <Button variant="contained" color="primary" startIcon={<ContentPasteIcon />} disabled={buttonDisabled} onClick={onAcceptClick}>Pegar palabras clave</Button>
                 <ProgressComponent progress={progress} showProgress={showProgress} progressText="Pegando palabras clave" completeText="Añadidas palabras clave" />
             </Stack>
         </div>

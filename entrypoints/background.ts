@@ -29,11 +29,6 @@ export default defineBackground(() => {
       } catch (error) {
         console.error(error);
       }
-      try {
-        await sendMessage("addSearchDoiButtonToPortal", undefined, tabId);
-      } catch (error) {
-        console.error(error);
-      }
     }
   });
 });

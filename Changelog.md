@@ -1,3 +1,17 @@
+## [1.7.5] - 2024-04-04
+
+### Added
+
+- Keywords: Añadidos iconos en botones
+
+### Removed
+
+- SearchDOI: Eliminado boton en buleria y portal porque no funciona la busqueda
+
+### Fixed
+
+- APAGenerator: Arreglado error al generar APA en libros
+
 ## [1.7.4] - 2024-04-03
 
 ### Added
