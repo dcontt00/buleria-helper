@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Keywords: Al pulsar enter se pegan las keywords
+
 ### Fixed
 
 - APAGenerator: Arreglado error con capitulo de libro
