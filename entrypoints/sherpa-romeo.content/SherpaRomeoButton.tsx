@@ -14,9 +14,9 @@ export default function SherpaRomeoButton({ issns }: { issns: string[] }) {
     async function onClick() {
         for (const value of issns) {
             var response = await getPublisherPolicies(value);
+            setIssn(value);
             if (response.length > 0) {
                 setPublisherPolicies(response);
-                setIssn(value);
                 setNotFound(false);
                 return;
             }
