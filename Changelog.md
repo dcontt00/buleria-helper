@@ -1,3 +1,9 @@
+## [1.8.3] - 2024-04-08
+
+### Fixed:
+
+- APAGenerator: Arreglado error que no creaba la cita
+
 ## [1.8.2] - 2024-04-08
 
 ### Fixed
