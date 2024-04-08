@@ -146,8 +146,8 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
         dateElement.value,
         titleElement.value,
         bookTitleElement.value,
-        parseInt(startPageElement.value),
-        parseInt(endPageElement.value),
+        startPageElement.value,
+        endPageElement.value,
         editorial
       );
 

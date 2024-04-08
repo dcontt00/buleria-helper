@@ -52,8 +52,9 @@ export default function Authors({ tab }: ComponentProps) {
         await storage.setItem("local:authors", temp);
         setRemoveAuthorsDisabled(false);
     }
-    function onDelete(index: number) {
+    async function onDeleteAuthor(index: number) {
         setAuthors(authors.filter((_, i) => i !== index));
+        await storage.setItem("local:authors", authors.filter((_, i) => i !== index));
         if (authors.length == 1) {
             setAddAuthorsDisabled(true);
         }
@@ -105,11 +106,11 @@ export default function Authors({ tab }: ComponentProps) {
                     <Grid item xs={5}>
                         <TextField label="Nombre" onChange={onChangeName} value={name} inputRef={nameRef} />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button variant="contained" type="submit" startIcon={<AddIcon />} sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
+                    <Grid item xs={3}>
+                        <Button variant="contained" type="submit" fullWidth startIcon={<AddIcon />} sx={{ height: "100%" }} disabled={name == "" || surname == ""}>Añadir</Button>
                     </Grid>
                 </Grid>
             </Box>
@@ -118,17 +119,17 @@ export default function Authors({ tab }: ComponentProps) {
                 {authors.map((author, index) => {
                     return (
                         <Grid item key={index}>
-                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDelete(index)} />
+                            <Chip key={index} label={author.name + " " + author.surname} icon={<PersonIcon />} onDelete={() => onDeleteAuthor(index)} />
                         </Grid>
                     )
                 }
                 )}
                 <Grid item xs={12}></Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" startIcon={<ContentPasteIcon />} onClick={onAddAuthorsClick} disabled={addAuthorsDisabled}>Pegar autores</Button>
+                    <Button variant="contained" fullWidth startIcon={<ContentPasteIcon />} onClick={onAddAuthorsClick} disabled={addAuthorsDisabled}>Pegar autores</Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" startIcon={<DeleteIcon />} onClick={removeAuthors} disabled={removeAuthorsDisabled}>Eliminar autores</Button>
+                    <Button variant="contained" fullWidth startIcon={<DeleteIcon />} onClick={removeAuthors} disabled={removeAuthorsDisabled}>Eliminar autores</Button>
                 </Grid>
             </Grid>
             <ProgressComponent progress={progress} showProgress={showProgress} progressText="Añadiendo autores" completeText="Añadidos autores" />

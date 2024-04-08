@@ -1,3 +1,15 @@
+## [1.8.0] - 2024-04-08
+
+### Added
+
+- Keywords: Al pulsar enter se pegan las keywords
+- SherpaRomeo: Añadidos botones para buscar en otras fuentes
+
+### Fixed
+
+- APAGenerator: Arreglado error con capitulo de libro
+- Authors: Al eliminar un autor también se elimina del storage
+
 ## [1.7.6] - 2024-04-04
 
 ### Fixed

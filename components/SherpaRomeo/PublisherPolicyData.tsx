@@ -7,7 +7,7 @@ import CopyrightIcon from '@mui/icons-material/Copyright';
 import FolderIcon from '@mui/icons-material/Folder';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Grid, Link, Stack, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material";
 import CopyTextField from "../DOISearch/CopyTextfield";
 export default function SherpaRomeo({ PublisherPolicies, issn, notFound, cols }: { PublisherPolicies: PublisherPolicy[], issn: string, notFound: boolean, cols: number }) {
     function Conditions(PublisherPolicy: PublisherPolicy) {
@@ -211,9 +211,27 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound, cols }:
         <Grid container spacing={2} columns={cols}>
             {
                 notFound &&
-                <Grid item xs={12}>
-                    <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra en Sherpa Romeo</Typography></Alert>
-                </Grid>
+                <>
+                    <Grid item xs={12}>
+                        <Alert hidden={false} severity="error"><Typography sx={{ fontSize: "14px" }}>No se encuentra en Sherpa Romeo</Typography></Alert>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper sx={{ p: 2 }}>
+                            <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">Prueba en otras fuentes</Typography>
+                            <Stack direction="column" spacing={1}>
+                                <Button variant="contained" href={`https://dulcinea.opensciencespain.org/lista/REVISTA/${issn}`} target="_blank" rel="noopener noreferrer">
+                                    Dulcinea
+                                </Button>
+                                <Button variant="contained" href={`https://www.latindex.org/latindex/Solr/Busqueda?idModBus=0&buscar=${issn}&submit=Buscar`} target="_blank" rel="noopener noreferrer">
+                                    Latindex
+                                </Button>
+                                <Button variant="contained" href={`https://www.journalguide.com/journals/search?type=journal-name&journal-name=${issn}&advanced-filters=&advanced-filters%5B%5D=rs-verified&impact-low=0&no-impact=0&no-impact=1`} target="_blank" rel="noopener noreferrer">
+                                    Journal Guide
+                                </Button>
+                            </Stack>
+                        </Paper>
+                    </Grid>
+                </>
             }
             {PublisherPolicies.length > 0 &&
                 <Grid item xs={12}>
