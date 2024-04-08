@@ -1,3 +1,9 @@
+## [1.8.1] - 2024-04-08
+
+### Fixed
+
+- SherpaRomeo: Los botones de otras fuentes no funcionaban en página
+
 ## [1.8.0] - 2024-04-08
 
 ### Added
