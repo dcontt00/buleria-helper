@@ -3,7 +3,7 @@ import ComponentProps from "@/interfaces/ComponentProps";
 import { PublisherPolicy } from "@/types";
 import LaunchIcon from '@mui/icons-material/Launch';
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { browser } from "wxt/browser";
 import PublisherPolicyData from "./PublisherPolicyData";
@@ -29,11 +29,11 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
 
         searchValues.forEach(async (issn) => {
             var response = await getPublisherPolicies(issn);
+            setIssn(issn);
             if (response.length > 0) {
                 setNotFound(false);
                 setUrl(response[0].url);
                 setPublisherPolicies(response);
-                setIssn(issn);
                 return;
             }
             setNotFound(true);
@@ -56,20 +56,44 @@ export default function SherpaRomeo({ tab }: ComponentProps) {
     }
 
     return (
-        <Stack direction={"column"} spacing={2}>
-            <Typography variant="body1">Introduce el ISSN</Typography>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Typography variant="body1">Introduce el ISSN</Typography>
+            </Grid>
 
-            <TextField label="ISSN" variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un ISSN o varios separados por comas" />
-            <Button variant="contained" startIcon={<SearchIcon />} onClick={searchOnSherpaRomeo}
-                disabled={buttonDisabled}>Buscar</Button>
+            <Grid item xs={12}>
+                <TextField label="ISSN" fullWidth variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un ISSN o varios separados por comas" />
+            </Grid>
+
+            <Grid item xs={12}>
+                <Button
+                    variant="contained"
+                    startIcon={<SearchIcon />}
+                    fullWidth
+                    onClick={searchOnSherpaRomeo}
+                    disabled={buttonDisabled}
+                >
+                    Buscar
+                </Button>
+            </Grid>
             {
                 url != "" &&
-                <Button variant="contained" startIcon={<LaunchIcon />} onClick={navigateToSherpaRomeo}>Ver en
-                    SherpaRomeo</Button>
+                <Grid item xs={12}>
+                    <Button
+                        variant="contained"
+                        startIcon={<LaunchIcon />}
+                        onClick={navigateToSherpaRomeo}
+                    >
+                        Ver en SherpaRomeo
+                    </Button>
+                </Grid>
             }
 
-            <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={6} />
+            <Grid item xs={12}>
 
-        </Stack>
+                <PublisherPolicyData PublisherPolicies={publisherPolicies} issn={issn} notFound={notFound} cols={6} />
+            </Grid>
+
+        </Grid>
     )
 }

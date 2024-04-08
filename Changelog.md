@@ -1,8 +1,9 @@
-## [Unreleased]
+## [1.8.0] - 2024-04-08
 
 ### Added
 
 - Keywords: Al pulsar enter se pegan las keywords
+- SherpaRomeo: Añadidos botones para buscar en otras fuentes
 
 ### Fixed
 
