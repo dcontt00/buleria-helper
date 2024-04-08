@@ -51,7 +51,7 @@ function getCitationInfoSubmit(documentType: DocumentType): string {
 
   // DOI
   let doiElement = Array.from(spanElements).find((element) =>
-    element.textContent?.includes("doi")
+    element.textContent?.includes("doi:")
   );
   let doi = doiElement?.textContent?.split(":")[1].trim() || "";
 
