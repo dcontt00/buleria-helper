@@ -103,10 +103,10 @@ export default function Authors({ tab }: ComponentProps) {
                     <Grid item xs={12}>
                         <Typography variant="body1">Añade los autores para introducirlos automáticamente en el envio</Typography>
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <TextField label="Nombre" onChange={onChangeName} value={name} inputRef={nameRef} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={5}>
                         <TextField label="Apellido" onChange={onChangeSurname} value={surname} />
                     </Grid>
                     <Grid item xs={3}>

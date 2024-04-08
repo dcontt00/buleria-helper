@@ -1,3 +1,9 @@
+## [1.8.2] - 2024-04-08
+
+### Fixed
+
+- Keywords: Arreglado error que no dejaba pegar keywords
+
 ## [1.8.1] - 2024-04-08
 
 ### Fixed
