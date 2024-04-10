@@ -1,6 +1,10 @@
 ## [Unreleased]
 
-## Changed
+### Fixed
+
+- APAGenerator: Eliminado alert en capitulo libro
+
+### Changed
 
 - SherpaRomeo: Los botones de otras fuentes se organizan en fila o en columna dependiendo de donde se pulse el boton de buscar ISSN
 
