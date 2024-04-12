@@ -32,7 +32,6 @@ class BookChapter {
     output += formatAuthors(this.authors);
     output += ` (${this.date}). ${this.title}. `;
     output += `En ${this.bookTitle}`;
-    alert(this.startPage);
     if (this.startPage != "" && this.endPage != "") {
       output += ` (p. ${parseInt(this.endPage) - parseInt(this.startPage)}).`;
     }

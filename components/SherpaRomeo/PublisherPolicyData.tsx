@@ -218,14 +218,14 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound, cols }:
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2 }}>
                             <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">Prueba en otras fuentes</Typography>
-                            <Stack direction="column" spacing={1}>
-                                <Button variant="contained" href={`https://dulcinea.opensciencespain.org/lista/REVISTA/${issn}`} target="_blank" rel="noopener noreferrer">
+                            <Stack direction={cols == 6 ? "column" : "row"} spacing={1}>
+                                <Button variant="contained" fullWidth href={`https://dulcinea.opensciencespain.org/lista/REVISTA/${issn}`} target="_blank" rel="noopener noreferrer">
                                     Dulcinea
                                 </Button>
-                                <Button variant="contained" href={`https://www.latindex.org/latindex/Solr/Busqueda?idModBus=0&buscar=${issn}&submit=Buscar`} target="_blank" rel="noopener noreferrer">
+                                <Button variant="contained" fullWidth href={`https://www.latindex.org/latindex/Solr/Busqueda?idModBus=0&buscar=${issn}&submit=Buscar`} target="_blank" rel="noopener noreferrer">
                                     Latindex
                                 </Button>
-                                <Button variant="contained" href={`https://www.journalguide.com/journals/search?type=journal-name&journal-name=${issn}&advanced-filters=&advanced-filters%5B%5D=rs-verified&impact-low=0&no-impact=0&no-impact=1`} target="_blank" rel="noopener noreferrer">
+                                <Button variant="contained" fullWidth href={`https://www.journalguide.com/journals/search?type=journal-name&journal-name=${issn}&advanced-filters=&advanced-filters%5B%5D=rs-verified&impact-low=0&no-impact=0&no-impact=1`} target="_blank" rel="noopener noreferrer">
                                     Journal Guide
                                 </Button>
                             </Stack>
@@ -233,45 +233,49 @@ export default function SherpaRomeo({ PublisherPolicies, issn, notFound, cols }:
                     </Grid>
                 </>
             }
-            {PublisherPolicies.length > 0 &&
+            {
+                PublisherPolicies.length > 0 &&
                 <Grid item xs={12}>
                     <Typography variant="body1" sx={{ fontSize: "16px" }} ><b>ISSN:</b>{issn}</Typography>
                 </Grid>
             }
-            {PublisherPolicies.length > 0 &&
+            {
+                PublisherPolicies.length > 0 &&
                 <Grid item xs={12}>
                     <CopyTextField label="Editorial" text={PublisherPolicies[0].publisherName} fullWidth />
                 </Grid>
             }
-            {PublisherPolicies.map((PublisherPolicy, index) => {
-                return (
-                    <Grid item xs={6}>
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ArrowDownwardIcon />}
-                            >
-                                <Stack direction="column" spacing={1}>
-                                    <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">{PublisherPolicy.articleVersion}</Typography>
-                                    <Icons PublisherPolicy={PublisherPolicy} />
-                                </Stack>
-                            </AccordionSummary>
+            {
+                PublisherPolicies.map((PublisherPolicy, index) => {
+                    return (
+                        <Grid item xs={6}>
+                            <Accordion>
+                                <AccordionSummary
+                                    expandIcon={<ArrowDownwardIcon />}
+                                >
+                                    <Stack direction="column" spacing={1}>
+                                        <Typography variant="body1" sx={{ fontSize: "16px" }} align="center">{PublisherPolicy.articleVersion}</Typography>
+                                        <Icons PublisherPolicy={PublisherPolicy} />
+                                    </Stack>
+                                </AccordionSummary>
 
-                            <AccordionDetails>
-                                {PublisherPolicy.oafee}
-                                <Grid container spacing={2} key={index}>
-                                    {oaFee(PublisherPolicy)}
-                                    {Embargo(PublisherPolicy)}
-                                    {Licencia(PublisherPolicy)}
-                                    {CopyrightOwner(PublisherPolicy)}
-                                    {PublisherDeposit(PublisherPolicy)}
-                                    {Locations(PublisherPolicy)}
-                                    {Conditions(PublisherPolicy)}
-                                </Grid>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Grid>
-                )
-            })}
-        </Grid>
+                                <AccordionDetails>
+                                    {PublisherPolicy.oafee}
+                                    <Grid container spacing={2} key={index}>
+                                        {oaFee(PublisherPolicy)}
+                                        {Embargo(PublisherPolicy)}
+                                        {Licencia(PublisherPolicy)}
+                                        {CopyrightOwner(PublisherPolicy)}
+                                        {PublisherDeposit(PublisherPolicy)}
+                                        {Locations(PublisherPolicy)}
+                                        {Conditions(PublisherPolicy)}
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Grid>
+                    )
+                })
+            }
+        </Grid >
     )
 }
