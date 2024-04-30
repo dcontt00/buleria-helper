@@ -1,5 +1,10 @@
-function capitalizeWords(wordsString: string) {
-  return wordsString
+function capitalizeWord(word: string) {
+  // Check if words has all capital letters, if so, return the word as is
+  if (word === word.toUpperCase()) {
+    return word;
+  }
+
+  return word
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
@@ -87,4 +92,4 @@ function getFileNameFromTitle(title: string) {
   return transformedWords.join("_");
 }
 
-export { capitalizeWords, getFileNameFromTitle };
+export { capitalizeWord as capitalizeWords, getFileNameFromTitle };
