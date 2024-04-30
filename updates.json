@@ -3,6 +3,10 @@
     "buleriahelper@dcontt00": {
       "updates": [
         {
+          "version": "1.8.5",
+          "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/1.8.5/buleria_helper-1.8.5.xpi"
+        },
+        {
           "version": "1.8.4",
           "update_link": "https://github.com/dcontt00/buleria-helper/releases/download/1.8.4/buleria_helper-1.8.4.xpi"
         },
