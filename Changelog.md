@@ -1,3 +1,9 @@
+## [1.8.5] - 2024-04-30
+
+### Fixed
+
+- Keywords: Cuando se introduzca una palabra toda en mayúsculas, se mantendrá así
+
 ## [1.8.4] - 2024-04-12
 
 ### Fixed
