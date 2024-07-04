@@ -1,7 +1,6 @@
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles"; // Import makeStyles from the correct package
-
 interface CopyTextFieldProps {
     label: string;
     text: string;
@@ -36,7 +35,7 @@ export default function CopyTextField({ label, text, fullWidth, multiline }: Cop
                 endAdornment: (
                     <InputAdornment position="end">
                         <IconButton onClick={onClickCopy}>
-                            <ContentPasteIcon />
+                            <ContentCopyIcon />
                         </IconButton>
                     </InputAdornment>
                 ),
