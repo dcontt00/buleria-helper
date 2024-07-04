@@ -1,3 +1,9 @@
+## [1.8.6 - 2024-07-04]
+
+### Added
+
+- Boton para ir a la pagina de github
+
 ## [1.8.5] - 2024-04-30
 
 ### Fixed
@@ -12,7 +18,8 @@
 
 ### Changed
 
-- SherpaRomeo: Los botones de otras fuentes se organizan en fila o en columna dependiendo de donde se pulse el boton de buscar ISSN
+- SherpaRomeo: Los botones de otras fuentes se organizan en fila o en columna dependiendo de donde se pulse el boton de
+  buscar ISSN
 
 ## [1.8.3] - 2024-04-08
 
