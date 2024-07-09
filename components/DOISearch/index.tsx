@@ -1,14 +1,14 @@
 import ComponentProps from "@/interfaces/ComponentProps";
 import SearchIcon from '@mui/icons-material/Search';
-import { Alert, Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
-import axios, { AxiosError } from "axios";
+import {Alert, Button, CircularProgress, Grid, TextField, Typography} from "@mui/material";
+import axios, {AxiosError} from "axios";
 
-import { Author } from "@/types";
-import React, { useState } from "react";
+import {Author} from "@/types";
+import React, {useState} from "react";
 import DoiInfo from "../../classes/DoiInfo";
 import DoiInfoComponent from "./DoiInfoComponent";
 
-export default function DOISearch({ tab }: ComponentProps) {
+export default function DOISearch({tab}: ComponentProps) {
     const [text, setText] = useState<string>("")
     const [doiInfo, setDoiInfo] = useState<DoiInfo | undefined>(undefined)
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
@@ -32,7 +32,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                 console.log(dateArray);
                 var date = "2020"
                 var authors: Author[] = data.author.map((author: any) => {
-                    return { name: author.given, surname: author.family }
+                    return {name: author.given, surname: author.family.replace("-", " ")}
                 });
 
                 console.log(data.ISSN)
@@ -48,15 +48,16 @@ export default function DOISearch({ tab }: ComponentProps) {
                     data.volume,
                     data.number,
                     data.publisher,
+                    data.page
                 );
                 setDoiInfo(doiInfo);
                 setNotFound(false);
             }
-            ).catch((error: AxiosError) => {
-                setNotFound(true);
-            }).finally(() => {
-                setLoading(false);
-            });
+        ).catch((error: AxiosError) => {
+            setNotFound(true);
+        }).finally(() => {
+            setLoading(false);
+        });
     }
 
 
@@ -82,14 +83,15 @@ export default function DOISearch({ tab }: ComponentProps) {
             </Grid>
 
             <Grid item xs={12}>
-                <TextField label="DOI" fullWidth variant="outlined" value={text} onChange={onTextFieldChange} helperText="Introduce un DOI" />
+                <TextField label="DOI" fullWidth variant="outlined" value={text} onChange={onTextFieldChange}
+                           helperText="Introduce un DOI"/>
             </Grid>
             <Grid item xs={12}>
                 <Button variant="contained"
-                    startIcon={<SearchIcon />}
-                    onClick={searchDOI}
-                    disabled={buttonDisabled}
-                    fullWidth
+                        startIcon={<SearchIcon/>}
+                        onClick={searchDOI}
+                        disabled={buttonDisabled}
+                        fullWidth
                 >
                     Buscar
                 </Button>
@@ -98,7 +100,7 @@ export default function DOISearch({ tab }: ComponentProps) {
             {
                 loading &&
                 <Grid item xs={12}>
-                    <CircularProgress />
+                    <CircularProgress/>
                 </Grid>
             }
 
@@ -106,7 +108,7 @@ export default function DOISearch({ tab }: ComponentProps) {
                 doiInfo &&
                 <Grid item xs={12}>
 
-                    <DoiInfoComponent doiInfo={doiInfo} notFound={notFound} />
+                    <DoiInfoComponent doiInfo={doiInfo} notFound={notFound}/>
                 </Grid>
             }
 

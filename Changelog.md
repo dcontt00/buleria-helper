@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Added
+
+- DOISearch: Añadido dato de páginas
+
 ## [1.8.6 - 2024-07-04]
 
 ### Added
