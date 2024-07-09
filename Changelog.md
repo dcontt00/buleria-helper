@@ -1,8 +1,9 @@
-## [Unreleased]
+## [1.9.0 - 2024-07-09]
 
 ### Added
 
 - DOISearch: Añadido dato de páginas
+- DOISearch: Añadido botón para guardar autores en módulo de Autores
 
 ## [1.8.6 - 2024-07-04]
 

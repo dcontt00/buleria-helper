@@ -1,7 +1,9 @@
 import DoiInfo from "@/classes/DoiInfo";
 import PersonIcon from '@mui/icons-material/Person';
-import {Alert, Chip, Grid, Paper, TextField, Typography} from "@mui/material";
+import {Alert, Button, Chip, Grid, Paper, TextField, Typography} from "@mui/material";
 import CopyTextField from "./CopyTextfield";
+import {Author} from "@/types";
+import {useState} from "react";
 
 interface DoiInfoComponentProps {
     doiInfo: DoiInfo | undefined;
@@ -9,6 +11,15 @@ interface DoiInfoComponentProps {
 }
 
 export default function DoiInfoComponent({doiInfo, notFound}: DoiInfoComponentProps) {
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+
+    async function fetchAuthors() {
+        await storage.removeItem("local:authors");
+        await storage.setItem("local:authors", doiInfo?.authors);
+        setShowAlert(true);
+    }
+
+
     if (notFound) {
         return (
             <Alert hidden={false} severity="error"><Typography sx={{fontSize: "14px"}}>No se encuentra DOI</Typography></Alert>
@@ -53,8 +64,23 @@ export default function DoiInfoComponent({doiInfo, notFound}: DoiInfoComponentPr
                                     )
                                 }
                             )}
+
                         </Grid>
                     </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={fetchAuthors}>Añadir a modulo autores</Button>
+                </Grid>
+
+                <Grid item xs={12}>
+                    {
+                        showAlert && (
+
+                            <Alert severity="info"><Typography sx={{fontSize: "14px"}}>
+                                Se han añadido los autores al modulo autores
+                            </Typography> </Alert>
+                        )
+                    }
                 </Grid>
 
                 <Grid item xs={12}>
@@ -66,7 +92,7 @@ export default function DoiInfoComponent({doiInfo, notFound}: DoiInfoComponentPr
                 {
                     doiInfo.pages != undefined &&
                     <Grid item xs={6}>
-                        <TextField label="Páginas" value={doiInfo.pages} fullWidth/>
+                        <CopyTextField label="Páginas" text={doiInfo.pages} fullWidth/>
                     </Grid>
                 }
                 {
