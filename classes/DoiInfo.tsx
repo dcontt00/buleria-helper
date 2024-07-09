@@ -1,4 +1,4 @@
-import { Author } from "@/types";
+import {Author} from "@/types";
 
 class DoiInfo {
     title: string;
@@ -11,6 +11,7 @@ class DoiInfo {
     volume: string;
     number: string;
     publisher: string;
+    pages: string;
 
     constructor(
         title: string,
@@ -23,6 +24,7 @@ class DoiInfo {
         volume: string,
         number: string,
         publisher: string,
+        pages: string
     ) {
         this.title = title;
         this.type = type;
@@ -34,6 +36,7 @@ class DoiInfo {
         this.volume = volume;
         this.number = number;
         this.publisher = publisher;
+        this.pages = pages;
     }
 }
 
